@@ -1,7 +1,12 @@
 <template>
     <div id="defaultBg" class="h-screen w-screen fixed bg-no-repeat bg-center bg-cover" />
-    <div class="fixed top-4 left-4 border">
-        <img src="/logo.svg" class="w-40 h-40" />
+    <div class="fixed top-0 left-0 pl-8 pr-16 pt-8 flex justify-between items-start w-screen">
+        <img src="/logo.svg" class="w-32 h-32" />
+
+        <div class="flex items-center space-x-8">
+            <p>Home</p>
+            <p>About</p>
+        </div>
     </div>
 
     <div>
