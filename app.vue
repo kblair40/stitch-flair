@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <NuxtLayout>
+    stufffdsa
+  </NuxtLayout>
+  <!-- <div>
     <NuxtWelcome />
-  </div>
+  </div> -->
 </template>
