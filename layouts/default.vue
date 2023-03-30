@@ -21,5 +21,6 @@ html {
 }
 #defaultBg {
     background-image: url("/rose_pink_bg.svg");
+    opacity: .4;
 }
 </style>
