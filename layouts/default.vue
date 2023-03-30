@@ -15,7 +15,10 @@
     </div>
 </template>
 
-<style scoped lang="css">
+<style lang="css">
+html, body {
+    font-family: Poppins;
+}
 #defaultBg {
     background-image: url("/rose_pink_bg.svg");
 }
