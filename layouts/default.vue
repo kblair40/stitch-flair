@@ -16,7 +16,7 @@
 </template>
 
 <style lang="css">
-html, body {
+html {
     font-family: Poppins;
 }
 #defaultBg {
