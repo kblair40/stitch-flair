@@ -15,8 +15,9 @@ const logoClasses = [
         <img :class="logoClasses" src="/logo2.svg" />
 
         <div class="hidden md:flex items-center space-x-8 pt-4">
-            <p>Home</p>
-            <p>Contact</p>
+            <NuxtLink to="/">Home</NuxtLink>
+            <NuxtLink to="/shop">Shop</NuxtLink>
+            <NuxtLink to="/contact">Contact</NuxtLink>
         </div>
 
         <NavHamburger />
