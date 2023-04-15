@@ -8,6 +8,14 @@ const logoClasses = [
     "sm:w-48 sm:h-48",
     "md:w-60 md:h-60",
 ]
+const linkClasses = [
+    'text-slate-600 border-b-2 border-transparent transition-colors duration-300',
+    'hover:border-slate-500 hover:text-slate-800'
+].join(' ')
+const activeLinkClasses = [
+    'border-slate-600 text-slate-800'
+    // 'border-b border-slate-500'
+].join(' ')
 </script>
 
 <template>
@@ -15,9 +23,9 @@ const logoClasses = [
         <img :class="logoClasses" src="/logo2.svg" />
 
         <div class="hidden md:flex items-center space-x-8 pt-4">
-            <NuxtLink to="/">Home</NuxtLink>
-            <NuxtLink to="/shop">Shop</NuxtLink>
-            <NuxtLink to="/contact">Contact</NuxtLink>
+            <NuxtLink :class="linkClasses" :activeClass="activeLinkClasses" to="/">Home</NuxtLink>
+            <NuxtLink :class="linkClasses" :activeClass="activeLinkClasses" to="/shop">Shop</NuxtLink>
+            <NuxtLink :class="linkClasses" :activeClass="activeLinkClasses" to="/contact">Contact</NuxtLink>
         </div>
 
         <NavHamburger />
