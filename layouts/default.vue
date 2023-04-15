@@ -4,11 +4,14 @@
 
 <template>
     <div id="defaultBg" class="h-screen w-screen fixed bg-no-repeat bg-center bg-cover" />
+    <!-- base: 152px, sm: 210px, md: 258px -->
     <Nav />
 
-    <div>
-        <!-- <p v-for="i in 100" :key="i">Some default layout shared across all pages</p> -->
-        <slot />
+    <div class="pt-38 sm:pt-52.5 md:pt-64.5">
+        <div class="pt-8 px-8 md:px-16 lg:px-24 relative">
+            <!-- <p v-for="i in 100" :key="i">Some default layout shared across all pages</p> -->
+            <slot />
+        </div>
     </div>
 </template>
 
@@ -20,5 +23,9 @@ html {
 #defaultBg {
     background-image: url("/rose_pink_bg.svg");
     opacity: .6;
+}
+
+.myclass {
+    background: black !important;
 }
 </style>

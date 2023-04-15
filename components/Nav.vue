@@ -13,13 +13,13 @@ const linkClasses = [
     'hover:border-slate-500 hover:text-slate-800'
 ].join(' ')
 const activeLinkClasses = [
-    'border-slate-600 text-slate-800'
-    // 'border-b border-slate-500'
+    '!border-slate-600 text-slate-800'
 ].join(' ')
 </script>
 
 <template>
-    <div :class="navBorder" class="fixed top-0 left-0 pl-8 pr-16 pt-4 flex justify-between items-start w-screen">
+    <div :class="navBorder"
+        class="fixed top-0 left-0 pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32 flex justify-between items-start w-screen">
         <img :class="logoClasses" src="/logo2.svg" />
 
         <div class="hidden md:flex items-center space-x-8 pt-4">
