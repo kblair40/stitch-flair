@@ -7,8 +7,8 @@
     <!-- base: 152px, sm: 210px, md: 258px -->
     <Nav />
 
-    <div class="pt-38 sm:pt-52.5 md:pt-64.5">
-        <div class="pt-8 px-8 md:px-16 lg:px-24 relative">
+    <div class="pt-38 sm:pt-52.5 md:pt-64.5 relative">
+        <div class="pt-8 px-8 md:px-16 lg:px-24">
             <!-- <p v-for="i in 100" :key="i">Some default layout shared across all pages</p> -->
             <slot />
         </div>

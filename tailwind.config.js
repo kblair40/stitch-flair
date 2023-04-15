@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+        serif: ["Roboto Slab", ...defaultTheme.fontFamily.serif],
       },
       padding: {
         38: "152px",
