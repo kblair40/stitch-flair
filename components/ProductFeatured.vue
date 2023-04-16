@@ -7,13 +7,14 @@ interface Props {
 defineProps<Props>();
 
 const cardClasses = [
-    "bg-blue bg-white",
-    "rounded-md p-2 w-full",
-    "cursor-pointer group"
+    // "bg-blue-200",    
+    "mb-4 sm:mr-4 p-2",
+    "bg-white",
+    "cursor-pointer group rounded-md"
 ]
 const imgWrapperClasses = [
-    "overflow-hidden w-full",
-    "h-40 sm:h-52 md:h-64"
+    "overflow-hidden",
+    "w-full h-auto sm:h-56 lg:h-64",
 ]
 const imgClasses = [
     "object-cover h-full rounded-sm",
@@ -23,7 +24,7 @@ const imgClasses = [
 </script>
 
 <template>
-    <div :class="cardClasses">
+    <div :class="cardClasses" class="product-card">
         <div :class="imgWrapperClasses">
             <img :src="imgUrl" :class="imgClasses" />
         </div>
@@ -32,3 +33,28 @@ const imgClasses = [
         <p class="font-semibold mt-1">${{ price.toFixed(2) }}</p>
     </div>
 </template>
+
+<style scoped lang="css">
+.product-card {
+    max-width: max-content;
+    width: 100%;
+}
+
+@media screen and (min-width:640px) {
+    .product-card {
+        width: calc(50% - 16px);
+    }
+}
+
+@media screen and (min-width:960px) {
+    .product-card {
+        width: calc(33% - 16px);
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .product-card {
+        width: calc(25% - 16px);
+    }
+}
+</style>
