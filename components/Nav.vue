@@ -21,6 +21,14 @@ const allLinksWrapperClasses = [
 const socialClasses = [
     "absolute right-6 top-30 sm:top-38 flex space-x-6 md:static",
 ]
+
+const showMobileNav = ref(false);
+const handleToggleNav = () => {
+    console.log('\n\ntoggle')
+    console.log('cur value:', showMobileNav.value);
+    showMobileNav.value = !showMobileNav.value;
+    console.log('val after:', showMobileNav.value);
+}
 </script>
 
 <template>
@@ -50,7 +58,7 @@ const socialClasses = [
                 <NuxtLink :class="linkClasses" :activeClass="activeLinkClasses" to="/contact">Contact</NuxtLink>
             </div>
 
-            <NavHamburger />
+            <NavHamburger @toggleNav="handleToggleNav" />
         </div>
 
 

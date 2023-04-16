@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+defineEmits(['toggleNav'])
+
 const wrapperClasses = [
     // 'border border-red-500',
     'w-12 h-10',
@@ -10,10 +12,11 @@ const wrapperClasses = [
 const lineClasses = [
     'h-px w-full bg-slate-900'
 ]
+
 </script>
 
 <template>
-    <div :class="wrapperClasses">
+    <div @click="$emit('toggleNav')" :class="wrapperClasses">
         <span :class="lineClasses" />
         <span :class="lineClasses" />
         <span :class="lineClasses" />
