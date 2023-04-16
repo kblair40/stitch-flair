@@ -59,6 +59,7 @@ const handleToggleNav = () => {
             </div>
 
             <NavHamburger @toggleNav="handleToggleNav" />
+            <NavMobileMenu :isOpen="showMobileNav" @toggleNav="handleToggleNav" />
         </div>
 
 
