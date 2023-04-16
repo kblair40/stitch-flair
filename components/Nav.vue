@@ -22,7 +22,7 @@ const iconClasses = [
 
 <template>
     <div :class="navBorder"
-        class="fixed top-0 left-0 pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32 flex justify-between items-start w-screen">
+        class="z-10 fixed top-0 left-0 pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32 flex justify-between items-start w-screen">
         <img :class="logoClasses" src="/logo2.svg" />
 
         <div class="h-32 sm:h-42 md:h-48 flex flex-col justify-between">

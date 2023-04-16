@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  color: #334155;
+}
+
+/* 
+#111827 = gray-900
+#1f2937 = gray-800
+#374151 = gray-700
+#0f172a = slate-900
+#1e293b = slate-800
+#334155 = slate-700 
+*/
