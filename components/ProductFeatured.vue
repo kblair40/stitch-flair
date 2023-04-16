@@ -7,7 +7,8 @@ interface Props {
 defineProps<Props>();
 
 const cardClasses = [
-    // "bg-blue-200",    
+    // "bg-blue-200", 
+    'z-20',
     "mb-4 sm:mr-4 p-2",
     "bg-white",
     "cursor-pointer group rounded-md"
