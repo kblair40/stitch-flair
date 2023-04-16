@@ -38,7 +38,7 @@ const handleToggleNav = () => {
         <img :class="logoClasses" src="/logo2.svg" />
 
         <img src="/rose_pink_bg.svg" class="z-10 absolute top-0 right-0 bottom-0 left-0" />
-        <div class="z-10 absolute top-0 right-0 bottom-0 left-0 bg-white -z-10" />
+        <div class="z-10 absolute top-0 right-0 bottom-0 left-0 -z-10" />
 
         <div :class="allLinksWrapperClasses">
             <div :class="socialClasses">

@@ -19,7 +19,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt"],
+  modules: ["@nuxtjs/tailwindcss"],
   tailwindcss: {
     exposeConfig: true,
     cssPath: "~/assets/css/tailwind.css",

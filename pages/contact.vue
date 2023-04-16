@@ -1,3 +1,3 @@
 <template>
-    Contact Page
+    <ContactForm />
 </template>
