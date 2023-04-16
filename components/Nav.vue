@@ -18,7 +18,8 @@ const iconClasses = 'w-5 h-5'
 const allLinksWrapperClasses = [
     // "border border-blue-400",
     "flex flex-col md:justify-between justify-end items-end",
-    "pt-4 h-36 sm:h-42 md:h-48 w-full"
+    "pt-4 h-36 sm:h-42 md:h-48 w-full",
+    'z-20'
 ]
 const socialClasses = [
     "absolute right-6 top-30 sm:top-38 flex space-x-6 md:static",
