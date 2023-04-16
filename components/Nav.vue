@@ -26,7 +26,7 @@ const iconClasses = [
         <img :class="logoClasses" src="/logo2.svg" />
 
         <div class="h-32 sm:h-42 md:h-48 flex flex-col justify-between">
-            <div class="flex space-x-6 justify-end">
+            <div class="hidden md:flex space-x-6 justify-end">
                 <NuxtLink to="https://www.etsy.com" target="_blank">
                     <img :class="iconClasses" src="/icons/etsy.svg" />
                 </NuxtLink>
