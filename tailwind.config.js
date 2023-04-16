@@ -7,6 +7,12 @@ const defaultTheme = require("tailwindcss/defaultTheme");
  */
 module.exports = {
   theme: {
+    screens: {
+      sm: "480px",
+      md: "640px",
+      lg: "960px",
+      xl: "1200px",
+    },
     extend: {
       fontFamily: {
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
