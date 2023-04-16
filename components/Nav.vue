@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+interface Props {
+    isIntersecting: boolean;
+}
+defineProps<Props>();
 
-// const navBorder = "border border-blue-500"
-const navBorder = ""
 const logoClasses = [
     "w-36 h-36",
     "sm:w-48 sm:h-48",
@@ -22,30 +24,22 @@ const socialClasses = [
     "absolute right-6 top-30 sm:top-38 flex space-x-6 md:static",
 ]
 
-const router = useRouter();
-console.log('ROUTER:', router.resolve);
-
 const showMobileNav = ref(false);
 
-
-
-
-
 const handleToggleNav = () => {
-    console.log('\n\ntoggle')
-    console.log('cur value:', showMobileNav.value);
     showMobileNav.value = !showMobileNav.value;
-    console.log('val after:', showMobileNav.value);
 }
 </script>
 
 <template>
-    <div :class="navBorder"
-        class="z-10 fixed top-0 left-0 pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32 flex justify-between items-start w-screen">
+    <div :class="isIntersecting ? 'shadow-sm' : ''"
+        class="overflow-hidden z-10 fixed top-0 left-0 pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32 flex justify-between items-start w-screen">
         <img :class="logoClasses" src="/logo2.svg" />
 
+        <img src="/rose_pink_bg.svg" class="z-10 absolute top-0 right-0 bottom-0 left-0" />
+        <div class="z-10 absolute top-0 right-0 bottom-0 left-0 bg-white -z-10" />
+
         <div :class="allLinksWrapperClasses">
-            <!-- <div class="hidden md:flex space-x-6 justify-end"> -->
             <div :class="socialClasses">
                 <NuxtLink to="https://www.etsy.com" target="_blank">
                     <img :class="iconClasses" src="/icons/etsy.svg" />
@@ -69,7 +63,6 @@ const handleToggleNav = () => {
             <NavHamburger @toggleNav="handleToggleNav" />
             <NavMobileMenu :isOpen="showMobileNav" @toggleNav="handleToggleNav" />
         </div>
-
 
     </div>
 </template>
