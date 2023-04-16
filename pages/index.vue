@@ -1,5 +1,18 @@
 <script lang="ts" setup>
-    // 
+// dummy image 
+// https://i.etsystatic.com/28392538/r/il/1e93fb/4819482414/il_340x270.4819482414_gh86.jpg
+const product = {
+    imgUrl: "https://i.etsystatic.com/28392538/r/il/1e93fb/4819482414/il_340x270.4819482414_gh86.jpg",
+    title: "Stuffed Animal",
+    price: 35
+}
+
+const featuredProductClasses = [
+    "mt-4 -ml-1 grid",
+    "gap-6",
+    "grid-cols-2 grid-rows-2",
+    "max-w-max mx-auto"
+]
 </script>
 
 <template>
@@ -15,6 +28,12 @@
             dolore officia. Mollit veniam in ipsum elit nostrud.
         </p>
 
-        <h2 class="mt-8 font-medium text-lg sm:text-xl md:text-2xl tracking-wider">FEATURED PRODUCTS</h2>
+        <h2 class="font-serif mt-12 font-medium text-lg sm:text-xl md:text-2xl tracking-wider">FEATURED PRODUCTS</h2>
+        <div :class="featuredProductClasses">
+            <ProductFeatured :price="product.price" :title="product.title" :imgUrl="product.imgUrl" />
+            <ProductFeatured :price="product.price" :title="product.title" :imgUrl="product.imgUrl" />
+            <ProductFeatured :price="product.price" :title="product.title" :imgUrl="product.imgUrl" />
+            <ProductFeatured :price="product.price" :title="product.title" :imgUrl="product.imgUrl" />
+        </div>
     </div>
 </template>
