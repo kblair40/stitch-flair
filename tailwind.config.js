@@ -17,6 +17,12 @@ module.exports = {
         52.5: "210px",
         64.5: "258px",
       },
+      // top/right/bottom/left
+      inset: {
+        28: "112px",
+        30: "120px",
+        38: "152px",
+      },
     },
   },
 };
