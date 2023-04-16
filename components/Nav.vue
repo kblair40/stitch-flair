@@ -22,7 +22,15 @@ const socialClasses = [
     "absolute right-6 top-30 sm:top-38 flex space-x-6 md:static",
 ]
 
+const router = useRouter();
+console.log('ROUTER:', router.resolve);
+
 const showMobileNav = ref(false);
+
+
+
+
+
 const handleToggleNav = () => {
     console.log('\n\ntoggle')
     console.log('cur value:', showMobileNav.value);
