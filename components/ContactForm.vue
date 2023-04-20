@@ -10,6 +10,9 @@ const inputClasses = [
 <template>
     <div class="flex flex-col space-y-6">
         <div class="flex space-x-6">
+            <FormControl label="Name">
+                <input :class="inputClasses" />
+            </FormControl>
             <input :class="inputClasses" />
             <input :class="inputClasses" />
         </div>
