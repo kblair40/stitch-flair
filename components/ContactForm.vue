@@ -17,43 +17,42 @@ const buttonClasses = [
     'hover:bg-slate-50 hover:border-slate-200',
     'active:bg-slate-100 active:border-slate-300',
 ]
+
+const values = reactive({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+})
 </script>
 
 <template>
-    <div class="flex flex-col space-y-6 items-center">
-        <div class="flex space-x-6 w-full">
-            <FormControl label="Name">
-                <input :class="inputClasses" />
-            </FormControl>
+    <div>
+        <div class="flex flex-col space-y-6 items-center">
+            <div class="flex space-x-6 w-full">
+                <FormControl label="Name">
+                    <input v-model="values.name" :class="inputClasses" />
+                </FormControl>
 
-            <FormControl label="Email">
-                <input :class="inputClasses" />
-            </FormControl>
-            <!-- <input :class="inputClasses" />
-                        <input :class="inputClasses" /> -->
-        </div>
+                <FormControl label="Email">
+                    <input v-model="values.email" :class="inputClasses" />
+                </FormControl>
+            </div>
 
-        <!-- <div class="w-full"> -->
             <FormControl label="Subject">
-                <input :class="inputClasses" />
+                <input v-model="values.subject" :class="inputClasses" />
             </FormControl>
-        <!-- </div> -->
 
-        <!-- <div> -->
             <FormControl label="Message">
-                <textarea rows="3" :class="textareaClasses" />
+                <textarea v-model="values.message" rows="3" :class="textareaClasses" />
             </FormControl>
-        <!-- </div> -->
 
-        <!-- <div> -->
             <button class="submit-btn" :class="buttonClasses">Send</button>
-        <!-- </div> -->
+        </div>
     </div>
 </template>
 
 <style scoped lang="css">
-input {}
-
 .submit-btn {
     /* background-color: #CE882B; */
     /* opacity: 0.7; */
