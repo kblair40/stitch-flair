@@ -2,11 +2,13 @@
 // 
 const inputClasses = [
     'rounded-md focus-visible:outline-none px-3',
-    'h-10 w-full',
+    'h-10 w-full transition-colors',
+    'border border-whitepeach hover:border-whitepeach-500 focus:border-whitepeach-700'
 ]
 const textareaClasses = [
     inputClasses[0],
-    'w-full pt-2'
+    'w-full pt-2 transition-colors',
+    inputClasses[2],
 ]
 const buttonClasses = [
     'border border-whitepeach-300',
@@ -23,6 +25,12 @@ const values = reactive({
     subject: '',
     message: ''
 })
+
+const handleSubmit = () => {
+    const vals = values;
+    console.log('\nVALS:', vals.name);
+
+}
 </script>
 
 <template>
@@ -46,7 +54,7 @@ const values = reactive({
                 <textarea v-model="values.message" rows="3" :class="textareaClasses" />
             </FormControl>
 
-            <button class="submit-btn" :class="buttonClasses">Send</button>
+            <button @click="handleSubmit" class="submit-btn" :class="buttonClasses">Send</button>
         </div>
     </div>
 </template>
