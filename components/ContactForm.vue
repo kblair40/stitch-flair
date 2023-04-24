@@ -9,13 +9,12 @@ const textareaClasses = [
     'w-full pt-2'
 ]
 const buttonClasses = [
-    'border border-slate-100',
+    'border border-whitepeach-300',
     'transition-colors duration-300',
-    'rounded-md py-2 px-6 text-lg font-medium',
-    'w-1/2 mx-auto',
-    'bg-white text-slate-800',
-    'hover:bg-slate-50 hover:border-slate-200',
-    'active:bg-slate-100 active:border-slate-300',
+    'w-1/2 mx-auto py-2 px-6 rounded-md',
+    'text-lg font-medium',
+    'bg-lightpeach-100 text-purplegrey-600',
+    'hover:bg-lightpeach-200 active:bg-lightpeach-200',
 ]
 
 const values = reactive({
@@ -47,7 +46,7 @@ const values = reactive({
                 <textarea v-model="values.message" rows="3" :class="textareaClasses" />
             </FormControl>
 
-            <button class="submit-btn bg-pink text-bronze" :class="buttonClasses">Send</button>
+            <button class="submit-btn" :class="buttonClasses">Send</button>
         </div>
     </div>
 </template>
