@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 
 /*
  ** TailwindCSS Configuration File
@@ -7,6 +8,25 @@ const defaultTheme = require("tailwindcss/defaultTheme");
  */
 module.exports = {
   theme: {
+    colors: {
+      transparent: "transparent",
+      black: colors.black,
+      white: colors.white,
+      gray: colors.gray,
+      slate: colors.slate,
+      red: colors.red,
+      blue: colors.blue,
+      green: colors.green,
+      emerald: colors.emerald,
+      bronze: {
+        DEFAULT: "#CE882B",
+        500: "#CE882B",
+      },
+      pink: {
+        DEFAULT: "#F8EAE6",
+        500: "#F8EAE6",
+      },
+    },
     screens: {
       sm: "480px",
       md: "640px",

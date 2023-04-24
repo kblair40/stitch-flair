@@ -12,12 +12,6 @@ const wrapperClasses = [
     "flex flex-col w-full"
 ]
 
-// const labelClasses = {
-//     'sm': 'mb-1',
-//     'md': 'mb-1.5',
-//     'lg': 'mb-2',
-// }[props.size]
-
 const labelClasses = [
     ['md', 'lg'].includes(props.size) ? 'mb-1.5' : 'mb-1',
 ]
