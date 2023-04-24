@@ -15,8 +15,8 @@ const buttonClasses = [
     'transition-colors duration-300',
     'w-1/2 mx-auto py-2 px-6 rounded-md',
     'text-lg font-medium',
-    'bg-lightpeach-100 text-purplegrey-600',
-    'hover:bg-lightpeach-200 active:bg-lightpeach-200',
+    'bg-lightpeach-50 text-purplegrey-600',
+    'hover:bg-lightpeach-100 active:bg-lightpeach-200',
 ]
 
 const values = reactive({
