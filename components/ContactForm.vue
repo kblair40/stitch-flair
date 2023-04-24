@@ -47,7 +47,7 @@ const values = reactive({
                 <textarea v-model="values.message" rows="3" :class="textareaClasses" />
             </FormControl>
 
-            <button class="submit-btn bg-bronze" :class="buttonClasses">Send</button>
+            <button class="submit-btn bg-pink text-bronze" :class="buttonClasses">Send</button>
         </div>
     </div>
 </template>
