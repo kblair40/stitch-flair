@@ -25,12 +25,10 @@ onMounted(() => {
     <!-- base: 152px, sm: 210px, md: 258px -->
     <Nav :isIntersecting="isIntersecting" />
 
-    <div ref="target" class="pt-38 sm:pt-52.5 md:pt-64.5 relative">
+    <div ref="target" class="pt-38 sm:pt-52.5 md:pt-64.5">
         <div id="intersectionDetect" class="absolute top-2 h-px left-0 right-0 w-screen" />
 
-        <div class="pt-8 px-8 lg:px-20">
-            <slot></slot>
-        </div>
+        <slot></slot>
     </div>
 </template>
 

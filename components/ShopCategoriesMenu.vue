@@ -6,14 +6,14 @@ const store = useShopStore();
 
 const listClasses = [
     "flex flex-col",
-    "h-full w-60",
+    "h-full w-full",
     "border",
     "border-t"
 ]
 
 const itemClasses = [
     "flex items-center justify-between px-2",
-    "w-full h-12",
+    "w-full h-12 min-h-[40px]",
     "cursor-pointer",
     "hover:bg-white/50",
 ]
