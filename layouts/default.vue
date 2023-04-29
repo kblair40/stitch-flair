@@ -29,7 +29,7 @@ onMounted(() => {
         <div id="intersectionDetect" class="absolute top-2 h-px left-0 right-0 w-screen" />
 
         <div class="pt-8 px-8 lg:px-20">
-            <slot />
+            <slot></slot>
         </div>
     </div>
 </template>

@@ -19,7 +19,8 @@ const itemClasses = [
 ]
 const selectedItemClasses = [
     ...itemClasses,
-    'font-medium bg-white/50'
+    'font-medium bg-white hover:bg-white',
+    'border-y'
 ]
 </script>
 
