@@ -1,5 +1,5 @@
 <template>
     <div>
-        Shop Page
+       <ShopCategoriesMenu  />
     </div>
 </template>

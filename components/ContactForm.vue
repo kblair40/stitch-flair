@@ -36,7 +36,7 @@ const handleSubmit = () => {
 <template>
     <div>
         <div class="flex flex-col space-y-6 items-center">
-            <div class="flex space-x-6 w-full">
+            <div class="flex space-y-6 md:space-x-6 md:space-y-0 w-full flex-col md:flex-row">
                 <FormControl label="Name">
                     <input v-model="values.name" :class="inputClasses" />
                 </FormControl>
