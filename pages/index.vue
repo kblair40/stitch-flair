@@ -16,10 +16,7 @@ const products = [product, product, product, product];
 
 <template>
     <Page>
-        <!-- <h1 class="font-serif tracking-wide font-semibold leading-none text-3xl md:text-4xl">
-            Welcome to Stitch Flair!
-        </h1> -->
-        <template v-slot:header>Welcome to Stitch Flair!</template>
+        <template #header>Welcome to Stitch Flair!</template>
 
         <p class="mt-5 leading-relaxed text-sm sm:text-base">
             Velit enim commodo adipisicing sunt aliquip officia do velit do voluptate ullamco. Elit nisi proident dolor

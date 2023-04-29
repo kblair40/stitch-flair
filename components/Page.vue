@@ -1,9 +1,12 @@
-<template>
-    <!-- <h2 class="text-3xl font-bold font-serif tracking-wide mb-8">
-        <slot name="header"></slot>
-    </h2> -->
+<script lang="ts" setup>
+const headerClasses = [
+    "font-serif tracking-wide font-semibold leading-none text-3xl md:text-4xl",
+    "mb-8"
+]
+</script>
 
-    <h1 class="font-serif tracking-wide font-semibold leading-none text-3xl md:text-4xl">
+<template>
+    <h1 :class="headerClasses">
         <slot name="header"></slot>
     </h1>
 

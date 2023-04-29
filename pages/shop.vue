@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <Page>
-            <template v-slot:header>Shop</template>
+    <Page>
+        <template #header>Shop</template>
 
-            <ShopCategoriesMenu />
-        </Page>
-    </div>
+        <ShopCategoriesMenu />
+    </Page>
 </template>
