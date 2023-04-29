@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import { categories } from '../utils/constants';
+import { useShopStore } from '../store/shopStore';
+
+const store = useShopStore();
 
 const listClasses = [
     "flex flex-col",
@@ -10,20 +13,27 @@ const listClasses = [
 
 const itemClasses = [
     "flex items-center justify-between px-2",
-    // "leading-tight",
-    // "border-l border-r border-b",
     "w-full h-12",
     "cursor-pointer",
     "hover:bg-white/50",
+]
+const selectedItemClasses = [
+    ...itemClasses,
+    'font-medium bg-white/50'
 ]
 </script>
 
 <template>
     <div :class="listClasses">
-        <div v-for="category in categories" :key="category" :class="itemClasses">
-            <p>{{ category }}</p>
+        <div 
+            :class="store.selectedCategory === category.label ? selectedItemClasses : itemClasses" 
+            @click="store.setSelectedCategory(category.label)" 
+            v-for="category, i in store.categories" 
+            :key="i"
+        >
+            <p>{{ category.label }}</p>
 
-            <p class="ml-4">{{ Math.floor(Math.random() * 26) }}</p>
+            <p class="ml-4">{{ category.qty }}</p>
         </div>
     </div>
 </template>
