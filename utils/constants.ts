@@ -1,0 +1,15 @@
+export const categories = [
+  "All",
+  "Pillows",
+  "Towel",
+  "Bags",
+  "Wall Hanging",
+  "Christmas",
+  "Hat or Hooded Towel",
+  "Notebook Cover",
+  "Tea Light Cover",
+  "Boot/Show Wing",
+  "Stuffed Animals",
+  "Grandma's Garden",
+  "Ornament",
+];
