@@ -5,7 +5,7 @@
 // +40px header itself
 // = 360px
 const headerWrapperClasses = [
-    "h-28 flex items-center border"
+    "h-28 flex items-center"
 ]
 const headerClasses = [
     "font-serif tracking-wide font-semibold leading-none text-3xl md:text-4xl",
@@ -42,7 +42,7 @@ const pageBodyClasses = [
 }
 .main-content {
     height: calc(100vh - 368px);
-    overflow-y: auto;
+    /* overflow-y: auto; */
     position: fixed;
     /* 360px for md */
     bottom: 0;
