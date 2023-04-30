@@ -29,7 +29,7 @@ const mainContentClasses = [
 
             <div :class="contentWrapperClasses">
                 <div :class="mainContentClasses">
-                    <p v-for="i in 40">Content</p>
+                    <ProductList />
                 </div>
             </div>
         </div>
