@@ -8,10 +8,9 @@ defineProps<Props>();
 
 const cardClasses = [
     // "bg-blue-200", 
-    'z-20',
-    "mb-4 sm:mr-4 p-2",
+    "z-20 sm:mr-4 p-2",
     "bg-white",
-    "cursor-pointer group rounded-md"
+    "cursor-pointer group rounded-md",
 ]
 const imgWrapperClasses = [
     "overflow-hidden",
