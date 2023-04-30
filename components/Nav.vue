@@ -32,7 +32,7 @@ const handleToggleNav = () => {
 }
 
 const wrapperClasses = [
-    "border border-blue-500",
+    // "border border-blue-500",
     "overflow-hidden z-10",
     "fixed top-0 left-0",
     "pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32",
