@@ -2,7 +2,7 @@
 interface Props {
     isIntersecting: boolean;
 }
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const logoClasses = [
     "w-36 h-36",
@@ -30,11 +30,21 @@ const showMobileNav = ref(false);
 const handleToggleNav = () => {
     showMobileNav.value = !showMobileNav.value;
 }
+
+const wrapperClasses = [
+    "border border-blue-500",
+    "overflow-hidden z-10",
+    "fixed top-0 left-0",
+    "pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32",
+    "w-screen",
+    "flex justify-between items-start",
+    props.isIntersecting ? 'shadow-sm' : '',
+    'h-40 sm:h-52 md:h-64'
+]
 </script>
 
 <template>
-    <div :class="isIntersecting ? 'shadow-sm' : ''"
-        class="overflow-hidden z-10 fixed top-0 left-0 pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32 flex justify-between items-start w-screen">
+    <div :class="wrapperClasses">
         <img :class="logoClasses" src="/logo2.svg" />
 
         <img src="/rose_pink_bg.svg" class="z-10 absolute top-0 right-0 bottom-0 left-0" />
