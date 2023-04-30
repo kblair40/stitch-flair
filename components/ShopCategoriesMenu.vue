@@ -9,7 +9,7 @@ const listClasses = [
 ]
 
 const itemClasses = [
-    "flex items-center justify-between sm:pl-4 sm:pr-2 md:pr-6",
+    "flex items-center justify-between sm:pl-4 sm:pr-2 md:pr-6 md:pl-6",
     "text-sm md:text-mdsm font-medium",
     "w-full h-12 min-h-[40px] cursor-pointer",
     "cursor-pointer",
