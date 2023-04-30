@@ -11,13 +11,12 @@ const products = computed(() => {
     const catObj = store.categories.find(cat => cat.label === category);
 
     return catObj
-        ? new Array(catObj.qty).map(item => DUMMY_PRODUCT)
+        ? new Array(catObj.qty).map((_) => DUMMY_PRODUCT)
         : []
 })
 
 const gridClasses = [
-    'flex flex-col items-center',
-    // 'justify-items-stretch',
+    'flex flex-col items-center space-y-4 md:space-y-0',
     'md:grid md:grid-cols-2 md:gap-3',
     'md:justify-center md:grid-flow-row',
     'lg:grid-cols-3 lg:gap-5'
