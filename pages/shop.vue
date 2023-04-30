@@ -10,7 +10,9 @@ const contentWrapperClasses = [
     "overflow-y-auto",
     "w-screen h-full",
     "sm:pl-48 md:pl-60 lg:pl-76",
+    "bottom-0",
     // "-ml-8 sm:-ml-0 sm:pl-48 md:pl-60 lg:pl-76",
+    // "border border-red-500"
 ]
 const mainContentClasses = [
     'px-4 md:px-6',
