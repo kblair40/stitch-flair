@@ -115,6 +115,7 @@ module.exports = {
         38: "152px",
         52.5: "210px",
         64.5: "258px",
+        68: "272px",
       },
       // top/right/bottom/left
       inset: {
@@ -123,6 +124,9 @@ module.exports = {
         38: "152px",
         52.5: "210px",
         64.5: "258px",
+      },
+      width: {
+        76: "304px",
       },
     },
   },
