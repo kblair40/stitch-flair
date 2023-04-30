@@ -13,13 +13,14 @@ const listClasses = [
 
 const itemClasses = [
     "flex items-center justify-between pl-4 pr-2",
+    "text-sm md:text-base font-medium",
     "w-full h-12 min-h-[40px]",
     "cursor-pointer",
     "hover:bg-white/50",
 ]
 const selectedItemClasses = [
     ...itemClasses,
-    'font-medium bg-white hover:bg-white',
+    'font-semibold tracking-wide bg-white hover:bg-white',
     'border-y'
 ]
 </script>
@@ -34,7 +35,7 @@ const selectedItemClasses = [
         >
             <p>{{ category.label }}</p>
 
-            <p class="ml-4">{{ category.qty }}</p>
+            <p class="ml-4 sm:hidden md:inline">{{ category.qty }}</p>
         </div>
     </div>
 </template>

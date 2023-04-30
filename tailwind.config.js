@@ -116,6 +116,7 @@ module.exports = {
         52.5: "210px",
         64.5: "258px",
         68: "272px",
+        76: "304px",
       },
       // top/right/bottom/left
       inset: {
