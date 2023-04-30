@@ -1,17 +1,11 @@
 <script lang="ts" setup>
-// dummy image 
-// https://i.etsystatic.com/28392538/r/il/1e93fb/4819482414/il_340x270.4819482414_gh86.jpg
-const product = {
-    imgUrl: "https://i.etsystatic.com/28392538/r/il/1e93fb/4819482414/il_340x270.4819482414_gh86.jpg",
-    title: "Stuffed Animal",
-    price: 35
-}
+import { DUMMY_PRODUCT } from '../utils/constants';
 
 const featuredProductClasses = [
     "w-full",
     "mt-4 flex flex-wrap justify-center",
 ]
-const products = [product, product, product, product];
+const products = [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT];
 </script>
 
 <template>
