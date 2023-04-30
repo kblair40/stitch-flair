@@ -1,7 +1,14 @@
 <script lang="ts" setup>
 const contentWrapperClasses = [
     "border w-screen",
-    "-ml-16 pl-60" // change depending on screen size
+    "-ml-16 pl-56 md:pl-64 lg:pl-68" // change depending on screen size
+]
+const menuWrapperClasses = [
+    'hidden sm:block',
+    'absolute top-0 left-0 bottom-0 right-0',
+    'md:pl-8 lg:pl-12',
+    'h-full w-64 sm:w-68 md:w-72 lg:w-76', // 294px
+    'overflow-y-auto'
 ]
 
 const mainContentClasses = ['px-8']
@@ -12,11 +19,11 @@ const mainContentClasses = ['px-8']
         <template #header>Shop</template>
 
         <div class="flex w-full h-full">
-            <div class="categories-menu hidden sm:block">
+            <div :class="menuWrapperClasses" class="hidden sm:block">
                 <ShopCategoriesMenu />
             </div>
 
-            <div class="main-content" :class="contentWrapperClasses">
+            <div :class="contentWrapperClasses">
                 <div :class="mainContentClasses">
                     Content
                 </div>
@@ -24,23 +31,3 @@ const mainContentClasses = ['px-8']
         </div>
     </Page>
 </template>
-
-<style lang="css" scoped>
-.categories-menu {
-    /* border: 1px solid red; */
-    height: 100%;
-    overflow-y: auto;
-    width: 240px;
-
-    position: absolute;
-    height: 100%;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
-
-.main-content {
-    /* padding-left: 240px; */
-}
-</style>

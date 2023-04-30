@@ -12,7 +12,7 @@ const listClasses = [
 ]
 
 const itemClasses = [
-    "flex items-center justify-between px-2",
+    "flex items-center justify-between pl-4 pr-2",
     "w-full h-12 min-h-[40px]",
     "cursor-pointer",
     "hover:bg-white/50",
