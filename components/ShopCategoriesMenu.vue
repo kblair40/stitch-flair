@@ -1,27 +1,26 @@
 <script lang="ts" setup>
-import { categories } from '../utils/constants';
 import { useShopStore } from '../store/shopStore';
 
 const store = useShopStore();
 
 const listClasses = [
-    "flex flex-col",
-    "h-full w-full",
-    "border",
-    "border-t"
+    "flex flex-col w-full",
+    // "shadow-inner bg-white"
 ]
 
 const itemClasses = [
-    "flex items-center justify-between pl-4 pr-2",
-    "text-sm md:text-base font-medium",
-    "w-full h-12 min-h-[40px]",
+    "flex items-center justify-between sm:pl-4 sm:pr-2 md:pr-6",
+    "text-sm md:text-mdsm font-medium",
+    "w-full h-12 min-h-[40px] cursor-pointer",
     "cursor-pointer",
-    "hover:bg-white/50",
+    "transition-colors duration-300 ease-in-out",
+    "hover:bg-white/80",
+    // "border-r-2 border-transparent hover:border-darkpeach-200",
 ]
 const selectedItemClasses = [
     ...itemClasses,
     'font-semibold tracking-wide bg-white hover:bg-white',
-    'border-y'
+    // 'border-darkpeach-200'
 ]
 </script>
 

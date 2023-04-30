@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const contentWrapperClasses = [
     "overflow-y-auto",
-    "border w-screen h-full",
+    "w-screen h-full",
     "-ml-8 sm:-ml-16 sm:pl-48 md:pl-60 lg:pl-76",
 ]
 const menuWrapperClasses = [

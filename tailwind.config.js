@@ -111,6 +111,9 @@ module.exports = {
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
         serif: ["Roboto Slab", ...defaultTheme.fontFamily.serif],
       },
+      fontSize: {
+        mdsm: "15px",
+      },
       padding: {
         38: "152px",
         52.5: "210px",
