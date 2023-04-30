@@ -9,6 +9,9 @@ const toTitleCase = (str: string) => {
 export const useShopStore = defineStore("shop", {
   state: () => ({
     selectedCategory: "All",
+    categories: categoryList.concat(categoryList).map((cat) => {
+      return { label: cat, qty: Math.floor(Math.random() * 30) };
+    }),
   }),
   getters: {
     categories(state) {
