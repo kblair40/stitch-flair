@@ -16,19 +16,18 @@ const products = computed(() => {
 })
 
 const gridClasses = [
-    'border',
     'flex flex-col items-center',
-    'justify-items-stretch',
-    'md:grid md:grid-cols-2 md:gap-2'
-    // 'grid'
+    // 'justify-items-stretch',
+    'md:grid md:grid-cols-2 md:gap-3',
+    'md:justify-center md:grid-flow-row',
+    'lg:grid-cols-3 lg:gap-5'
 ]
 </script>
 
 <template>
-    <div :class="gridClasses">
-        <!-- <div class="w-full border border-blue-300" v-for="product in products"> -->
-        <ProductListItem v-bind="DUMMY_PRODUCT" v-for="product in products" />
-        <!-- <ProductFeatured v-bind="DUMMY_PRODUCT"  /> -->
-        <!-- </div> -->
+    <div class="flex justify-center">
+        <div :class="gridClasses">
+            <ProductListItem v-bind="DUMMY_PRODUCT" v-for="product in products" />
+        </div>
     </div>
 </template>
