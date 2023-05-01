@@ -10,7 +10,8 @@ const products = [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT];
 
 <template>
     <Page>
-        <template #header>Welcome to Stitch Flair!</template>
+        <PageTitle>Welcome to Stitch Flair!</PageTitle>
+        <!-- <template #header>Welcome to Stitch Flair!</template> -->
 
 
         <p class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm sm:text-base">
