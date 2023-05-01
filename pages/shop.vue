@@ -5,7 +5,7 @@ const menuWrapperClasses = [
     // "h-full",
     'lg:pl-2',
     "border border-purple-700",
-    'w-48 md:w-60 lg:w-76',
+    'w-48 md:w-64 lg:w-76',
     // 'w-full',
     // 'overflow-y-auto'
 ]
