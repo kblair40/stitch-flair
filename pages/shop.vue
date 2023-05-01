@@ -10,7 +10,7 @@ const mainContentClasses = [
 ]
 const menuAndContentWrapperClasses = [
     // "border border-blue-500",
-    "flex w-full h-full",
+    "flex w-full",
 ]
 </script>
 
@@ -27,7 +27,5 @@ const menuAndContentWrapperClasses = [
                 <ProductList />
             </div>
         </div>
-
-        <PageFooter />
     </Page>
 </template>

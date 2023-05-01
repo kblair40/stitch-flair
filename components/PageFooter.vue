@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 const footerClasses = [
-    // "pt-16 absolute bottom-1 left-0 right-0 text-center text-sm" // original
-    "pt-16 mb-1 text-center text-sm"
+    "pt-8 mb-1.5 text-center text-sm"
 ]
 </script>
 

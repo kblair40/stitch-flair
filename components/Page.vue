@@ -7,12 +7,14 @@ defineProps<Props>();
 
 <template>
     <div class="min-h-screen flex flex-column">
-        <div class="main-content">
-            <slot></slot>
+        <div class="main-content min-h-screen flex flex-col justify-between">
+            <div>
+                <slot></slot>
+            </div>
 
-            <!-- <p class="pt-16 absolute bottom-1 left-0 right-0 text-center text-sm">
+            <p class="pt-10 mb-1.5 text-center text-sm">
                 &#169; Stitch Flair {{ new Date().getFullYear() }}
-            </p> -->
+            </p>
         </div>
 
     </div>
