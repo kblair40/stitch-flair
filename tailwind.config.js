@@ -112,7 +112,9 @@ module.exports = {
         serif: ["Roboto Slab", ...defaultTheme.fontFamily.serif],
       },
       fontSize: {
+        // Do a search/replace before prod to ensure only one of the below classes is used, and delete the unused class
         mdsm: "15px",
+        smmd: "15px",
       },
       padding: {
         38: "152px",

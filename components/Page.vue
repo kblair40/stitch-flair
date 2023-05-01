@@ -8,7 +8,6 @@ defineProps<Props>();
 <template>
     <div class="min-h-screen flex flex-column">
         <div class="main-content">
-            <!-- <PageTitle>{{ label || "temp" }}</PageTitle> -->
             <slot></slot>
 
             <!-- <p class="pt-16 absolute bottom-1 left-0 right-0 text-center text-sm">

@@ -2,6 +2,7 @@
 const titleWrapperClasses = [
     // "border border-blue-400",
     "h-16 md:h-20 flex items-end",
+    "mb-5",
 ]
 
 const titleClasses = [

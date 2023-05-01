@@ -1,6 +1,7 @@
 <template>
     <Page>
-        <template #header>Contact Me</template>
+        <!-- <template #header>Contact Me</template> -->
+        <PageTitle>Contact Me</PageTitle>
 
         <div class="w-full px-4 md:px-6 lg:px-8 flex justify-center mb-8">
             <div class="w-full max-w-4xl">

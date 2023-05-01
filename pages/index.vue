@@ -14,7 +14,7 @@ const products = [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT];
         <!-- <template #header>Welcome to Stitch Flair!</template> -->
 
 
-        <p class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm sm:text-base">
+        <p class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm md:text-mdsm">
             Velit enim commodo adipisicing sunt aliquip officia do velit do voluptate ullamco. Elit nisi proident dolor
             sunt
             nisi esse sit eu fugiat cillum magna. Ut commodo fugiat quis consectetur culpa deserunt duis et irure magna

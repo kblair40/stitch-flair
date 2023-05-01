@@ -15,7 +15,7 @@ export const useShopStore = defineStore("shop", {
   }),
   getters: {
     categories(state) {
-      return categoryList.concat(categoryList).map((cat) => {
+      return categoryList.map((cat) => {
         return { label: cat, qty: Math.floor(Math.random() * 30) };
       });
     },
