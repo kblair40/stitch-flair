@@ -17,7 +17,7 @@ const headerClasses = [
 </script>
 
 <template>
-    <div :class="headerWrapperClasses">
+    <div class="page-title" :class="headerWrapperClasses">
         <h1 :class="headerClasses">
             <slot></slot>
         </h1>
