@@ -20,7 +20,7 @@ defineProps<Props>();
 
 <style lang="css" scoped>
 .main-content {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     overflow-y: auto;
     position: absolute;
     top: 160px;

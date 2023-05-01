@@ -11,7 +11,6 @@ const products = [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT];
 <template>
     <Page>
         <PageTitle>Welcome to Stitch Flair!</PageTitle>
-        <!-- <template #header>Welcome to Stitch Flair!</template> -->
 
 
         <p class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm md:text-mdsm">
