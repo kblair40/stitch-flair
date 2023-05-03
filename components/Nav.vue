@@ -38,7 +38,8 @@ const wrapperClasses = [
     "pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32",
     "w-screen",
     "flex justify-between items-start",
-    props.isIntersecting ? 'shadow-sm' : '',
+    props.isIntersecting ? 'shadow-lg' : '',
+    // 'shadow-lg',
     'h-40 sm:h-52 md:h-64',
     // 'border-b'
 ]
