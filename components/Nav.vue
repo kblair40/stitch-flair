@@ -39,7 +39,8 @@ const wrapperClasses = [
     "w-screen",
     "flex justify-between items-start",
     props.isIntersecting ? 'shadow-sm' : '',
-    'h-40 sm:h-52 md:h-64'
+    'h-40 sm:h-52 md:h-64',
+    // 'border-b'
 ]
 </script>
 
@@ -47,7 +48,7 @@ const wrapperClasses = [
     <div :class="wrapperClasses">
         <img :class="logoClasses" src="/logo2.svg" />
 
-        <img src="/rose_pink_bg.svg" class="z-10 absolute top-0 right-0 bottom-0 left-0" />
+        <!-- <img src="/rose_pink_bg.svg" class="z-10 absolute top-0 right-0 bottom-0 left-0" /> -->
         <div class="z-10 absolute top-0 right-0 bottom-0 left-0 -z-10" />
 
         <div :class="allLinksWrapperClasses">
