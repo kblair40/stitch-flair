@@ -45,8 +45,8 @@ const wrapperClasses = computed(() => ([
     "transition-shadow duration-300",
     !store.isIntersecting ? 'shadow-md' : '',
     'h-40 sm:h-52 md:h-64',
-    'border-b',
-    'border-slate-100'
+    // 'border-b',
+    // 'border-slate-100'
 ]))
 </script>
 
