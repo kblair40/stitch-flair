@@ -42,10 +42,11 @@ const wrapperClasses = computed(() => ([
     "pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32",
     "w-screen",
     "flex justify-between items-start",
+    "transition-shadow duration-300",
     !store.isIntersecting ? 'shadow-md' : '',
-    // 'shadow-lg',
     'h-40 sm:h-52 md:h-64',
-    // 'border-b'
+    'border-b',
+    'border-slate-100'
 ]))
 </script>
 
