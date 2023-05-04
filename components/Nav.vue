@@ -1,6 +1,10 @@
 <script lang="ts" setup>
+import { useIntersectionStore } from '../store/intersectionStore';
+
+const store = useIntersectionStore();
+
 interface Props {
-    isIntersecting: boolean;
+    isIntersecting?: boolean;
 }
 const props = defineProps<Props>();
 
@@ -31,18 +35,18 @@ const handleToggleNav = () => {
     showMobileNav.value = !showMobileNav.value;
 }
 
-const wrapperClasses = [
+const wrapperClasses = computed(() => ([
     // "border border-blue-500",
     "overflow-hidden z-10",
     "fixed top-0 left-0",
     "pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32",
     "w-screen",
     "flex justify-between items-start",
-    props.isIntersecting ? 'shadow-lg' : '',
+    !store.isIntersecting ? 'shadow-md' : '',
     // 'shadow-lg',
     'h-40 sm:h-52 md:h-64',
     // 'border-b'
-]
+]))
 </script>
 
 <template>
