@@ -20,10 +20,12 @@ const products = computed(() => {
 
 console.log('ETSY_KEYSTRING:', config.public.ETSY_KEYSTRING)
 const headers = { 'x-api-key': config.public.ETSY_KEYSTRING }
-// const baseUrl = 
+const baseUrl = "https://openapi.etsy.com/v3/application/"
 const fetchProducts = async () => {
+    let url = baseUrl + 'seller-taxonomy/nodes'
     try {
-        const res = await axios.get('')
+        const res = await axios.get(url, { headers });
+        console.log('\nRES:', res);
     } catch (e) {
         console.log('Failed to fetch products:', e);
     }
@@ -39,7 +41,7 @@ const gridClasses = [
 
 <template>
     <div class="relative">
-        <button class="absolute w-8 h-8 rounded-full border">g</button>
+        <button @click="fetchProducts" class="absolute w-8 h-8 rounded-full border">g</button>
         <div class="flex justify-center">
             <div :class="gridClasses">
                 <ProductListItem v-bind="DUMMY_PRODUCT" v-for="product in products" />
