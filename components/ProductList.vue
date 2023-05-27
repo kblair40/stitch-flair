@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import axios from 'axios';
 
 import { DUMMY_PRODUCT } from '~~/utils/constants';
 import { useShopStore } from '~~/store/shopStore';
@@ -18,17 +17,12 @@ const products = computed(() => {
         : []
 })
 
-console.log('ETSY_KEYSTRING:', config.public.ETSY_KEYSTRING)
-const headers = { 'x-api-key': config.public.ETSY_KEYSTRING }
-const baseUrl = "https://openapi.etsy.com/v3/application/"
 const fetchProducts = async () => {
-    let url = baseUrl + 'seller-taxonomy/nodes'
-    try {
-        const res = await axios.get(url, { headers });
-        console.log('\nRES:', res);
-    } catch (e) {
-        console.log('Failed to fetch products:', e);
-    }
+    const { data } = await useFetch('/api/products')
+    console.log('data1:', data)
+    console.log('data2', data.value);
+    console.log('data3', Object.keys(data))
+    console.log('data4', data.value.results[1])
 }
 
 const gridClasses = [
