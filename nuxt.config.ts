@@ -26,4 +26,9 @@ export default defineNuxtConfig({
     configPath: "tailwind.config",
     injectPosition: "first",
   },
+  runtimeConfig: {
+    public: {
+      ETSY_KEYSTRING: process.env.ETSY_KEYSTRING,
+    },
+  },
 });

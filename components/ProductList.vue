@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
+import axios from 'axios';
 
 import { DUMMY_PRODUCT } from '~~/utils/constants';
 import { useShopStore } from '~~/store/shopStore';
+
+const config = useRuntimeConfig();
 
 const store = useShopStore()
 
@@ -15,6 +18,17 @@ const products = computed(() => {
         : []
 })
 
+console.log('ETSY_KEYSTRING:', config.public.ETSY_KEYSTRING)
+const headers = { 'x-api-key': config.public.ETSY_KEYSTRING }
+// const baseUrl = 
+const fetchProducts = async () => {
+    try {
+        const res = await axios.get('')
+    } catch (e) {
+        console.log('Failed to fetch products:', e);
+    }
+}
+
 const gridClasses = [
     'flex flex-col items-center space-y-4 md:space-y-0',
     'md:grid md:grid-cols-2 md:gap-3',
@@ -24,9 +38,12 @@ const gridClasses = [
 </script>
 
 <template>
-    <div class="flex justify-center">
-        <div :class="gridClasses">
-            <ProductListItem v-bind="DUMMY_PRODUCT" v-for="product in products" />
+    <div class="relative">
+        <button class="absolute w-8 h-8 rounded-full border">g</button>
+        <div class="flex justify-center">
+            <div :class="gridClasses">
+                <ProductListItem v-bind="DUMMY_PRODUCT" v-for="product in products" />
+            </div>
         </div>
     </div>
 </template>
