@@ -30,6 +30,7 @@ export default defineNuxtConfig({
     public: {
       ETSY_KEYSTRING: process.env.ETSY_KEYSTRING,
       ETSY_APP_ID: process.env.ETSY_APP_ID,
+      ETSY_SHOP_ID: process.env.ETSY_SHOP_ID,
     },
   },
 });
