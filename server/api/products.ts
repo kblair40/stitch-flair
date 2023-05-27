@@ -12,9 +12,12 @@ const handler = defineEventHandler(async (event) => {
   //   const res = await axios.get(baseUrl + "listings/active", { headers });
   //   const res = await axios.get(`${baseUrl}shops/${shopId}/listings/active`, {
   try {
-    const res = await axios.get(`${baseUrl}shops/${shopId}/listings/active`, {
+    const res = await axios.get(`${baseUrl}seller-taxonomy/nodes`, {
       headers,
     });
+    // const res = await axios.get(`${baseUrl}shops/${shopId}/listings/featured`, {
+    //   headers,
+    // });
     // const res = await axios.get(`${baseUrl}shops?shop_name=stitchflair`, {
     //   headers,
     // });
