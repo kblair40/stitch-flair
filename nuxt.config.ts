@@ -29,6 +29,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       ETSY_KEYSTRING: process.env.ETSY_KEYSTRING,
+      ETSY_APP_ID: process.env.ETSY_APP_ID,
     },
   },
 });
