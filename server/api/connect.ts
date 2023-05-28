@@ -30,6 +30,7 @@ const handler = defineEventHandler(async (event) => {
     // sendRedirect(event, "/oauth/redirect", 302);
     const redirectLoc =
       typeof params.redirect_uri === "string" ? params.redirect_uri : "/";
+    console.log("redirectLoc:", redirectLoc);
     return sendRedirect(event, redirectLoc, 302);
     // return res.data;
     // return JSON.stringify(res.data);
