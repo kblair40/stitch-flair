@@ -54,10 +54,11 @@ const initAuth = async () => {
     console.log('URL:', URL, '\n\n')
     try {
 
-        await navigateTo(URL, {
-        //   redirectCode: 302,
-          external: true,
-        });
+        window.open(URL, '_blank')
+        // await navigateTo(URL, {
+        // //   redirectCode: 302,
+        //   external: true,
+        // });
         // await navigateTo("/oauth/redirect", {
         // //   redirectCode: 302,
         //   external: true,
