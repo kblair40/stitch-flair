@@ -10,7 +10,7 @@ const config = useRuntimeConfig();
 
 const clientID = config.ETSY_KEYSTRING;
 const clientVerifier = '<same as the verifier used to create the code_challenge>';
-const redirectUri = 'http://localhost:3000/oauth/redirect';
+const redirectUri = 'localhost:3000/oauth/redirect';
 
 const initAuth = async () => {
     const { data } = await useFetch('/api/etsy-auth')
@@ -24,8 +24,8 @@ const initAuth = async () => {
 
     const params = [
         ['response_type', 'code'],
-        // ['redirect_uri', redirectUri],
-        ['redirect_uri', '/oauth/redirect'],
+        ['redirect_uri', redirectUri],
+        // ['redirect_uri', '/oauth/redirect'],
         ['scope', encodeURIComponent('listings_r recommend_r shops_r')],
         ['client_id', clientID],
         ['state', 'superstate'],
