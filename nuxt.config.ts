@@ -33,4 +33,8 @@ export default defineNuxtConfig({
       ETSY_SHOP_ID: process.env.ETSY_SHOP_ID,
     },
   },
+  routeRules: {
+    // Product page generated on-demand, revalidates in background
+    "/oauth/redirect": { ssr: false },
+  },
 });

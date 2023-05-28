@@ -28,10 +28,19 @@ const handler = defineEventHandler(async (event) => {
 
     // Might be useful?
     // sendRedirect(event, "/oauth/redirect", 302);
+
+    setResponseStatus(302);
     const redirectLoc =
       typeof params.redirect_uri === "string" ? params.redirect_uri : "/";
+
+    // return await navigateTo("/oauth/redirect", {
+    //   redirectCode: 302,
+    //   external: true,
+    // });
+
     console.log("redirectLoc:", redirectLoc);
-    return sendRedirect(event, redirectLoc, 302);
+    // return sendRedirect(event, redirectLoc, 302);
+    return sendRedirect(event, "/oauth/redirect", 302);
     // return res.data;
     // return JSON.stringify(res.data);
   } catch (e) {

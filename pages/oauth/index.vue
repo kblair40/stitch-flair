@@ -22,9 +22,10 @@ const initAuth = async () => {
         return;
     }
 
-    const params =[
+    const params = [
         ['response_type', 'code'],
-        ['redirect_uri', redirectUri],
+        // ['redirect_uri', redirectUri],
+        ['redirect_uri', '/oauth/redirect'],
         ['scope', encodeURIComponent('listings_r recommend_r shops_r')],
         ['client_id', clientID],
         ['state', 'superstate'],
@@ -48,13 +49,27 @@ const initAuth = async () => {
     //   &code_challenge=kjE8cws95mLY9egVnE9Ec1NZ6OjUokcefoWAQ6me-y0
     //   &code_challenge_method=S256 
 
-    const URL = `http://localhost:3000/api/connect?${params.toString()}`
+    // const URL = `http://localhost:3000/api/connect?${params.toString()}`
+    const URL = `https://www.etsy.com/oauth/connect?${params}`
     console.log('URL:', URL, '\n\n')
     try {
-        const { data } = await useFetch(URL)
+
+        await navigateTo(URL, {
+        //   redirectCode: 302,
+          external: true,
+        });
+        // await navigateTo("/oauth/redirect", {
+        // //   redirectCode: 302,
+        //   external: true,
+        // });
+
+        // const { data } = await useFetch(URL)
         // const { data } = await useFetch('/api/connect', { params })
 
-        console.log('\nINIT AUTH RES:', data.value, '\n')
+        // console.log('\nINIT AUTH RES:', data.value)
+        // console.log('\nINIT AUTH RES RAW:', data)
+        // console.log('\nRES KEYS:', Object.keys(data))
+        return data.value;
     } catch (e) {
         console.log('INIT AUTH FAILED:', e);
     }
