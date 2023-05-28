@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const URL = "https://openapi.etsy.com/oauth/connect";
-const URL = "https://www.etsy.com/oauth/connect";
+const url = "https://www.etsy.com/oauth/connect";
 
 const handler = defineEventHandler(async (event) => {
   const params = getQuery(event);
@@ -9,20 +9,21 @@ const handler = defineEventHandler(async (event) => {
   //   const config = useRuntimeConfig();
   //   const headers = { "x-api-key": config.public.ETSY_KEYSTRING };
 
-  return await axios.get(URL, { params });
+  //   return await axios.get(URL, { params });
 
   try {
-    const res = await axios.get(URL, { params });
-    console.log("RES:", res);
-    return JSON.stringify(res);
+    const res = await axios.get(url, { params });
+    console.log("RES:", res.data);
+    return res.data;
+    // return JSON.stringify(res.data);
   } catch (e) {
     console.log("\nERROR:", e);
     return {};
   }
 
-  //   return await axios.get(URL, { params });
-  //   return await axios.get(URL, { headers, params });
-  //   const res = await axios.get(URL, { headers });
+  //   return await axios.get(url, { params });
+  //   return await axios.get(url, { headers, params });
+  //   const res = await axios.get(url, { headers });
   //   return res;
   //   try {
   //     // const { status, data } = res;
