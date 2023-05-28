@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import axios from 'axios';
-// import { useEtsyAuthStore } from '../../store/etsyAuthStore';
+import type { AxiosRequestConfig } from 'axios';
+import { useEtsyAuthStore } from '../../store/etsyAuthStore';
+import type { AuthState } from '../../store/etsyAuthStore';
 
 
-// const store = useEtsyAuthStore();
+const store = useEtsyAuthStore();
 const config = useRuntimeConfig();
 
 const clientID = config.ETSY_KEYSTRING;
@@ -13,15 +15,59 @@ const redirectUri = 'http://localhost:3000/oauth/redirect';
 const initAuth = async () => {
     const { data } = await useFetch('/api/etsy-auth')
     console.log('\nAUTH DATA:', data.value);
-    // const { codeVerifier, codeChallenge, state } = store.makeCodes();
+    store.setState(data.value as AuthState);
     // console.log('VALUES:', { codeVerifier, codeChallenge, state })
-    // try {
-    //     const res = await axios.get('https://www.etsy.com/oauth/connect', {
+    const { codeVerifier, codeChallenge, state } = data.value as AuthState;
+    if (!codeVerifier || !codeChallenge || !state) {
+        return;
+    }
 
-    //     })
-    // } catch (e) {
-    //     console.log('INIT AUTH FAILED:', e);
-    // }
+    const requestConfig: AxiosRequestConfig = {
+        params: {
+            response_type: 'code',
+            client_id: clientID,
+            redirect_uri: redirectUri,
+            // scope: [],
+            scope: encodeURIComponent('listings_r recommend_r shops_r'),
+            // code_verifier: codeVerifier,
+            code_challenge: codeChallenge,
+            code_challenge_method: 's256',
+            // code_verifier: data.value.codeVerifier!,
+        }
+    }
+
+    try {
+        const { data } = await useFetch('/api/connect', {
+            params: {
+                response_type: 'code',
+                client_id: clientID,
+                redirect_uri: redirectUri,
+                // scope: [],
+                scope: 'listings_r recommend_r shops_r',
+                // code_verifier: codeVerifier,
+                code_challenge: codeChallenge,
+                code_challenge_method: 's256',
+                // code_verifier: data.value.codeVerifier!,
+            }
+        })
+        // const res = await axios.get('https://www.etsy.com/oauth/connect', {
+        //     params: {
+        //         response_type: 'code',
+        //         client_id: clientID,
+        //         redirect_uri: redirectUri,
+        //         // scope: [],
+        //         scope: 'listings_r recommend_r shops_r',
+        //         // code_verifier: codeVerifier,
+        //         code_challenge: codeChallenge,
+        //         code_challenge_method: 's256',
+        //         // code_verifier: data.value.codeVerifier!,
+        //     },
+        // })
+
+        console.log('\nINIT AUTH RES:', data.value, '\n')
+    } catch (e) {
+        console.log('INIT AUTH FAILED:', e);
+    }
 }
 </script>
 
