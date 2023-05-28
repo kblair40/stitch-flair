@@ -22,47 +22,37 @@ const initAuth = async () => {
         return;
     }
 
-    const requestConfig: AxiosRequestConfig = {
-        params: {
-            response_type: 'code',
-            client_id: clientID,
-            redirect_uri: redirectUri,
-            // scope: [],
-            scope: encodeURIComponent('listings_r recommend_r shops_r'),
-            // code_verifier: codeVerifier,
-            code_challenge: codeChallenge,
-            code_challenge_method: 's256',
-            // code_verifier: data.value.codeVerifier!,
-        }
-    }
+    const params =[
+        ['response_type', 'code'],
+        ['redirect_uri', redirectUri],
+        ['scope', encodeURIComponent('listings_r recommend_r shops_r')],
+        ['client_id', clientID],
+        ['state', 'superstate'],
+        ['code_challenge', codeChallenge],
+        ['code_challenge_method', 'S256'],
+    ].map(arr => arr.join('=')).join('&')
 
+    // https://www.etsy.com/oauth/connect?
+    //   response_type=code
+    //   &redirect_uri=https://www.example.com/some/location
+    //   &scope=transactions_r%20transactions_w
+    //   &client_id=1aa2bb33c44d55eeeeee6fff&state=superstate
+    //   &code_challenge=DSWlW2Abh-cf8CeLL8-g3hQ2WQyYdKyiu83u_s7nRhI
+    //   &code_challenge_method=S256
+
+    // http://localhost:3000/api/connect?
+    //   response_type=code
+    //   &redirect_uri=http://localhost:3000/oauth/redirect
+    //   &scope=listings_r%20recommend_r%20shops_r
+    //   &client_id=a5lkmh70hij36y09qludpuza&state=superstate
+    //   &code_challenge=kjE8cws95mLY9egVnE9Ec1NZ6OjUokcefoWAQ6me-y0
+    //   &code_challenge_method=S256 
+
+    const URL = `http://localhost:3000/api/connect?${params.toString()}`
+    console.log('URL:', URL, '\n\n')
     try {
-        const { data } = await useFetch('/api/connect', {
-            params: {
-                response_type: 'code',
-                client_id: clientID,
-                redirect_uri: redirectUri,
-                // scope: [],
-                scope: 'listings_r recommend_r shops_r',
-                // code_verifier: codeVerifier,
-                code_challenge: codeChallenge,
-                code_challenge_method: 's256',
-                // code_verifier: data.value.codeVerifier!,
-            }
-        })
-        // const res = await axios.get('https://www.etsy.com/oauth/connect', {
-        //     params: {
-        //         response_type: 'code',
-        //         client_id: clientID,
-        //         redirect_uri: redirectUri,
-        //         // scope: [],
-        //         scope: 'listings_r recommend_r shops_r',
-        //         // code_verifier: codeVerifier,
-        //         code_challenge: codeChallenge,
-        //         code_challenge_method: 's256',
-        //         // code_verifier: data.value.codeVerifier!,
-        //     },
-        // })
+        const { data } = await useFetch(URL)
+        // const { data } = await useFetch('/api/connect', { params })
 
         console.log('\nINIT AUTH RES:', data.value, '\n')
     } catch (e) {

@@ -13,8 +13,25 @@ const handler = defineEventHandler(async (event) => {
 
   try {
     const res = await axios.get(url, { params });
-    console.log("RES:", res.data);
-    return res.data;
+    // console.log("RES:", res.data);
+    console.log("KEYS:", Object.keys(res));
+    console.log("KEYS DATA:", Object.keys(res.data));
+    console.log("STATUS:", res.status);
+    console.log("STATUS TEXT:", res.statusText);
+    console.log("HEADERS:", res.headers);
+
+    // not sure which of the two below to use
+    // setResponseHeaders(event, res.headers)
+    // if (res.headers) {
+    //     appendResponseHeaders(event, res.headers)
+    // }
+
+    // Might be useful?
+    // sendRedirect(event, "/oauth/redirect", 302);
+    const redirectLoc =
+      typeof params.redirect_uri === "string" ? params.redirect_uri : "/";
+    return sendRedirect(event, redirectLoc, 302);
+    // return res.data;
     // return JSON.stringify(res.data);
   } catch (e) {
     console.log("\nERROR:", e);
