@@ -77,7 +77,6 @@ const handleSubmit = () => {
             </FormControl>
         </div>
 
-        <!-- <div :class="formRowClasses" class="w-max"> -->
         <div class="w-max flex space-x-8">
             <FormControl label="Featured?">
                 <input type="checkbox" v-model="values.featured" :class="checkboxClasses" />
