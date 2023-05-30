@@ -1,8 +1,24 @@
 <script lang="ts" setup>
-const inputClasses = [
-    'rounded-md focus-visible:outline-none px-3',
-    'h-10 w-full transition-colors',
+const inputSizes = {
+    'input': 'h-10 w-full',
+    'checkbox': 'h-6 w-6',
+    'textarea': 'w-full py-1.5',
+}
+const inputBaseClasses = [
+    'rounded-md focus-visible:outline-none px-3 transition-colors',
     'border border-whitepeach hover:border-whitepeach-500 focus:border-whitepeach-700'
+]
+const inputClasses = [
+    inputSizes['input'],
+    ...inputBaseClasses
+]
+const checkboxClasses = [
+    inputSizes['checkbox'],
+    ...inputBaseClasses
+]
+const textareaClasses = [
+    inputSizes['textarea'],
+    ...inputBaseClasses
 ]
 const buttonClasses = [
     'border border-whitepeach-300',
@@ -13,8 +29,12 @@ const buttonClasses = [
     'hover:bg-lightpeach-100 active:bg-lightpeach-200',
 ]
 const formClasses = [
-    'border border-red-300',
-    'flex'
+    // 'border border-red-300',
+    'flex flex-col w-full',
+    'space-y-4 max-w-3xl'
+]
+const formRowClasses = [
+    "flex space-x-4"
 ]
 
 const values = reactive({
@@ -37,38 +57,44 @@ const handleSubmit = () => {
 
 <template>
     <div :class="formClasses">
-        <FormControl label="Product Title">
-            <input v-model="values.name" :class="inputClasses" />
-        </FormControl>
+        <div :class="formRowClasses">
+            <FormControl label="Product Title">
+                <input v-model="values.name" :class="inputClasses" />
+            </FormControl>
 
-        <FormControl label="Description">
-            <textarea v-model="values.description" :class="inputClasses" />
-        </FormControl>
+            <FormControl label="Category" required>
+                <input v-model="values.category" :class="inputClasses" />
+            </FormControl>
+        </div>
 
-        <FormControl label="Price">
-            <input v-model="values.price" :class="inputClasses" />
-        </FormControl>
+        <div :class="formRowClasses">
+            <FormControl label="Description">
+                <textarea :rows="2" v-model="values.description" :class="textareaClasses" />
+            </FormControl>
 
-        <FormControl label="Category">
-            <input v-model="values.category" :class="inputClasses" />
-        </FormControl>
+            <FormControl label="Price" required>
+                <input v-model="values.price" :class="inputClasses" />
+            </FormControl>
+        </div>
 
-        <FormControl label="Image URL">
-            <input v-model="values.image_url" :class="inputClasses" />
-        </FormControl>
+        <div :class="formRowClasses" class="w-max">
+            <FormControl label="Featured?">
+                <input type="checkbox" v-model="values.featured" :class="checkboxClasses" />
+            </FormControl>
+            <FormControl label="On Sale?">
+                <input type="checkbox" v-model="values.on_sale" :class="checkboxClasses" />
+            </FormControl>
+            <FormControl label="Sale Price">
+                <input v-model="values.featured" :class="inputClasses" />
+            </FormControl>
+        </div>
 
-        <FormControl label="On Sale?">
-            <input type="checkbox" v-model="values.on_sale" :class="inputClasses" />
-        </FormControl>
+        <div :class="formRowClasses">
+            <FormControl label="Image URL">
+                <input v-model="values.image_url" :class="inputClasses" />
+            </FormControl>
+        </div>
 
-        <FormControl label="Sale Price">
-            <input v-model="values.featured" :class="inputClasses" />
-        </FormControl>
-
-        <FormControl label="Featured?">
-            <input type="checkbox" v-model="values.featured" :class="inputClasses" />
-        </FormControl>
-
-        <button @click="handleSubmit" class="submit-btn" :class="buttonClasses">Send</button>
+        <button @click="handleSubmit" class="submit-btn" :class="buttonClasses">Save</button>
     </div>
 </template>
