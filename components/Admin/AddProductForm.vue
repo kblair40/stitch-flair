@@ -43,7 +43,7 @@ const values = reactive({
     name: '',
     price: '',
     description: '',
-    category: '',
+    category_id: 0,
     image_url: '',
     featured: false,
     on_sale: false,
@@ -53,7 +53,11 @@ const values = reactive({
 const handleSubmit = () => {
     const vals = values;
     console.log('\nVALS:', vals.name);
+}
 
+const handleCategoryChange = (category: number) => {
+    console.log('\nCHANGE:', category);
+    values.category_id = category;
 }
 </script>
 
@@ -65,8 +69,7 @@ const handleSubmit = () => {
             </FormControl>
 
             <FormControl label="Category" required>
-                <AdminCategorySelect />
-                <!-- <input v-model="values.category" :class="inputClasses" /> -->
+                <AdminCategorySelect @change="handleCategoryChange" />
             </FormControl>
         </div>
 
