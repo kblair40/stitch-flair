@@ -77,16 +77,21 @@ const handleSubmit = () => {
             </FormControl>
         </div>
 
-        <div :class="formRowClasses" class="w-max">
+        <!-- <div :class="formRowClasses" class="w-max"> -->
+        <div class="w-max flex space-x-8">
             <FormControl label="Featured?">
                 <input type="checkbox" v-model="values.featured" :class="checkboxClasses" />
             </FormControl>
+
             <FormControl label="On Sale?">
                 <input type="checkbox" v-model="values.on_sale" :class="checkboxClasses" />
             </FormControl>
-            <FormControl label="Sale Price">
-                <input v-model="values.featured" :class="inputClasses" />
-            </FormControl>
+
+            <div :class="inputSizes['input']">
+                <FormControl label="Sale Price">
+                    <input v-model="values.featured" :class="inputClasses" class="w-40" />
+                </FormControl>
+            </div>
         </div>
 
         <div :class="formRowClasses">
