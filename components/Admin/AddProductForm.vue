@@ -88,7 +88,7 @@ const handleSubmit = () => {
 
             <div :class="inputSizes['input']">
                 <FormControl label="Sale Price">
-                    <input v-model="values.featured" :class="inputClasses" class="w-40" />
+                    <input v-model="values.on_sale_price" :class="inputClasses" class="w-40" />
                 </FormControl>
             </div>
         </div>
