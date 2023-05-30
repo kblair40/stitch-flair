@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+defineEmits(['submit'])
+
 const inputSizes = {
     'input': 'h-10 w-full',
     'checkbox': 'h-6 w-6',
@@ -63,7 +65,8 @@ const handleSubmit = () => {
             </FormControl>
 
             <FormControl label="Category" required>
-                <input v-model="values.category" :class="inputClasses" />
+                <AdminCategorySelect />
+                <!-- <input v-model="values.category" :class="inputClasses" /> -->
             </FormControl>
         </div>
 
