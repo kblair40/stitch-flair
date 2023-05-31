@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 defineEmits(['submit'])
 
+const config = useRuntimeConfig();
+const { API_BASE_URL } = config;
+
 const inputSizes = {
     'input': 'h-10 w-full',
     'checkbox': 'h-6 w-6',
