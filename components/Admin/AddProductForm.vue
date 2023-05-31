@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 defineEmits(['submit'])
 
-const config = useRuntimeConfig();
-const { API_BASE_URL } = config;
-
 const inputSizes = {
     'input': 'h-10 w-full',
     'checkbox': 'h-6 w-6',
@@ -11,7 +8,8 @@ const inputSizes = {
 }
 const inputBaseClasses = [
     'rounded-md focus-visible:outline-none px-3 transition-colors',
-    'border border-whitepeach hover:border-whitepeach-500 focus:border-whitepeach-700'
+    'border border-whitepeach hover:border-whitepeach-500 focus:border-whitepeach-700',
+    'disabled:text-gray-400 disabled:bg-slate-50 disabled:cursor-not-allowed'
 ]
 const inputClasses = [
     inputSizes['input'],
@@ -53,15 +51,27 @@ const values = reactive({
     on_sale_price: '',
 })
 
-const handleSubmit = () => {
-    const vals = values;
-    console.log('\nVALS:', vals.name);
+const handleSubmit = async () => {
+    console.log('\nVALS:', { ...values });
+    try {
+        const res = await useCustomFetch('/product', {
+            method: 'POST',
+            body: values,
+        })
+        console.log('\nCreate Product Res:', res, '\n');
+    } catch (e) {
+        console.log('Failed to create product:', e)
+    }
 }
 
-const handleCategoryChange = (category: number) => {
+const handleChangeCategory = (category: number) => {
     console.log('\nCHANGE:', category);
     values.category_id = category;
 }
+// const handleChangePrice = ({ target: { value } }: any) => {
+//     console.log('new price:', value);
+//     if (!isNaN(value))
+// }
 </script>
 
 <template>
@@ -72,7 +82,7 @@ const handleCategoryChange = (category: number) => {
             </FormControl>
 
             <FormControl label="Category" required>
-                <AdminCategorySelect @change="handleCategoryChange" />
+                <AdminCategorySelect @change="handleChangeCategory" />
             </FormControl>
         </div>
 
@@ -82,7 +92,8 @@ const handleCategoryChange = (category: number) => {
             </FormControl>
 
             <FormControl label="Price" required>
-                <input v-model="values.price" :class="inputClasses" />
+                <input type="number" min="0" step=".1" v-model.number="values.price"
+                    :class="inputClasses" />
             </FormControl>
         </div>
 
@@ -97,7 +108,7 @@ const handleCategoryChange = (category: number) => {
 
             <div :class="inputSizes['input']">
                 <FormControl label="Sale Price">
-                    <input v-model="values.on_sale_price" :class="inputClasses" class="w-40" />
+                    <input :disabled="!values.on_sale" min="0" step=".1" v-model.number="values.on_sale_price" :class="inputClasses" class="w-40" />
                 </FormControl>
             </div>
         </div>
