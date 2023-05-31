@@ -40,7 +40,7 @@ const formRowClasses = [
     "flex space-x-4"
 ]
 
-const values = reactive({
+const defaultValues = {
     name: '',
     price: '',
     description: '',
@@ -49,7 +49,8 @@ const values = reactive({
     featured: false,
     on_sale: false,
     on_sale_price: '',
-})
+}
+const values = reactive(defaultValues);
 
 const handleSubmit = async () => {
     console.log('\nVALS:', { ...values });
@@ -68,10 +69,6 @@ const handleChangeCategory = (category: number) => {
     console.log('\nCHANGE:', category);
     values.category_id = category;
 }
-// const handleChangePrice = ({ target: { value } }: any) => {
-//     console.log('new price:', value);
-//     if (!isNaN(value))
-// }
 </script>
 
 <template>
