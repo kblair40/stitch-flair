@@ -39,7 +39,13 @@ const formClasses = [
 const formRowClasses = [
     "flex space-x-4"
 ]
-
+const formValidators = {
+    'name': (val: string) => typeof val === 'string' && val.length > 3 && val.length < 36,
+    'price': (val: number) => typeof val === 'number',
+    'category_id': (val: number) => typeof val === 'number',
+    'image_url': 
+}
+const formFields = ['name', 'price', 'description', 'category_id', 'image_url', 'featured', 'on_sale', 'on_sale_price']
 const defaultValues = {
     name: '',
     price: '',
@@ -51,9 +57,17 @@ const defaultValues = {
     on_sale_price: '',
 }
 const values = reactive(defaultValues);
+const formErrors = {}
 
 const handleSubmit = async () => {
-    console.log('\nVALS:', { ...values });
+    const vals = { ...values }
+    console.log('\nForm Values:', vals);
+    const errors = {};
+
+    // const body = {
+    //     name: val
+    // }
+
     try {
         const res = await useCustomFetch('/product', {
             method: 'POST',
@@ -66,7 +80,7 @@ const handleSubmit = async () => {
 }
 
 const handleChangeCategory = (category: number) => {
-    console.log('\nCHANGE:', category);
+    console.log('\nChange Category:', category);
     values.category_id = category;
 }
 </script>
@@ -89,8 +103,7 @@ const handleChangeCategory = (category: number) => {
             </FormControl>
 
             <FormControl label="Price" required>
-                <input type="number" min="0" step=".1" v-model.number="values.price"
-                    :class="inputClasses" />
+                <input type="number" min="0" step=".1" v-model.number="values.price" :class="inputClasses" />
             </FormControl>
         </div>
 
@@ -105,13 +118,14 @@ const handleChangeCategory = (category: number) => {
 
             <div :class="inputSizes['input']">
                 <FormControl label="Sale Price">
-                    <input :disabled="!values.on_sale" min="0" step=".1" v-model.number="values.on_sale_price" :class="inputClasses" class="w-40" />
+                    <input :disabled="!values.on_sale" min="0" step=".1" v-model.number="values.on_sale_price"
+                        :class="inputClasses" class="w-40" />
                 </FormControl>
             </div>
         </div>
 
-        <div :class="formRowClasses">
-            <FormControl label="Image URL">
+        <div :class="formRowClasses" required>
+            <FormControl label="Image URL" >
                 <input v-model="values.image_url" :class="inputClasses" />
             </FormControl>
         </div>
