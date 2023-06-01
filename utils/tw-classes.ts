@@ -1,6 +1,6 @@
 const classes = {
   global: {
-    outer: "mb-5 formkit-disabled:opacity-40 w-full",
+    outer: "formkit-disabled:opacity-40 w-full border border-red-500",
     label: "block mb-1 font-semibold text-sm formkit-invalid:text-red-500",
     inner:
       "w-full border border-gray-400 rounded-lg mb-1 overflow-hidden focus-within:border-emoryblue-400 formkit-invalid:border-red-500",
@@ -26,40 +26,6 @@ const classes = {
     prefixIcon: "$reset block w-4 -ml-2 mr-2 stretch",
     suffixIcon: "$reset block w-4 ml-2 stretch",
   },
-  //   'family:dropdown': {
-  //     dropdownWrapper:
-  //       'my-2 w-full drop-shadow-lg rounded [&::-webkit-scrollbar]:hidden',
-  //     emptyMessageInner:
-  //       'flex items-center justify-center text-sm p-2 text-center w-full text-gray-500 [&>span]:mr-3 [&>span]:ml-0',
-  //     inner:
-  //       'max-w-md relative flex ring-1 ring-gray-400 focus-within:ring-blue-500 focus-within:ring-2 rounded mb-1 formkit-disabled:focus-within:ring-gray-400 formkit-disabled:focus-within:ring-1 [&>span:first-child]:focus-within:text-blue-500',
-  //     input: 'w-full px-3 py-2',
-  //     listbox: 'bg-white drop-shadow-lg rounded overflow-hidden',
-  //     listboxButton: 'flex w-12 self-stretch justify-center mx-auto',
-  //     listitem:
-  //       'pl-7 relative hover:bg-gray-300 data-[is-active="true"]:bg-gray-300 data-[is-active="true"]:aria-selected:bg-blue-600 aria-selected:bg-blue-600 aria-selected:text-white',
-  //     loaderIcon: 'ml-auto',
-  //     loadMoreInner:
-  //       'flex items-center justify-center text-sm p-2 text-center w-full text-blue-500 formkit-loading:text-gray-500 cursor-pointer [&>span]:mr-3 [&>span]:ml-0',
-  //     option: 'p-2.5',
-  //     optionLoading: 'text-gray-500',
-  //     placeholder: 'p-2.5 text-gray-400',
-  //     selector: 'flex w-full justify-between items-center [&u]',
-  //     selectedIcon: 'block absolute top-1/2 left-2 w-3 -translate-y-1/2',
-  //     selectIcon: 'flex box-content w-4 px-2 self-stretch grow-0 shrink-0',
-  //   },
-  //   radio: {
-  //     decorator: 'rounded-full',
-  //     decoratorIcon: 'w-5 p-[5px]',
-  //   },
-  //   range: {
-  //     inner: '$reset flex items-center max-w-md',
-  //     input: '$reset w-full mb-1 h-2 p-0 rounded-full',
-  //     prefixIcon:
-  //       '$reset w-4 mr-1 flex self-stretch grow-0 shrink-0 [&>svg]:max-w-[1em] [&>svg]:max-h-[1em] [&>svg]:m-auto',
-  //     suffixIcon:
-  //       '$reset w-4 ml-1 flex self-stretch grow-0 shrink-0 [&>svg]:max-w-[1em] [&>svg]:max-h-[1em] [&>svg]:m-auto',
-  //   },
   select: {
     inner: "pr-3",
     input: "pl-2",

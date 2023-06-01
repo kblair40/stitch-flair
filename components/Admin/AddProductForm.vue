@@ -43,7 +43,7 @@ const formValidators = {
     'name': (val: string) => typeof val === 'string' && val.length > 3 && val.length < 36,
     'price': (val: number) => typeof val === 'number',
     'category_id': (val: number) => typeof val === 'number',
-    'image_url': (val: string) => typeof val === 'string', 
+    'image_url': (val: string) => typeof val === 'string',
 }
 const formFields = ['name', 'price', 'description', 'category_id', 'image_url', 'featured', 'on_sale', 'on_sale_price']
 const defaultValues = {
@@ -102,9 +102,11 @@ const handleChangeCategory = (category: number) => {
                 <textarea :rows="2" v-model="values.description" :class="textareaClasses" />
             </FormControl>
 
-            <FormControl label="Price" required>
+            <FormKit :disabled="true" label="Price" type="text" />
+
+            <!-- <FormControl label="Price" required>
                 <input type="number" min="0" step=".1" v-model.number="values.price" :class="inputClasses" />
-            </FormControl>
+            </FormControl> -->
         </div>
 
         <div class="w-max flex space-x-8">
@@ -125,7 +127,7 @@ const handleChangeCategory = (category: number) => {
         </div>
 
         <div :class="formRowClasses" required>
-            <FormControl label="Image URL" >
+            <FormControl label="Image URL">
                 <input v-model="values.image_url" :class="inputClasses" />
             </FormControl>
         </div>
