@@ -8,7 +8,7 @@ const classes = {
   global: {
     outer: "formkit-disabled:opacity-40 w-full",
     label: "block mb-1 font-semibold text-sm formkit-invalid:text-red-500",
-    inner: `w-full ${borderClasses} rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500`,
+    inner: `w-full bg-white ${borderClasses} rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500`,
     // inner: //  <-- PREV
     //   "w-full border border-gray-200 rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500",
     input:
@@ -34,9 +34,9 @@ const classes = {
     suffixIcon: "$reset block w-4 ml-2 stretch",
   },
   select: {
-    inner: "pr-3",
+    inner: "pr-2",
     input: "pl-2",
-    // selectIcon: '',
+    selectIcon: "border border-red-500 mr-8",
     // option: "formkit-multiple:p-3 formkit-multiple:text-sm text-gray-700",
   },
   textarea: {
