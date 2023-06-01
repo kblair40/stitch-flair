@@ -4,24 +4,6 @@ defineEmits(['submit'])
 const baseURL = 'http://localhost:3001';
 const { data: categoryData, pending, error } = useFetch<{ id: string, title: string }[]>('/category', { baseURL });
 
-const inputSizes = {
-    'input': 'h-10 w-full',
-    'checkbox': 'h-6 w-6',
-    'textarea': 'w-full py-1.5',
-}
-const inputBaseClasses = [
-    'rounded-md focus-visible:outline-none px-3 transition-colors',
-    'border border-whitepeach hover:border-whitepeach-500 focus:border-whitepeach-700',
-    'disabled:text-gray-400 disabled:bg-slate-50 disabled:cursor-not-allowed'
-]
-const inputClasses = [
-    inputSizes['input'],
-    ...inputBaseClasses
-]
-const checkboxClasses = [
-    inputSizes['checkbox'],
-    ...inputBaseClasses
-]
 const buttonClasses = [
     'border border-whitepeach-300',
     'transition-colors duration-300',
@@ -38,13 +20,6 @@ const formClasses = [
 const formRowClasses = [
     "flex space-x-4"
 ]
-const formValidators = {
-    'name': (val: string) => typeof val === 'string' && val.length > 3 && val.length < 36,
-    'price': (val: number) => typeof val === 'number',
-    'category_id': (val: number) => typeof val === 'number',
-    'image_url': (val: string) => typeof val === 'string',
-}
-const formFields = ['name', 'price', 'description', 'category_id', 'image_url', 'featured', 'on_sale', 'on_sale_price']
 const defaultValues = {
     name: '',
     price: '',
@@ -56,7 +31,6 @@ const defaultValues = {
     on_sale_price: '',
 }
 const values = reactive(defaultValues);
-const formErrors = {}
 
 const handleSubmit = async () => {
     const vals = { ...values }
@@ -76,11 +50,6 @@ const handleSubmit = async () => {
     } catch (e) {
         console.log('Failed to create product:', e)
     }
-}
-
-const handleChangeCategory = (category: number) => {
-    console.log('\nChange Category:', category);
-    values.category_id = category;
 }
 
 const categoryOptions = computed(() => {
@@ -106,26 +75,15 @@ const categoryOptions = computed(() => {
         </div>
 
         <div class="w-max flex space-x-8">
-            <FormControl label="Featured?">
-                <input type="checkbox" v-model="values.featured" :class="checkboxClasses" />
-            </FormControl>
+            <FormKit name="featured" label="Featured?" type="checkbox" />
+            <FormKit name="on_sale" label="On Sale?" type="checkbox" />
 
-            <FormControl label="On Sale?">
-                <input type="checkbox" v-model="values.on_sale" :class="checkboxClasses" />
-            </FormControl>
-
-            <div :class="inputSizes['input']">
-                <FormControl label="Sale Price">
-                    <input :disabled="!values.on_sale" min="0" step=".1" v-model.number="values.on_sale_price"
-                        :class="inputClasses" class="w-40" />
-                </FormControl>
-            </div>
+            <!-- <FormKit label="Sale Price" :disabled="!values.on_sale" name="on_sale_price" type="number" /> -->
+            <FormKit label="Sale Price" name="on_sale_price" type="number" />
         </div>
 
         <div :class="formRowClasses" required>
-            <FormControl label="Image URL">
-                <input v-model="values.image_url" :class="inputClasses" />
-            </FormControl>
+            <FormKit name="image_url" label="Image URL" type="text" />
         </div>
 
         <button @click="handleSubmit" class="submit-btn" :class="buttonClasses">Save</button>

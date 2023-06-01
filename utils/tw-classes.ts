@@ -6,7 +6,7 @@ const borderClasses = [
 
 const classes = {
   global: {
-    outer: "formkit-disabled:opacity-40 w-full",
+    outer: "formkit-disabled:opacity-60 w-full",
     label: "block mb-1 font-semibold text-sm formkit-invalid:text-red-500",
     inner: `w-full bg-white ${borderClasses} rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500`,
     // inner: //  <-- PREV
@@ -19,12 +19,11 @@ const classes = {
     // wrapper: "border",
   },
   checkbox: {
-    outer: "flex w-full",
-    wrapper: "flex flex-col-reverse w-full",
-    // inner: "$reset w-min",
-    // input: "$reset border border-red-300 w-min",
-    inner: "$reset w-min border",
-    input: "$reset border border-red-300 w-4 h-4",
+    // outer: "flex border border-red-300 w-max",
+    outer: "flex w-max",
+    wrapper: "flex flex-col-reverse justify-end",
+    inner: "$reset w-min",
+    input: "$reset w-5 h-5 checked:bg-red-500",
     label: "w-max",
   },
   "family:button": {
