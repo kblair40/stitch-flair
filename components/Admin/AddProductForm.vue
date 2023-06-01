@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 defineEmits(['submit'])
 
+const baseURL = 'http://localhost:3001';
+const { data: categoryData, pending, error } = useFetch<{ id: string, title: string }[]>('/category', { baseURL });
+
 const inputSizes = {
     'input': 'h-10 w-full',
     'checkbox': 'h-6 w-6',
@@ -17,10 +20,6 @@ const inputClasses = [
 ]
 const checkboxClasses = [
     inputSizes['checkbox'],
-    ...inputBaseClasses
-]
-const textareaClasses = [
-    inputSizes['textarea'],
     ...inputBaseClasses
 ]
 const buttonClasses = [
@@ -83,31 +82,27 @@ const handleChangeCategory = (category: number) => {
     console.log('\nChange Category:', category);
     values.category_id = category;
 }
+
+const categoryOptions = computed(() => {
+    if (categoryData.value) {
+        return categoryData.value.map(option => {
+            return { label: option.title, value: option.id }
+        })
+    }
+    return [];
+})
 </script>
 
 <template>
     <div :class="formClasses">
         <div :class="formRowClasses">
-            <FormControl label="Product Title">
-                <input v-model="values.name" :class="inputClasses" />
-            </FormControl>
-
-            <FormControl label="Category" required>
-                <AdminCategorySelect @change="handleChangeCategory" />
-            </FormControl>
+            <FormKit name="title" label="Product Title" type="text" />
+            <FormKit name="category" label="Product Title" type="select" :options="categoryOptions" />
         </div>
 
         <div :class="formRowClasses">
-            <!-- <FormControl label="Description">
-                <textarea :rows="2" v-model="values.description" :class="textareaClasses" />
-            </FormControl> -->
-
-            <FormKit label="Description" type="textarea" rows="3" />
-            <FormKit label="Price" type="number" />
-
-            <!-- <FormControl label="Price" required>
-                <input type="number" min="0" step=".1" v-model.number="values.price" :class="inputClasses" />
-            </FormControl> -->
+            <FormKit name="description" label="Description" type="textarea" rows="3" />
+            <FormKit name="price" label="Price" type="number" />
         </div>
 
         <div class="w-max flex space-x-8">
