@@ -12,14 +12,8 @@ const buttonClasses = [
     'bg-lightpeach-50 text-purplegrey-600',
     'hover:bg-lightpeach-100 active:bg-lightpeach-200',
 ]
-const formClasses = [
-    // 'border border-red-300',
-    'flex flex-col w-full',
-    'space-y-4 max-w-3xl'
-]
-const formRowClasses = [
-    "flex space-x-4"
-]
+const formClasses = 'flex flex-col w-full space-y-4 max-w-3xl'
+const formRowClasses =  "flex space-x-4"
 const defaultValues = {
     name: '',
     price: '',
@@ -30,6 +24,7 @@ const defaultValues = {
     on_sale: false,
     on_sale_price: '',
 }
+
 const values = reactive(defaultValues);
 
 const handleSubmit = async () => {
