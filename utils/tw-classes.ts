@@ -1,15 +1,22 @@
+const borderClasses = [
+  "transition-colors duration-200",
+  "border border-gray-200 hover:border-gray-300",
+  "focus-within:border-gray-400 focus-within:hover:border-gray-400",
+].join(" ");
+
 const classes = {
   global: {
-    outer: "formkit-disabled:opacity-40 w-full border border-red-500",
+    outer: "formkit-disabled:opacity-40 w-full",
     label: "block mb-1 font-semibold text-sm formkit-invalid:text-red-500",
-    inner:
-      "w-full border border-gray-400 rounded-lg mb-1 overflow-hidden focus-within:border-emoryblue-400 formkit-invalid:border-red-500",
+    inner: `w-full ${borderClasses} rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500`,
+    // inner: //  <-- PREV
+    //   "w-full border border-gray-200 rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500",
     input:
-      "w-full h-10 px-3 border-none text-base text-gray-700 placeholder-gray-400 focus-visible:outline-none",
+      "w-full h-10 px-3 border-none text-base text-gray-800 placeholder-gray-400 focus-visible:outline-none",
     help: "text-xs text-gray-500",
     messages: "list-none p-0 mt-1 mb-0",
     message: "text-red-500 mb-1 text-xs",
-    // wrapper: "border"
+    // wrapper: "border",
   },
   checkbox: {
     outer: "flex w-full",

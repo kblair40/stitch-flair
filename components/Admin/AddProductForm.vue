@@ -98,11 +98,12 @@ const handleChangeCategory = (category: number) => {
         </div>
 
         <div :class="formRowClasses">
-            <FormControl label="Description">
+            <!-- <FormControl label="Description">
                 <textarea :rows="2" v-model="values.description" :class="textareaClasses" />
-            </FormControl>
+            </FormControl> -->
 
-            <FormKit :disabled="true" label="Price" type="text" />
+            <FormKit label="Description" type="textarea" rows="3" />
+            <FormKit label="Price" type="number" />
 
             <!-- <FormControl label="Price" required>
                 <input type="number" min="0" step=".1" v-model.number="values.price" :class="inputClasses" />
