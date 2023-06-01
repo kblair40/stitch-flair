@@ -1,5 +1,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
+const formKitTailwind = require("@formkit/themes/tailwindcss");
 
 /*
  ** TailwindCSS Configuration File
@@ -136,4 +137,12 @@ module.exports = {
       },
     },
   },
+  content: [
+    "./components/**/*.{js,vue,ts}",
+    "./layouts/**/*.vue",
+    "./pages/**/*.vue",
+    "./nuxt.config.ts",
+    "./app.vue",
+  ],
+  plugins: [formKitTailwind],
 };
