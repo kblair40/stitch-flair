@@ -43,7 +43,7 @@ const formValidators = {
     'name': (val: string) => typeof val === 'string' && val.length > 3 && val.length < 36,
     'price': (val: number) => typeof val === 'number',
     'category_id': (val: number) => typeof val === 'number',
-    'image_url': 
+    'image_url': (val: string) => typeof val === 'string', 
 }
 const formFields = ['name', 'price', 'description', 'category_id', 'image_url', 'featured', 'on_sale', 'on_sale_price']
 const defaultValues = {
