@@ -40,8 +40,14 @@ const classes = {
     // option: "formkit-multiple:p-3 formkit-multiple:text-sm text-gray-700",
   },
   textarea: {
-    inner: "pb-0 w-full",
-    input: "pt-1 pb-0 w-full",
+    inner: "bg-white !mb-0",
+    input: "h-auto pt-1 !-pb-1",
+    // input: "h-auto py-1",
+    // inner: "pb-0 bg-white",
+    // input: "pt-1 pb-0",
+    // inner: "pb-0 w-full border border-emerald-600",
+    // input: "pt-1 pb-0 w-full border border-blue-400",
+    // wrapper: "border border-red-200",
   },
 };
 
