@@ -6,30 +6,25 @@ defineEmits(['submit'])
 const baseURL = 'http://localhost:3001';
 const { data: categoryData, pending, error } = useFetch<{ id: string, title: string }[]>('/category', { baseURL });
 
-const defaultValues = {
-    name: '',
-    price: '',
-    description: '',
-    category_id: 0,
-    image_url: '',
-    featured: false,
-    on_sale: false,
-    on_sale_price: '',
-}
-
-const values = reactive(defaultValues);
-
+// const defaultValues = {
+//     name: '',
+//     price: '',
+//     description: '',
+//     category_id: 0,
+//     image_url: '',
+//     featured: false,
+//     on_sale: false,
+//     on_sale_price: '',
+// }
 const handleSubmit = async (values: any) => {
-    console.log('FORM ARGS:', values)
-    const vals = { ...values }
-    // console.log('\nForm Values:', vals);
+    console.log('Form values:', values)
 
     try {
         const res = await useCustomFetch('/product', {
             method: 'POST',
             body: values,
         })
-        console.log('\nCreate Product Res:', res, '\n');
+        console.log('Create Product Res:', res, '\n');
         reset('product-form') // clears all inputs
     } catch (e) {
         console.log('Failed to create product:', e)
