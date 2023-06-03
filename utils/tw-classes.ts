@@ -36,7 +36,7 @@ const classes = {
   select: {
     inner: "pr-2",
     input: "pl-2",
-    selectIcon: "border border-red-500 mr-8",
+    // selectIcon: "border border-red-500",
     // option: "formkit-multiple:p-3 formkit-multiple:text-sm text-gray-700",
   },
   textarea: {
