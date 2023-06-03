@@ -4,16 +4,6 @@ defineEmits(['submit'])
 const baseURL = 'http://localhost:3001';
 const { data: categoryData, pending, error } = useFetch<{ id: string, title: string }[]>('/category', { baseURL });
 
-const buttonClasses = [
-    'border border-whitepeach-300',
-    'transition-colors duration-300',
-    'w-1/2 mx-auto py-2 px-6 rounded-md',
-    'text-lg font-medium',
-    'bg-lightpeach-50 text-purplegrey-600',
-    'hover:bg-lightpeach-100 active:bg-lightpeach-200',
-]
-const formClasses = 'flex flex-col w-full space-y-4 max-w-3xl'
-const formRowClasses =  "flex space-x-4"
 const defaultValues = {
     name: '',
     price: '',
@@ -55,32 +45,41 @@ const categoryOptions = computed(() => {
     }
     return [];
 })
+const formClasses = 'flex flex-col w-full space-y-4 max-w-3xl'
+const formSectionClasses = [
+    "flex flex-col space-y-4",
+    "md:flex-row md:space-x-4 md:space-y-0"
+]
 </script>
 
 <template>
-    <div :class="formClasses">
-        <div :class="formRowClasses">
+    <FormKit :actions="false" :form-class="formClasses" type="form" submit-label="Save" id="product-form"
+        @submit="handleSubmit">
+        <div :class="formSectionClasses">
             <FormKit name="title" label="Product Title" type="text" />
-            <FormKit name="category" label="Product Title" type="select" :options="categoryOptions" />
+            <FormKit name="category" label="Category" type="select" :options="categoryOptions" />
         </div>
 
-        <div :class="formRowClasses">
+        <div :class="formSectionClasses">
             <FormKit name="description" label="Description" type="textarea" rows="3" />
             <FormKit name="price" label="Price" type="number" />
         </div>
 
-        <div class="w-max flex space-x-8">
-            <FormKit name="featured" label="Featured?" type="checkbox" />
-            <FormKit name="on_sale" label="On Sale?" type="checkbox" />
-
-            <!-- <FormKit label="Sale Price" :disabled="!values.on_sale" name="on_sale_price" type="number" /> -->
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 md:space-x-8">
+            <div class="flex space-x-4 md:space-x-8">
+                <FormKit name="featured" label="Featured?" type="checkbox" />
+                <FormKit name="on_sale" label="On Sale?" type="checkbox" />
+            </div>
             <FormKit label="Sale Price" name="on_sale_price" type="number" />
         </div>
 
-        <div :class="formRowClasses" required>
+        <div :class="formSectionClasses">
             <FormKit name="image_url" label="Image URL" type="text" />
         </div>
 
-        <button @click="handleSubmit" class="submit-btn" :class="buttonClasses">Save</button>
-    </div>
+        <FormKit type="submit" label="Save" />
+    </FormKit>
+
+    <!-- <button @click="handleSubmit" class="submit-btn" :class="buttonClasses">Save</button> -->
+    <!-- </div> -->
 </template>
