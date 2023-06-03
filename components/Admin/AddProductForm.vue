@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { reset } from '@formkit/core';
+
 defineEmits(['submit'])
 
 const baseURL = 'http://localhost:3001';
@@ -17,14 +19,10 @@ const defaultValues = {
 
 const values = reactive(defaultValues);
 
-const handleSubmit = async () => {
+const handleSubmit = async (values: any) => {
+    console.log('FORM ARGS:', values)
     const vals = { ...values }
-    console.log('\nForm Values:', vals);
-    const errors = {};
-
-    // const body = {
-    //     name: val
-    // }
+    // console.log('\nForm Values:', vals);
 
     try {
         const res = await useCustomFetch('/product', {
@@ -32,6 +30,7 @@ const handleSubmit = async () => {
             body: values,
         })
         console.log('\nCreate Product Res:', res, '\n');
+        reset('product-form') // clears all inputs
     } catch (e) {
         console.log('Failed to create product:', e)
     }
@@ -56,13 +55,13 @@ const formSectionClasses = [
     <FormKit :actions="false" :form-class="formClasses" type="form" submit-label="Save" id="product-form"
         @submit="handleSubmit">
         <div :class="formSectionClasses">
-            <FormKit name="title" label="Product Title" type="text" />
-            <FormKit name="category" label="Category" type="select" :options="categoryOptions" />
+            <FormKit name="title" label="Product Title" type="text" validation="required:trim|length:1,32" />
+            <FormKit name="category_id" label="Category" type="select" :options="categoryOptions" validation="required" />
         </div>
 
         <div :class="formSectionClasses">
             <FormKit name="description" label="Description" type="textarea" rows="3" />
-            <FormKit name="price" label="Price" type="number" />
+            <FormKit validation="required" name="price" label="Price" type="number" />
         </div>
 
         <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 md:space-x-8">
@@ -74,12 +73,9 @@ const formSectionClasses = [
         </div>
 
         <div :class="formSectionClasses">
-            <FormKit name="image_url" label="Image URL" type="text" />
+            <FormKit validation="required" name="image_url" label="Image URL" type="text" />
         </div>
 
         <FormKit type="submit" label="Save" />
     </FormKit>
-
-    <!-- <button @click="handleSubmit" class="submit-btn" :class="buttonClasses">Save</button> -->
-    <!-- </div> -->
 </template>
