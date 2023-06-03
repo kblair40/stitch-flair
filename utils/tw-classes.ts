@@ -23,12 +23,12 @@ const classes = {
     outer: "flex w-max",
     wrapper: "flex flex-col-reverse justify-end",
     inner: "$reset w-min",
-    input: "$reset w-5 h-5 checked:bg-red-500",
+    input: "$reset w-5 h-5",
     label: "w-max",
   },
   "family:button": {
     input:
-      "rounded-md w-full bg-emoryblue hover:bg-emoryblue-600 active:bg-emoryblue-700 text-white font-medium tracking-wide py-2 px-6 rounded focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-1 formkit-disabled:bg-gray-400 formkit-loading:before:w-4 formkit-loading:before:h-4 formkit-loading:before:mr-2 formkit-loading:before:border formkit-loading:before:border-2 formkit-loading:before:border-r-transparent formkit-loading:before:rounded-3xl formkit-loading:before:border-white formkit-loading:before:animate-spin",
+      "rounded-md w-full bg-emoryblue hover:bg-emoryblue-600 active:bg-emoryblue-700 font-medium tracking-wide py-2 px-6 rounded focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-1 formkit-disabled:bg-gray-400 formkit-loading:before:w-4 formkit-loading:before:h-4 formkit-loading:before:mr-2 formkit-loading:before:border formkit-loading:before:border-2 formkit-loading:before:border-r-transparent formkit-loading:before:rounded-3xl formkit-loading:before:border-white formkit-loading:before:animate-spin",
     wrapper: "mb-1",
     prefixIcon: "$reset block w-4 -ml-2 mr-2 stretch",
     suffixIcon: "$reset block w-4 ml-2 stretch",
@@ -43,6 +43,21 @@ const classes = {
     inner: "bg-white mb-0",
     input: "h-auto pt-1",
   },
+  submit: {
+    input:
+      "border border-whitepeach-300 transition-colors duration-300 w-1/2 mx-auto py-2 px-6 rounded-md bg-lightpeach-50 hover:bg-lightpeach-100 active:bg-lightpeach-200",
+    label: "text-lg font-medium text-slate-100",
+  },
 };
+
+// const buttonClasses = [
+//   "border border-whitepeach-300",
+//   "transition-colors duration-300",
+//   "w-1/2 mx-auto py-2 px-6 rounded-md",
+//   "text-lg font-medium",
+//   "bg-lightpeach-50 text-purplegrey-600",
+//   "hover:bg-lightpeach-100 active:bg-lightpeach-200",
+// ];
+// text-lg font-medium bg-lightpeach-50 text-purplegrey-600 hover:bg-lightpeach-100 active:bg-lightpeach-200
 
 export default classes;
