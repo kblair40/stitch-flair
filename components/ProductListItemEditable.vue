@@ -32,9 +32,7 @@ const handleClickDelete = async () => {
     } catch (e) {
         console.log('\nFailed to delete product')
     }
-    setTimeout(() => {
-        loading.value = false;
-    }, 2000)
+    loading.value = false;
 }
 </script>
 
