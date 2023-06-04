@@ -1,7 +1,17 @@
 <script lang="ts" setup>
-import { reset } from '@formkit/core';
+import { reset, setErrors } from '@formkit/core';
+import { FormKitMessages } from '@formkit/vue'
+
+
+/** Ex. 
+    setErrors('my-form', ['This form has some errors'], {
+        first_input: 'This error will clear when you type.',
+        second_input: 'This error will remain even after typing.',
+    })*/
 
 defineEmits(['submit'])
+
+const formRef = ref<HTMLFormElement | null>(null)
 
 const baseURL = 'http://localhost:3001';
 const { data: categoryData, pending, error } = useFetch<{ id: string, title: string }[]>('/category', { baseURL });
@@ -47,7 +57,8 @@ const formSectionClasses = [
 </script>
 
 <template>
-    <FormKit :actions="false" :form-class="formClasses" type="form" submit-label="Save" id="product-form"
+    <!-- <FormKit :actions="false" :form-class="formClasses" type="form" submit-label="Save" id="product-form" -->
+    <FormKit ref="formRef" :form-class="formClasses" type="form" submit-label="Save" id="product-form"
         @submit="handleSubmit">
         <div :class="formSectionClasses">
             <FormKit name="title" label="Product Title" type="text" validation="required:trim|length:1,32" />
@@ -71,6 +82,8 @@ const formSectionClasses = [
             <FormKit validation="required" name="image_url" label="Image URL" type="text" />
         </div>
 
-        <FormKit type="submit" label="Save" />
+        <div class="text-center h-4 relative bottom-2">
+            <FormKitMessages :node="formRef?.node" />
+        </div>
     </FormKit>
 </template>
