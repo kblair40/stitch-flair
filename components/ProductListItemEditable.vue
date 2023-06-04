@@ -4,8 +4,10 @@ interface Props {
     image_url: string;
     price: string;
     id: number;
+    idx: number;
 }
 const props = defineProps<Props>();
+const emit = defineEmits(['delete'])
 
 const cardClasses = [
     'z-20 p-2 bg-white relative',
@@ -29,6 +31,7 @@ const handleClickDelete = async () => {
         loading.value = true
         const res = await useCustomFetch(`/product/${props.id}`, { method: 'DELETE' });
         console.log('\nRes:', res.data);
+        emit('delete', props.idx);
     } catch (e) {
         console.log('\nFailed to delete product')
     }

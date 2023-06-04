@@ -1,6 +1,6 @@
 <script lang='ts' setup>
 const tabLabels = ['Add Product', 'Edit Products', 'Add Category'];
-const activeTab = ref(tabLabels[0])
+const activeTab = ref(tabLabels[1])
 
 definePageMeta({
     layout: 'admin'
@@ -11,7 +11,7 @@ definePageMeta({
     <div class="flex flex-col items-center h-screen overflow-y-auto">
         <div class="h-14">
             <div class="h-14 fixed top-0 pt-2 pb-0 left-1/2 -translate-x-1/2 border w-screen bg-white">
-                <Tabs @change="(tab) => activeTab = tab" :tabLabels="tabLabels" />
+                <Tabs defaultTab="Edit Products" @change="(tab) => activeTab = tab" :tabLabels="tabLabels" />
             </div>
         </div>
 

@@ -11,7 +11,7 @@ const { data: categoryData, pending, error } = useFetch<{ id: string, title: str
 
 const formValues = ref({
     title: '',
-    category_id: 0,
+    category_id: 1,
     description: '',
     price: '',
     featured: false,
