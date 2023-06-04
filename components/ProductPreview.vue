@@ -2,14 +2,14 @@
 interface Props {
     title: string;
     imgUrl: string;
-    price: number;
+    price: string | null;
 }
 defineProps<Props>();
 
 const cardClasses = [
     'z-20 p-2',
     "bg-white",
-    "max-w-max",
+    "min-w-75 max-w-max",
     "cursor-pointer group rounded-md",
 ]
 const imgWrapperClasses = [
@@ -21,6 +21,10 @@ const imgClasses = [
     "group-hover:scale-105",
     "transition-transform duration-300"
 ]
+
+const formatPrice = (price: string | null) => {
+    return price ? parseFloat(price).toFixed(2) : '';
+}
 </script>
 
 <template>
@@ -30,6 +34,6 @@ const imgClasses = [
         </div>
 
         <p class="font-medium mt-2">{{ title }}</p>
-        <p class="font-semibold mt-1">${{ price.toFixed(2) }}</p>
+        <p class="font-semibold mt-1">${{ formatPrice(price) }}</p>
     </div>
 </template>

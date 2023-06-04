@@ -135,6 +135,14 @@ module.exports = {
       width: {
         76: "304px",
       },
+      minWidth: {
+        20: "80px",
+        30: "120px",
+        50: "200px",
+        60: "240px",
+        70: "280px",
+        75: "300px",
+      },
     },
   },
   content: [
@@ -144,5 +152,8 @@ module.exports = {
     "./nuxt.config.ts",
     "./app.vue",
   ],
-  plugins: [formKitTailwind],
+  plugins: [
+    formKitTailwind,
+    // require("@tailwindcss/typography")
+  ],
 };
