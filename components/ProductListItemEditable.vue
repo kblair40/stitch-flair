@@ -3,8 +3,9 @@ interface Props {
     name: string;
     image_url: string;
     price: string;
+    id: number;
 }
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const cardClasses = [
     'z-20 p-2 bg-white relative',
@@ -21,12 +22,27 @@ const iconBtnClasses = [
     "transition-colors duration-300",
     "hover:bg-red-200 active:bg-red-300 rounded-full z-40 absolute top-2 right-2 border p-1",
 ]
+
+const loading = ref(false);
+const handleClickDelete = async () => {
+    try {
+        loading.value = true
+        const res = await useCustomFetch(`/product/${props.id}`, { method: 'DELETE' });
+        console.log('\nRes:', res.data);
+    } catch (e) {
+        console.log('\nFailed to delete product')
+    }
+    setTimeout(() => {
+        loading.value = false;
+    }, 2000)
+}
 </script>
 
 <template>
     <div :class="cardClasses">
-        <button :class="iconBtnClasses">
-            <img class="scale-75" src="/icons/trash.svg" />
+        <button :class="iconBtnClasses" @click="handleClickDelete">
+            <img v-if="loading" class="animate-spin" src="/icons/loading.svg" />
+            <img v-else class="scale-75" src="/icons/trash.svg" />
         </button>
 
         <div :class="imgWrapperClasses">

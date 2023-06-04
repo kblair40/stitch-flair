@@ -35,7 +35,8 @@ const productList = computed(() => {
         return products.value.map((product: Product) => ({
             name: product.name,
             image_url: product.image_url,
-            price: product.price
+            price: product.price,
+            id: product.id
         }))
     }
 
