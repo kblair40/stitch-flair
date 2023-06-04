@@ -11,6 +11,7 @@ const { data: products, pending } = useCustomFetch<Product[]>('/product');
 
 const productList = computed(() => {
     if (products.value && Array.isArray(products.value) && products.value.length) {
+        console.log('Products:', products.value);
         return products.value.map((product: Product, i: number) => ({
             name: product.name,
             image_url: product.image_url,

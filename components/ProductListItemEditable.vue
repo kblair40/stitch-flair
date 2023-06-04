@@ -50,7 +50,7 @@ const handleClickDelete = async () => {
             <img :src="image_url" :class="imgClasses" />
         </div>
 
-        <p class="font-medium mt-2">{{ name }}</p>
+        <p class="font-medium mt-2 border">{{ name }}</p>
         <p class="font-semibold mt-1">{{ price }}</p>
     </div>
 </template>

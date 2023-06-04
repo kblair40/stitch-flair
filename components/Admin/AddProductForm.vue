@@ -27,7 +27,7 @@ const handleSubmit = async (values: any) => {
             method: 'POST',
             body: values,
         })
-        console.log('Create Product Res:', res, '\n');
+        console.log('Create Product Res:', res.data, '\n');
         reset('product-form') // clears all inputs
     } catch (e) {
         console.log('Failed to create product:', e)
@@ -54,14 +54,14 @@ const formSectionClasses = [
         <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
             id="product-form" @submit="handleSubmit">
             <div :class="formSectionClasses">
-                <FormKit name="title" label="Product Title" type="text" validation="required:trim|length:1,32" />
+                <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,32" />
                 <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
                     validation="required" />
             </div>
 
             <div :class="formSectionClasses">
                 <FormKit name="description" label="Description" type="textarea" rows="3" />
-                <FormKit validation="required" name="price" label="Price" type="number" />
+                <FormKit validation="required" name="price" label="Price" type="number" :step="0.01" />
             </div>
 
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 lg:space-x-8">
@@ -69,7 +69,7 @@ const formSectionClasses = [
                     <FormKit name="featured" label="Featured?" type="checkbox" />
                     <FormKit name="on_sale" label="On Sale?" type="checkbox" />
                 </div>
-                <FormKit label="Sale Price" name="on_sale_price" type="number" />
+                <FormKit label="Sale Price" name="on_sale_price" type="number" :step="0.01" />
             </div>
 
             <div :class="formSectionClasses">
