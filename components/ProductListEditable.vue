@@ -2,28 +2,10 @@
 import { computed } from 'vue';
 
 import type { Product } from '~/utils/types'
-// import { DUMMY_PRODUCT } from '~~/utils/constants';
-import { useShopStore } from '~~/store/shopStore';
+// import { useShopStore } from '~~/store/shopStore';
 
-const DUMMY_PRODUCT = {
-    imgUrl:
-        "https://i.etsystatic.com/28392538/r/il/1e93fb/4819482414/il_340x270.4819482414_gh86.jpg",
-    title: "Stuffed Animal",
-    price: 35,
-};
-
-const config = useRuntimeConfig();
-
-const store = useShopStore()
-
-// const products = computed(() => {
-//     const category = store.selectedCategory;
-//     const catObj = store.categories.find(cat => cat.label === category);
-
-//     return catObj
-//         ? new Array(catObj.qty).map((_) => DUMMY_PRODUCT)
-//         : []
-// })
+// const config = useRuntimeConfig();
+// const store = useShopStore()
 
 const { data: products } = useCustomFetch<Promise<Product>>('/product');
 watch(products, () => {
