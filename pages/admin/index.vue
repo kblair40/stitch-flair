@@ -10,7 +10,7 @@ const activeTab = ref(tabLabels[0])
             <Tabs @change="(tab) => activeTab = tab" :tabLabels="tabLabels" />
         </div>
 
-        <div class="flex flex-col items-center px-3 sm:px-5 md:px-6 mt-12 border flex-1">
+        <div class="flex flex-col items-center px-3 sm:px-5 md:px-6 mt-12 flex-1">
             <AdminAddProductForm v-if="activeTab === 'Add Product'" />
         </div>
     </Page>
