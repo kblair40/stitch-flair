@@ -1,13 +1,6 @@
 <script lang="ts" setup>
-import { reset, setErrors } from '@formkit/core';
+import { reset } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
-
-
-/** Ex. 
-    setErrors('my-form', ['This form has some errors'], {
-        first_input: 'This error will clear when you type.',
-        second_input: 'This error will remain even after typing.',
-    })*/
 
 defineEmits(['submit'])
 

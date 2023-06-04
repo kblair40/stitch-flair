@@ -10,7 +10,7 @@ definePageMeta({
 <template>
     <div class="flex flex-col items-center h-screen overflow-y-auto">
         <div class="h-14">
-            <div class="fixed top-0 pt-2 pb-0 left-1/2 -translate-x-1/2 border w-screen bg-white">
+            <div class="h-14 fixed top-0 pt-2 pb-0 left-1/2 -translate-x-1/2 border w-screen bg-white">
                 <Tabs @change="(tab) => activeTab = tab" :tabLabels="tabLabels" />
             </div>
         </div>
