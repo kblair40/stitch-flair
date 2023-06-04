@@ -9,7 +9,8 @@ defineProps<Props>();
 const cardClasses = [
     'z-20 p-2',
     "bg-white",
-    "min-w-75 max-w-max",
+    "min-w-75 w-75 max-w-75",
+    // "min-w-75 max-w-max",
     "cursor-pointer group rounded-md",
 ]
 const imgWrapperClasses = [
@@ -21,7 +22,10 @@ const imgClasses = [
     "group-hover:scale-105",
     "transition-transform duration-300"
 ]
+const titleClasses = [
+    'font-medium mt-2 line-clamp-2 max-w-fit',
 
+]
 const formatPrice = (price: string | null) => {
     return price ? parseFloat(price).toFixed(2) : '';
 }
@@ -33,7 +37,7 @@ const formatPrice = (price: string | null) => {
             <img :src="imgUrl" :class="imgClasses" />
         </div>
 
-        <p class="font-medium mt-2">{{ title }}</p>
+        <p :class="titleClasses">{{ title }}</p>
         <p class="font-semibold mt-1">${{ formatPrice(price) }}</p>
     </div>
 </template>
