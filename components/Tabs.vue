@@ -4,25 +4,23 @@ interface Props {
     defaultTab?: string,
 }
 const props = defineProps<Props>();
+const emit = defineEmits(['change'])
 
 const activeTab = ref(props.defaultTab || props.tabLabels[0])
 
-const tabsClasses = [
-    'w-full flex justify-center',
-    'border'
-]
-const tabInnerClasses = "py-1 px-3 flex items-center justify-center h-min"
-const activeTabClasses = [
-    // 'bg-white',
-    'font-medium',
-    'border-b border-purplegrey'
-]
+const tabInnerClasses = "py-2 px-3 flex items-center justify-center h-min"
+const activeTabClasses = 'font-medium border-b border-purplegrey'
+
+const handleChangeTab = (tab: string) => {
+    activeTab.value = tab;
+    emit('change', tab);
+}
 </script>
 
 <template>
-    <div :class="tabsClasses">
-        <div v-for="tabLabel in tabLabels" class="cursor-pointer h-min w-40" @click="activeTab = tabLabel">
-            <div :class="activeTab === tabLabel ? activeTabClasses.concat(tabInnerClasses) : tabInnerClasses">
+    <div class="w-full flex justify-center">
+        <div v-for="tabLabel in tabLabels" class="cursor-pointer h-min w-36" @click="handleChangeTab(tabLabel)">
+            <div :class="activeTab === tabLabel ? `${tabInnerClasses} ${activeTabClasses}` : tabInnerClasses">
                 {{ tabLabel }}
             </div>
         </div>
