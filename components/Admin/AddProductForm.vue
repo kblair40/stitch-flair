@@ -21,7 +21,6 @@ const formValues = ref({
 })
 const handleSubmit = async (values: any) => {
     console.log('Form values:', values)
-
     try {
         const res = await useCustomFetch('/product', {
             method: 'POST',

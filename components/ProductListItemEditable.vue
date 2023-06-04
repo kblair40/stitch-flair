@@ -21,12 +21,18 @@ const imgClasses = [
     "transition-transform duration-300"
 ]
 const iconBtnClasses = [
-    "transition-colors duration-300",
-    "hover:bg-red-200 active:bg-red-300 rounded-full z-40 absolute top-2 right-2 border p-1",
+    "transition-colors duration-300 bg-red-100",
+    "hover:bg-red-200 active:bg-red-300 rounded-full z-40 absolute top-1 right-1 border p-1",
 ]
 
 const loading = ref(false);
-const handleClickDelete = async () => {
+
+const showConfirmModal = ref(false);
+// const productToDelete = ref<null | number>(null)
+const handleClickDelete = () => showConfirmModal.value = true;
+
+
+const handleDelete = async () => {
     try {
         loading.value = true
         const res = await useCustomFetch(`/product/${props.id}`, { method: 'DELETE' });
@@ -50,7 +56,9 @@ const handleClickDelete = async () => {
             <img :src="image_url" :class="imgClasses" />
         </div>
 
-        <p class="font-medium mt-2 border">{{ name }}</p>
+        <p class="font-medium mt-2">{{ name }}</p>
         <p class="font-semibold mt-1">{{ price }}</p>
+
+        <ModalConfirm @cancel="showConfirmModal = false" @confirm="handleDelete" v-if="showConfirmModal" />
     </div>
 </template>
