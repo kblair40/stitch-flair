@@ -1,21 +1,17 @@
 <script lang="ts" setup>
 interface Props {
-    title: string;
-    imgUrl: string;
-    price: number;
+    name: string;
+    image_url: string;
+    price: string;
 }
 defineProps<Props>();
 
 const cardClasses = [
-    'z-20 p-2',
-    "bg-white",
-    "max-w-max",
+    'z-20 p-2 bg-white',
+    "min-w-75 w-75 max-w-75",
     "cursor-pointer group rounded-md",
 ]
-const imgWrapperClasses = [
-    "overflow-hidden",
-    "w-full h-auto sm:h-56 lg:h-64",
-]
+const imgWrapperClasses = "overflow-hidden w-full h-auto sm:h-56 lg:h-64";
 const imgClasses = [
     "object-cover h-full rounded-sm",
     "group-hover:scale-105",
@@ -26,10 +22,10 @@ const imgClasses = [
 <template>
     <div :class="cardClasses">
         <div :class="imgWrapperClasses">
-            <img :src="imgUrl" :class="imgClasses" />
+            <img :src="image_url" :class="imgClasses" />
         </div>
 
-        <p class="font-medium mt-2">{{ title }}</p>
-        <p class="font-semibold mt-1">${{ price.toFixed(2) }}</p>
+        <p class="font-medium mt-2">{{ name }}</p>
+        <p class="font-semibold mt-1">{{ price }}</p>
     </div>
 </template>

@@ -1,42 +1,46 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
+import type { Product } from '~/utils/types'
 // import { DUMMY_PRODUCT } from '~~/utils/constants';
 import { useShopStore } from '~~/store/shopStore';
 
 const DUMMY_PRODUCT = {
-  imgUrl:
-    "https://i.etsystatic.com/28392538/r/il/1e93fb/4819482414/il_340x270.4819482414_gh86.jpg",
-  title: "Stuffed Animal",
-  price: 35,
+    imgUrl:
+        "https://i.etsystatic.com/28392538/r/il/1e93fb/4819482414/il_340x270.4819482414_gh86.jpg",
+    title: "Stuffed Animal",
+    price: 35,
 };
 
 const config = useRuntimeConfig();
 
 const store = useShopStore()
 
-const products = computed(() => {
-    const category = store.selectedCategory;
-    const catObj = store.categories.find(cat => cat.label === category);
+// const products = computed(() => {
+//     const category = store.selectedCategory;
+//     const catObj = store.categories.find(cat => cat.label === category);
 
-    return catObj
-        ? new Array(catObj.qty).map((_) => DUMMY_PRODUCT)
-        : []
+//     return catObj
+//         ? new Array(catObj.qty).map((_) => DUMMY_PRODUCT)
+//         : []
+// })
+
+const { data: products } = useCustomFetch<Promise<Product>>('/product');
+watch(products, () => {
+    console.log('PRODUCTS:', products.value)
 })
 
-const { data } = useCustomFetch('/product');
-watch(data, () => {
-    console.log('DATA:', data.value)
-})
+const productList = computed(() => {
+    if (products.value && Array.isArray(products.value) && products.value.length) {
+        return products.value.map((product: Product) => ({
+            name: product.name,
+            image_url: product.image_url,
+            price: product.price
+        }))
+    }
 
-// const fetchProducts = async () => {
-//     try {
-//         const res = await useCustomFetch('/product')
-//         console.log('All Products:', res, '\n');
-//     } catch (e) {
-//         console.log('Failed to create product:', e)
-//     }
-// }
+    return [];
+})
 
 const gridClasses = [
     'flex flex-col items-center space-y-4 md:space-y-0',
@@ -49,8 +53,8 @@ const gridClasses = [
 <template>
     <div class="relative">
         <div class="flex justify-center">
-            <div :class="gridClasses">
-                <ProductListItem v-bind="DUMMY_PRODUCT" v-for="product in products" />
+            <div :class="gridClasses" v-if="productList.length">
+                <ProductListItemEditable v-for="product in productList" v-bind="product" />
             </div>
         </div>
     </div>
