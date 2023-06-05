@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 interface Props {
-    title: string;
+    name: string;
     imgUrl: string;
     price: string | null;
 }
@@ -22,7 +22,7 @@ const imgClasses = [
     "group-hover:scale-105",
     "transition-transform duration-300"
 ]
-const titleClasses = [
+const nameClasses = [
     'font-medium mt-2 line-clamp-2 max-w-fit',
 
 ]
@@ -37,7 +37,7 @@ const formatPrice = (price: string | null) => {
             <img :src="imgUrl" :class="imgClasses" />
         </div>
 
-        <p :class="titleClasses">{{ title }}</p>
+        <p :class="nameClasses">{{ name }}</p>
         <p class="font-semibold mt-1">${{ formatPrice(price) }}</p>
     </div>
 </template>

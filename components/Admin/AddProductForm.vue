@@ -10,7 +10,7 @@ const baseURL = 'http://localhost:3001';
 const { data: categoryData, pending, error } = useFetch<{ id: string, title: string }[]>('/category', { baseURL });
 
 const formValues = ref({
-    title: '',
+    name: '',
     category_id: 1,
     description: '',
     price: '',
@@ -83,7 +83,7 @@ const formSectionClasses = [
 
         <div class="flex flex-col mt-8 md:mt-0">
             <h4 class="text-xl font-medium mb-2">Preview</h4>
-            <ProductPreview :title="formValues.title" :img-url="formValues.image_url" :price="formValues.price" />
+            <ProductPreview :name="formValues.name" :img-url="formValues.image_url" :price="formValues.price" />
         </div>
 
     </div>
