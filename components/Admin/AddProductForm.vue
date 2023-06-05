@@ -56,6 +56,8 @@ const formSectionClasses = [
 
 <template>
     <div :class="formWrapperClasses">
+        <Toast :visible="true">Saved</Toast>
+
         <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
             id="product-form" @submit="handleSubmit">
             <div :class="formSectionClasses">
