@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-type ProductInfo = null | { id: number; idx: number };
+export type ProductInfo = null | { id: number; idx: number };
 
 export const useAdminStore = defineStore("admin", {
   state: () => ({
@@ -19,6 +19,7 @@ export const useAdminStore = defineStore("admin", {
     async deleteProduct() {
       try {
         const id = { ...this.productToDelete }["id"];
+        this.showConfirmModal = false;
         this.deleting = this.productToDelete;
         const res = await useCustomFetch(`/product/${id}`, {
           method: "DELETE",

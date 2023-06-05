@@ -30,7 +30,6 @@ const handleSubmit = async (values: any) => {
             body: values,
         })
         console.log('Create Product Res:', res.data, '\n');
-        // handleHideAndShowToast()
         showSuccessToast.value = true;
         console.log('Show Succes Toast Value:', showSuccessToast.value)
 
@@ -43,13 +42,6 @@ const handleSubmit = async (values: any) => {
     } catch (e) {
         console.log('Failed to create product:', e)
     }
-}
-
-const handleHideAndShowToast = () => {
-    showSuccessToast.value = true;
-    setTimeout(() => {
-        showSuccessToast.value = false;
-    }, 6000)
 }
 
 const categoryOptions = computed(() => {
