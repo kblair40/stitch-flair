@@ -22,7 +22,7 @@ const imgClasses = [
 ]
 const iconBtnClasses = [
     "transition-colors duration-300 bg-red-100",
-    "hover:bg-red-200 active:bg-red-300 rounded-full z-40 absolute top-1 right-1 border p-1",
+    "hover:bg-red-200 active:bg-red-300 rounded-full z-30 absolute top-1 right-1 border p-1",
 ]
 
 const loading = ref(false);
