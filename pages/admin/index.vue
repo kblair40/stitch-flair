@@ -15,7 +15,7 @@ definePageMeta({
             </div>
         </div>
 
-        <div class="px-3 sm:px-5 md:px-6 pt-16 pb-4 flex-1">
+        <div class="px-3 sm:px-5 md:px-6 pt-16 pb-4 flex-1 w-full">
             <AdminAddProductForm v-if="activeTab === 'Add Product'" />
             <ProductListEditable v-else-if="activeTab === 'Edit Products'" />
         </div>
