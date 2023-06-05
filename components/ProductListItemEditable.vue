@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useAdminStore } from '~~/store/adminStore';
+
 interface Props {
     name: string;
     image_url: string;
@@ -9,8 +11,10 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(['delete'])
 
+const store = useAdminStore();
+
 const cardClasses = [
-    'z-20 p-2 bg-white relative',
+    'z-10 p-2 bg-white relative',
     "min-w-75 w-75 max-w-75",
     "cursor-pointer group rounded-md",
 ]
@@ -21,27 +25,14 @@ const imgClasses = [
     "transition-transform duration-300"
 ]
 const iconBtnClasses = [
-    "transition-colors duration-300 bg-red-100",
-    "hover:bg-red-200 active:bg-red-300 rounded-full z-30 absolute top-1 right-1 border p-1",
+    "transition-colors duration-300 bg-red-100 z-10",
+    "hover:bg-red-200 active:bg-red-300 rounded-full absolute top-1 right-1 border p-1",
 ]
 
 const loading = ref(false);
 
-const showConfirmModal = ref(false);
-// const productToDelete = ref<null | number>(null)
-const handleClickDelete = () => showConfirmModal.value = true;
-
-
-const handleDelete = async () => {
-    try {
-        loading.value = true
-        const res = await useCustomFetch(`/product/${props.id}`, { method: 'DELETE' });
-        console.log('\nRes:', res.data);
-        emit('delete', props.idx);
-    } catch (e) {
-        console.log('\nFailed to delete product')
-    }
-    loading.value = false;
+const handleClickDelete = () => {
+    store.openConfirmModal({ id: props.id, idx: props.idx });
 }
 </script>
 
@@ -59,6 +50,6 @@ const handleDelete = async () => {
         <p class="font-medium mt-2">{{ name }}</p>
         <p class="font-semibold mt-1">{{ price }}</p>
 
-        <ModalConfirm @cancel="showConfirmModal = false" @confirm="handleDelete" v-if="showConfirmModal" />
+        <ModalConfirm @cancel="store.showConfirmModal = false" @confirm="store.deleteProduct()" />
     </div>
 </template>
