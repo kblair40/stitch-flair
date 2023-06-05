@@ -9,6 +9,8 @@ const formRef = ref<HTMLFormElement | null>(null)
 const baseURL = 'http://localhost:3001';
 const { data: categoryData, pending, error } = useFetch<{ id: string, title: string }[]>('/category', { baseURL });
 
+const showSuccessToast = ref(false);
+
 const formValues = ref({
     name: '',
     category_id: 1,
@@ -28,10 +30,26 @@ const handleSubmit = async (values: any) => {
             body: values,
         })
         console.log('Create Product Res:', res.data, '\n');
+        // handleHideAndShowToast()
+        showSuccessToast.value = true;
+        console.log('Show Succes Toast Value:', showSuccessToast.value)
+
+        setTimeout(() => {
+            showSuccessToast.value = false;
+            console.log('Show Succes Toast Value:', showSuccessToast.value)
+        }, 6000)
+
         reset('product-form') // clears all inputs
     } catch (e) {
         console.log('Failed to create product:', e)
     }
+}
+
+const handleHideAndShowToast = () => {
+    showSuccessToast.value = true;
+    setTimeout(() => {
+        showSuccessToast.value = false;
+    }, 6000)
 }
 
 const categoryOptions = computed(() => {
@@ -56,7 +74,7 @@ const formSectionClasses = [
 
 <template>
     <div :class="formWrapperClasses">
-        <Toast :visible="true">Saved</Toast>
+        <Toast :visible="showSuccessToast">Saved</Toast>
 
         <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
             id="product-form" @submit="handleSubmit">
