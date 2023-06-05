@@ -18,6 +18,7 @@ const formValues = ref({
     on_sale: false,
     on_sale_price: '',
     image_url: '',
+    etsy_url: '',
 })
 const handleSubmit = async (values: any) => {
     console.log('Form values:', values)
@@ -41,7 +42,12 @@ const categoryOptions = computed(() => {
     }
     return [];
 })
-const formClasses = 'flex flex-col w-full space-y-4 max-w-3xl'
+const formWrapperClasses = [
+    // "border border-red-300",
+    "flex flex-col items-center md:flex-row md:items-start md:justify-center",
+    "w-full md:space-x-6 lg:px-4 xl:px-8"
+]
+const formClasses = 'flex flex-col w-full space-y-4 max-w-4xl'
 const formSectionClasses = [
     "flex flex-col space-y-4",
     "lg:flex-row lg:space-x-4 lg:space-y-0"
@@ -49,7 +55,7 @@ const formSectionClasses = [
 </script>
 
 <template>
-    <div class="w-full flex flex-col items-center md:flex-row md:items-start md: space-x-6">
+    <div :class="formWrapperClasses">
         <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
             id="product-form" @submit="handleSubmit">
             <div :class="formSectionClasses">
@@ -73,6 +79,7 @@ const formSectionClasses = [
 
             <div :class="formSectionClasses">
                 <FormKit validation="required" name="image_url" label="Image URL" type="text" />
+                <FormKit validation="required" name="etsy_url" label="Etsy URL" type="text" />
             </div>
 
             <div class="text-center h-2 relative bottom-2">
@@ -82,7 +89,7 @@ const formSectionClasses = [
 
 
         <div class="flex flex-col mt-8 md:mt-0">
-            <h4 class="text-xl font-medium mb-2">Preview</h4>
+            <h4 class="text-xl font-medium mb-1 text-center">Preview</h4>
             <ProductPreview :name="formValues.name" :img-url="formValues.image_url" :price="formValues.price" />
         </div>
 

@@ -7,10 +7,9 @@ interface Props {
 defineProps<Props>();
 
 const cardClasses = [
-    'z-20 p-2',
-    "bg-white",
+    // 'border border-gray-100',
+    'z-20 p-2 bg-white shadow-sm',
     "min-w-75 w-75 max-w-75",
-    // "min-w-75 max-w-max",
     "cursor-pointer group rounded-md",
 ]
 const imgWrapperClasses = [
