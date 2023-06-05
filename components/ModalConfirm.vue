@@ -6,9 +6,11 @@
 const emit = defineEmits(['confirm', 'cancel']);
 
 const handleConfirm = () => {
+    didMount.value = false;
     emit('confirm')
 }
 const handleCancel = () => {
+    didMount.value = false;
     emit('cancel')
 }
 const didMount = ref(false);
