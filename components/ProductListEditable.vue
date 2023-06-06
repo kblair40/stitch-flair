@@ -35,15 +35,16 @@ const gridClasses = computed(() => {
         'md:grid md:grid-cols-2 md:gap-3',
         'md:justify-center md:grid-flow-row',
         'lg:grid-cols-3 lg:gap-5',
-        'border border-emerald-500',
-        `${store.showConfirmModal ? '-z-10' : 'z-0'}`
+        // 'border border-emerald-500',
+        // 'z-0'
+        // `${store.showConfirmModal ? '-z-10' : 'z-0'}`
     ]
 })
 </script>
 
 <template>
     <!-- <div class="relative border border-blue-500"> -->
-    <div class="flex justify-center">
+    <div class="flex justify-center z-0 border border-blue-500 list-container">
         <div v-if="pending">
             <img class="animate-spin scale-200" src="/icons/loading.svg" />
         </div>
@@ -58,3 +59,9 @@ const gridClasses = computed(() => {
     </div>
     <!-- </div> -->
 </template>
+
+<style lang="css" scoped>
+.list-container {
+    height: calc(100vh - 56px);
+}
+</style>
