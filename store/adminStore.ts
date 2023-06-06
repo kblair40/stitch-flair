@@ -62,6 +62,7 @@ export const useAdminStore = defineStore("admin", {
         this.productToDelete = null;
         this.products.data = curProducts;
         this.deleting = null;
+
         return res;
       } catch (e) {
         console.log("\nFailed to delete product");
