@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { useAdminStore } from '~~/store/adminStore';
 import type { Product } from '~/utils/types'
-// import { useShopStore } from '~~/store/shopStore';
 
 // const config = useRuntimeConfig();
-// const store = useShopStore()
 const store = useAdminStore();
+store.getProducts();
 
 const { data: products, pending } = useCustomFetch<Product[]>('/product');
 
@@ -35,7 +34,7 @@ const gridClasses = computed(() => {
 </script>
 
 <template>
-    <div class="relative border border-red-500 h-full">
+    <div class="relative border border-red-500 h-full pt-4">
         <div class="flex justify-center z-0 border border-blue-500">
             <div v-if="pending">
                 <img class="animate-spin scale-200" src="/icons/loading.svg" />
