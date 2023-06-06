@@ -21,8 +21,9 @@ export const useAdminStore = defineStore("admin", {
   actions: {
     async getProducts() {
       try {
+        this.products.loading = true;
         const res = await axios.get("http://localhost:3001/product");
-        console.log("\n\nProducts res:", res.data, "\n\n");
+        // console.log("\n\nProducts res:", res.data, "\n\n");
         if (res.data) this.products.data = res.data;
         this.products.loading = false;
         this.products.error = false;
@@ -42,15 +43,24 @@ export const useAdminStore = defineStore("admin", {
       if (this.deleting) this.deleting = null;
     },
     async deleteProduct() {
+      const id = this.productToDelete?.id;
+      const idx = this.productToDelete?.idx;
+      if (!id || typeof idx !== "number") return;
+
       try {
-        const id = { ...this.productToDelete }["id"];
         this.showConfirmModal = false;
         this.deleting = this.productToDelete;
         const res = await useCustomFetch(`/product/${id}`, {
           method: "DELETE",
         });
+        // console.log("\nDelete res:", res.data);
+
+        // copy products, and delete from the copy
+        const curProducts = [...this.products.data];
+        curProducts.splice(idx, 1);
+
         this.productToDelete = null;
-        console.log("\nRes:", res.data);
+        this.products.data = curProducts;
         this.deleting = null;
         return res;
       } catch (e) {

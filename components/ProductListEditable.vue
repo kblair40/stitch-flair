@@ -9,9 +9,11 @@ store.getProducts();
 const { data: products, pending } = useCustomFetch<Product[]>('/product');
 
 const productList = computed(() => {
-    if (products.value && Array.isArray(products.value) && products.value.length) {
-        console.log('Products:', products.value);
-        return products.value.map((product: Product, i: number) => ({
+    const { data: products } = store.products;
+    console.log('\n\nPRODUCTS:', products, '\n\n')
+    if (products && Array.isArray(products) && products.length) {
+        console.log('Products:', products);
+        return products.map((product: Product, i: number) => ({
             name: product.name,
             image_url: product.image_url,
             price: product.price,
@@ -22,6 +24,20 @@ const productList = computed(() => {
 
     return [];
 })
+// const productList = computed(() => {
+//     if (products.value && Array.isArray(products.value) && products.value.length) {
+//         console.log('Products:', products.value);
+//         return products.value.map((product: Product, i: number) => ({
+//             name: product.name,
+//             image_url: product.image_url,
+//             price: product.price,
+//             id: product.id,
+//             idx: i,
+//         }))
+//     }
+
+//     return [];
+// })
 
 const gridClasses = computed(() => {
     return [
@@ -36,7 +52,8 @@ const gridClasses = computed(() => {
 <template>
     <div class="relative border border-red-500 h-full pt-4">
         <div class="flex justify-center z-0 border border-blue-500">
-            <div v-if="pending">
+            <!-- <div v-if="pending"> -->
+            <div v-if="store.products.loading">
                 <img class="animate-spin scale-200" src="/icons/loading.svg" />
             </div>
 
@@ -44,7 +61,8 @@ const gridClasses = computed(() => {
                 <ProductListItemEditable v-for="product in productList" v-bind="product" />
             </div>
 
-            <div v-else-if="!pending && !productList.length">
+            <!-- <div v-else-if="!pending && !productList.length"> -->
+            <div v-else-if="!store.products.loading && !productList.length">
                 <p class="text-center font-medium tracking-wide -mt-8 text-lg">NO PRODUCTS</p>
             </div>
         </div>
