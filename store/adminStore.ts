@@ -14,7 +14,9 @@ export const useAdminStore = defineStore("admin", {
       this.showConfirmModal = true;
     },
     closeConfirmModal() {
+      this.productToDelete = null;
       this.showConfirmModal = false;
+      if (this.deleting) this.deleting = null;
     },
     async deleteProduct() {
       try {
