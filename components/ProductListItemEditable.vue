@@ -9,7 +9,6 @@ interface Props {
     idx: number;
 }
 const props = defineProps<Props>();
-const emit = defineEmits(['delete'])
 
 const store = useAdminStore();
 
@@ -49,7 +48,5 @@ const handleClickDelete = () => {
 
         <p class="font-medium mt-2">{{ name }}</p>
         <p class="font-semibold mt-1">{{ price }}</p>
-
-        <ModalConfirm @cancel="store.showConfirmModal = false" @confirm="store.deleteProduct()" />
     </div>
 </template>

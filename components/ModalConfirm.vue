@@ -1,29 +1,20 @@
 <script lang="ts" setup>
 import { useAdminStore } from '~~/store/adminStore';
-// interface Props {
-//     isOpen: boolean;
-// }
-// const props = defineProps<Props>()
-const emit = defineEmits(['confirm', 'cancel']);
 
 const store = useAdminStore();
 
+
 const handleConfirm = () => {
-    didMount.value = false;
-    emit('confirm')
+    store.deleteProduct();
 }
 const handleCancel = () => {
-    didMount.value = false;
-    emit('cancel')
+    store.closeConfirmModal();
 }
-const didMount = ref(false);
-onMounted(() => didMount.value = true)
 
 const wrapperClasses = computed(() => {
     return [
         'z-50 shadow-lg fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white',
         'py-4 px-3 max-w-lg w-4/5 sm:w-5/6 md:w-1/2 transition-opacity',
-        `${didMount.value ? 'opacity-100' : 'opacity-0'}`,
         'border border-red-500'
     ]
 
@@ -36,15 +27,11 @@ const overlayClasses = [
     'bg-slate-300/50',
     'border border-blue-600'
 ]
-const handleClickOverlay = () => {
-    console.log('\nOVERLAY CLICKED\n')
-    handleCancel()
-}
 </script>
 
 <template>
     <div v-if="store.showConfirmModal" class="z-50">
-        <div :class="overlayClasses" @click="handleClickOverlay" />
+        <div :class="overlayClasses" @click="handleCancel" />
         <div :class="wrapperClasses">
             <h3 class="text-lg font-medium mb-5 z-50">Please confirm you want to delete this product</h3>
 
