@@ -24,10 +24,6 @@ const productList = computed(() => {
     return [];
 })
 
-const deleteProduct = (idx: number) => {
-    products.value?.splice(idx, 1);
-}
-
 const gridClasses = computed(() => {
     return [
         'flex flex-col items-center space-y-4 md:space-y-0',
