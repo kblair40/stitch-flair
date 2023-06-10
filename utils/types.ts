@@ -9,3 +9,9 @@ export interface Product {
   on_sale: boolean;
   on_sale_price?: null | string;
 }
+
+export interface Category {
+  id: number;
+  title: string;
+  products?: Product[];
+}
