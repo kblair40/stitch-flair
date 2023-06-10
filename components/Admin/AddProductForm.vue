@@ -13,7 +13,7 @@ const imageUrls = [
 
 const DUMMY_PRODUCT = () => ({
     name: `Test ${(Math.random() * 100).toFixed(1)}`,
-    category_id: Math.floor(Math.random() * 2),
+    category_id: Math.random() > 0.5 ? 1 : 2,
     description: '',
     price: (Math.random() * 25).toFixed(2),
     featured: false,
