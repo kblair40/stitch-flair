@@ -11,7 +11,7 @@ const imageUrls = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtLdRRvg-n9LpylbOdQlAj1lB0gkJKCyx8Kg&usqp=CAU'
 ]
 
-const DUMMY_PRODUCT = {
+const DUMMY_PRODUCT = () => ({
     name: `Test ${(Math.random() * 100).toFixed(1)}`,
     category_id: Math.floor(Math.random() * 2),
     description: '',
@@ -21,7 +21,7 @@ const DUMMY_PRODUCT = {
     on_sale_price: '',
     image_url: imageUrls[Math.floor(Math.random() * 3)],
     etsy_url: 'gjiofu',
-}
+})
 
 const formRef = ref<HTMLFormElement | null>(null)
 
@@ -63,6 +63,29 @@ const handleSubmit = async (values: any) => {
     }
 }
 
+const saveDummyProduct = async () => {
+    const product = DUMMY_PRODUCT();
+    console.log('Form values:', product)
+    try {
+        const res = await useCustomFetch('/product', {
+            method: 'POST',
+            body: product,
+        })
+        console.log('Create Product Res:', res.data, '\n');
+        showSuccessToast.value = true;
+        console.log('Show Succes Toast Value:', showSuccessToast.value)
+
+        setTimeout(() => {
+            showSuccessToast.value = false;
+            console.log('Show Succes Toast Value:', showSuccessToast.value)
+        }, 6000)
+
+        reset('product-form') // clears all inputs
+    } catch (e) {
+        console.log('Failed to create product:', e)
+    }
+}
+
 const categoryOptions = computed(() => {
     if (categoryData.value) {
         return categoryData.value.map(option => {
@@ -84,45 +107,52 @@ const formSectionClasses = [
 </script>
 
 <template>
-    <div :class="formWrapperClasses">
-        <Toast :visible="showSuccessToast">Saved</Toast>
+    <div>
+        <div :class="formWrapperClasses">
+            <Toast :visible="showSuccessToast">Saved</Toast>
 
-        <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
-            id="product-form" @submit="handleSubmit">
-            <div :class="formSectionClasses">
-                <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,32" />
-                <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
-                    validation="required" />
-            </div>
-
-            <div :class="formSectionClasses">
-                <FormKit name="description" label="Description" type="textarea" rows="3" />
-                <FormKit validation="required" name="price" label="Price" type="number" :step="0.01" />
-            </div>
-
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 lg:space-x-8">
-                <div class="flex space-x-4 lg:space-x-8">
-                    <FormKit name="featured" label="Featured?" type="checkbox" />
-                    <FormKit name="on_sale" label="On Sale?" type="checkbox" />
+            <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
+                id="product-form" @submit="handleSubmit">
+                <div :class="formSectionClasses">
+                    <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,32" />
+                    <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
+                        validation="required" />
                 </div>
-                <FormKit label="Sale Price" name="on_sale_price" type="number" :step="0.01" />
+
+                <div :class="formSectionClasses">
+                    <FormKit name="description" label="Description" type="textarea" rows="3" />
+                    <FormKit validation="required" name="price" label="Price" type="number" :step="0.01" />
+                </div>
+
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 lg:space-x-8">
+                    <div class="flex space-x-4 lg:space-x-8">
+                        <FormKit name="featured" label="Featured?" type="checkbox" />
+                        <FormKit name="on_sale" label="On Sale?" type="checkbox" />
+                    </div>
+                    <FormKit label="Sale Price" name="on_sale_price" type="number" :step="0.01" />
+                </div>
+
+                <div :class="formSectionClasses">
+                    <FormKit validation="required" name="image_url" label="Image URL" type="text" />
+                    <FormKit validation="required" name="etsy_url" label="Etsy URL" type="text" />
+                </div>
+
+                <div class="text-center h-2 relative bottom-2">
+                    <FormKitMessages :node="formRef?.node" />
+                </div>
+            </FormKit>
+
+
+            <div class="flex flex-col mt-8 md:mt-0">
+                <h4 class="text-xl font-medium mb-1 text-center">Preview</h4>
+                <ProductPreview :name="formValues.name" :img-url="formValues.image_url" :price="formValues.price" />
             </div>
 
-            <div :class="formSectionClasses">
-                <FormKit validation="required" name="image_url" label="Image URL" type="text" />
-                <FormKit validation="required" name="etsy_url" label="Etsy URL" type="text" />
-            </div>
-
-            <div class="text-center h-2 relative bottom-2">
-                <FormKitMessages :node="formRef?.node" />
-            </div>
-        </FormKit>
-
-
-        <div class="flex flex-col mt-8 md:mt-0">
-            <h4 class="text-xl font-medium mb-1 text-center">Preview</h4>
-            <ProductPreview :name="formValues.name" :img-url="formValues.image_url" :price="formValues.price" />
         </div>
 
+        <div class="flex justify-center">
+            <button class="text-sm py-1 px-2 rounded-md border border-slate-200" @click="saveDummyProduct">+ Dummy
+                Product</button>
+        </div>
     </div>
 </template>
