@@ -8,7 +8,7 @@ store.getProducts();
 store.getCategories();
 
 const productList = computed(() => {
-    const { data: products } = store.products;
+    const products = store.categoryProducts;
     if (products && Array.isArray(products) && products.length) {
         console.log('Products:', products);
         return products.map((product: Product, i: number) => ({
