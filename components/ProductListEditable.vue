@@ -33,11 +33,8 @@ const gridClasses = computed(() => {
 </script>
 
 <template>
-    <!-- <div class="relative border border-red-500 h-full pt-4">
-        <div class="flex justify-center z-0 border border-blue-500"> -->
     <div class="relative h-full pt-4">
         <div class="flex justify-center z-0">
-            <!-- <div v-if="pending"> -->
             <div v-if="store.products.loading">
                 <img class="animate-spin scale-200" src="/icons/loading.svg" />
             </div>
@@ -46,8 +43,7 @@ const gridClasses = computed(() => {
                 <ProductListItemEditable v-for="product in productList" v-bind="product" />
             </div>
 
-            <!-- <div v-else-if="!pending && !productList.length"> -->
-            <div v-else-if="!store.products.loading && !productList.length">
+            <div v-else-if="!productList.length">
                 <p class="text-center font-medium tracking-wide text-lg">NO PRODUCTS</p>
             </div>
         </div>
