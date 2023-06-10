@@ -10,7 +10,7 @@ store.getCategories();
 const productList = computed(() => {
     const products = store.categoryProducts;
     if (products && Array.isArray(products) && products.length) {
-        console.log('Products:', products);
+        // console.log('Products:', products);
         return products.map((product: Product, i: number) => ({
             name: product.name,
             image_url: product.image_url,
