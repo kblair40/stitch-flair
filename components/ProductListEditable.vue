@@ -5,7 +5,7 @@ import type { Product, Category } from '~/utils/types'
 // const config = useRuntimeConfig();
 const store = useAdminStore();
 store.getProducts();
-// store.getCategories();
+store.getCategories();
 
 const productList = computed(() => {
     const { data: products } = store.products;
@@ -23,15 +23,13 @@ const productList = computed(() => {
     return [];
 })
 
-const categoryList = computed(() => {
+const categoryOptions = computed(() => {
     const { data: categories } = store.categories;
     if (categories && Array.isArray(categories) && categories.length) {
-        console.log('Categories:', categories);
-        return categories.map((category: Category, i: number) => ({
-            id: category.id,
-            title: category.title,
-            products: category.products,
-            idx: i,
+        // console.log('Categories:', categories);
+        return categories.map((category: Category) => ({
+            label: category.title,
+            value: category.id,
         }))
     }
 
@@ -56,6 +54,8 @@ const gridClasses = computed(() => {
             </div>
 
             <div :class="gridClasses" v-else-if="productList.length">
+                <FormKit type="select" label="Category" :options="[{ label: '', value: null }, ...categoryOptions]"
+                    v-model="store.category" />
                 <ProductListItemEditable v-for="product in productList" v-bind="product" />
             </div>
 

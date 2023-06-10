@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 // import { useRuntimeConfig } from "nuxt/app";
 import axios from "axios";
 
+import type { Category } from "~~/utils/types";
+
 // const config = useRuntimeConfig();
 // const BASE_URL = config.API_BASE_URL;
 
@@ -22,6 +24,7 @@ export const useAdminStore = defineStore("admin", {
       error: false,
       data: [],
     },
+    category: null as Category | null,
   }),
   actions: {
     async getProducts() {
@@ -41,8 +44,8 @@ export const useAdminStore = defineStore("admin", {
     async getCategories() {
       try {
         this.categories.loading = true;
-        const res = await axios.get("http://localhost:3001/product");
-        // console.log("\n\nProducts res:", res.data, "\n\n");
+        const res = await axios.get("http://localhost:3001/category");
+        console.log("\n\nCategories res:", res.data, "\n\n");
         if (res.data) this.categories.data = res.data;
         this.categories.loading = false;
         this.categories.error = false;
@@ -52,6 +55,7 @@ export const useAdminStore = defineStore("admin", {
         return;
       }
     },
+    getCategoryProducts() {},
     openConfirmModal(product: ProductInfo) {
       this.productToDelete = product;
       this.showConfirmModal = true;
