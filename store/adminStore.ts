@@ -17,6 +17,11 @@ export const useAdminStore = defineStore("admin", {
       error: false,
       data: [],
     },
+    categories: {
+      loading: false,
+      error: false,
+      data: [],
+    },
   }),
   actions: {
     async getProducts() {
@@ -30,6 +35,20 @@ export const useAdminStore = defineStore("admin", {
       } catch (e) {
         this.products.error = true;
         this.products.loading = false;
+        return;
+      }
+    },
+    async getCategories() {
+      try {
+        this.categories.loading = true;
+        const res = await axios.get("http://localhost:3001/product");
+        // console.log("\n\nProducts res:", res.data, "\n\n");
+        if (res.data) this.categories.data = res.data;
+        this.categories.loading = false;
+        this.categories.error = false;
+      } catch (e) {
+        this.categories.error = true;
+        this.categories.loading = false;
         return;
       }
     },

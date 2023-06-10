@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { useAdminStore } from '~~/store/adminStore';
-import type { Product } from '~/utils/types'
+import type { Product, Category } from '~/utils/types'
 
 // const config = useRuntimeConfig();
 const store = useAdminStore();
 store.getProducts();
+// store.getCategories();
 
 const productList = computed(() => {
     const { data: products } = store.products;
@@ -15,6 +16,21 @@ const productList = computed(() => {
             image_url: product.image_url,
             price: product.price,
             id: product.id,
+            idx: i,
+        }))
+    }
+
+    return [];
+})
+
+const categoryList = computed(() => {
+    const { data: categories } = store.categories;
+    if (categories && Array.isArray(categories) && categories.length) {
+        console.log('Categories:', categories);
+        return categories.map((category: Category, i: number) => ({
+            id: category.id,
+            title: category.title,
+            products: category.products,
             idx: i,
         }))
     }
