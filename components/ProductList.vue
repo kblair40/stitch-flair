@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import { DUMMY_PRODUCT } from '~~/utils/constants';
 import { useShopStore } from '~~/store/shopStore';
 
-const config = useRuntimeConfig();
+// const config = useRuntimeConfig();
 
 const store = useShopStore()
 
@@ -16,14 +16,6 @@ const products = computed(() => {
         ? new Array(catObj.qty).map((_) => DUMMY_PRODUCT)
         : []
 })
-
-// const fetchProducts = async () => {
-//     const { data } = await useFetch('/api/products')
-//     console.log('data1:', data)
-//     console.log('data2', data.value);
-//     console.log('data3', Object.keys(data))
-//     console.log('data4', data.value.results[1])
-// }
 
 const gridClasses = [
     'flex flex-col items-center space-y-4 md:space-y-0',
