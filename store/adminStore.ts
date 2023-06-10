@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 // import { useRuntimeConfig } from "nuxt/app";
 import axios from "axios";
 
-import type { Category } from "~~/utils/types";
+import type { Category, Product } from "~~/utils/types";
 
 // const config = useRuntimeConfig();
 // const BASE_URL = config.API_BASE_URL;
@@ -17,15 +17,25 @@ export const useAdminStore = defineStore("admin", {
     products: {
       loading: false,
       error: false,
-      data: [],
+      data: [] as Product[],
     },
     categories: {
       loading: false,
       error: false,
       data: [],
     },
-    category: null as Category | null,
+    category: null as number | null,
   }),
+  getters: {
+    categoryProducts(state) {
+      if (!state.category) return state.products.data;
+      let products = state.products.data.filter((prod: Product) => {
+        return prod.category_id === state.category;
+      });
+
+      return products;
+    },
+  },
   actions: {
     async getProducts() {
       try {
@@ -55,7 +65,6 @@ export const useAdminStore = defineStore("admin", {
         return;
       }
     },
-    getCategoryProducts() {},
     openConfirmModal(product: ProductInfo) {
       this.productToDelete = product;
       this.showConfirmModal = true;
