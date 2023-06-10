@@ -26,7 +26,7 @@ const categoryClasses = [
                 <AdminAddProductForm v-if="activeTab === 'Add Product'" />
                 <ProductListEditable v-else-if="activeTab === 'Edit Products'" />
                 <div :class="categoryClasses" v-else-if="activeTab === 'Edit Categories'">
-                    <div class="w-full max-w-75 sm:max-w-120 md:max-w-150">
+                    <div class="w-full max-w-75 sm:max-w-120 md:max-w-150 mt-6">
                         <AdminAddCategoryForm />
                         <div class="mt-8 flex justify-center">
                             <AdminEditCategoryList />

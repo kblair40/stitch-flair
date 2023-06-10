@@ -8,12 +8,15 @@ import type { Category, Product } from "~~/utils/types";
 // const BASE_URL = config.API_BASE_URL;
 
 export type ProductInfo = null | { id: number; idx: number };
+export type CategoryInfo = null | { id: number; idx: number };
+export type Info = null | { id: number; idx: number };
 
 export const useAdminStore = defineStore("admin", {
   state: () => ({
     showConfirmModal: false,
-    productToDelete: null as ProductInfo,
-    deleting: null as ProductInfo,
+    productToDelete: null as Info,
+    categoryToDelete: null as Info,
+    deleting: null as Info,
     products: {
       loading: false,
       error: false,
@@ -65,13 +68,20 @@ export const useAdminStore = defineStore("admin", {
         return;
       }
     },
-    openConfirmModal(product: ProductInfo) {
-      this.productToDelete = product;
+    openConfirmModal(productOrCategory: "product" | "category", info: Info) {
+      if (productOrCategory === "product") {
+        this.productToDelete = info;
+      } else {
+        this.categoryToDelete = info;
+      }
       this.showConfirmModal = true;
     },
     closeConfirmModal() {
-      this.productToDelete = null;
+      if (this.productToDelete) this.productToDelete = null;
+      if (this.categoryToDelete) this.categoryToDelete = null;
+
       this.showConfirmModal = false;
+
       if (this.deleting) this.deleting = null;
     },
     async deleteProduct() {
