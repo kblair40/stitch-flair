@@ -48,14 +48,20 @@ const gridClasses = computed(() => {
 
 <template>
     <div class="relative h-full pt-4">
+        <div class="flex justify-center h-18 mb-4">
+            <div class="w-52 min-w-min">
+                <FormKit v-if="!store.products.loading && productList.length" type="select" label="Category"
+                    :options="[{ label: 'Any Category', value: null }, ...categoryOptions]" v-model="store.category" />
+            </div>
+        </div>
+
         <div class="flex justify-center z-0">
             <div v-if="store.products.loading">
                 <img class="animate-spin scale-200" src="/icons/loading.svg" />
             </div>
 
+
             <div :class="gridClasses" v-else-if="productList.length">
-                <FormKit type="select" label="Category" :options="[{ label: '', value: null }, ...categoryOptions]"
-                    v-model="store.category" />
                 <ProductListItemEditable v-for="product in productList" v-bind="product" />
             </div>
 
