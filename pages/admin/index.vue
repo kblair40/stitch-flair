@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-const tabLabels = ['Add Product', 'Edit Products', 'Add Category'];
+const tabLabels = ['Add Product', 'Edit Products', 'Edit Categories'];
 const activeTab = ref(tabLabels[1])
 
 definePageMeta({
@@ -19,7 +19,7 @@ definePageMeta({
             <div class="px-3 sm:px-5 md:px-6 w-full h-full max-h-full overflow-y-auto">
                 <AdminAddProductForm v-if="activeTab === 'Add Product'" />
                 <ProductListEditable v-else-if="activeTab === 'Edit Products'" />
-                <AdminAddCategoryForm v-else-if="activeTab === 'Add Category'" />
+                <AdminAddCategoryForm v-else-if="activeTab === 'Edit Categories'" />
             </div>
         </div>
     </div>
