@@ -18,6 +18,7 @@ const title = ref('');
 const handleSubmit = async () => {
     console.log('Category Title:', title)
     try {
+        if (!title.value) return;
         const res = await useCustomFetch('/category', {
             method: 'POST',
             body: { title },
@@ -29,7 +30,7 @@ const handleSubmit = async () => {
         setTimeout(() => {
             showSuccessToast.value = false;
             console.log('Show Succes Toast Value:', showSuccessToast.value)
-        }, 6000)
+        }, 3000)
 
     } catch (e) {
         console.log('Failed to create product:', e)
