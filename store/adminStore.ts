@@ -22,7 +22,7 @@ export const useAdminStore = defineStore("admin", {
     categories: {
       loading: false,
       error: false,
-      data: [],
+      data: [] as Category[],
     },
     category: null as number | null,
   }),

@@ -1,6 +1,6 @@
 <script lang='ts' setup>
 const tabLabels = ['Add Product', 'Edit Products', 'Edit Categories'];
-const activeTab = ref(tabLabels[1])
+const activeTab = ref(tabLabels[2])
 
 definePageMeta({
     layout: 'admin'
@@ -11,7 +11,7 @@ definePageMeta({
     <div class="flex flex-col items-center h-screen overflow-y-auto">
         <div class="tabs-container border border-red-200">
             <div class="tabs-container fixed top-0 pt-2 pb-0 left-1/2 -translate-x-1/2 border w-screen bg-white">
-                <Tabs defaultTab="Edit Products" @change="(tab) => activeTab = tab" :tabLabels="tabLabels" />
+                <Tabs defaultTab="Edit Categories" @change="(tab) => activeTab = tab" :tabLabels="tabLabels" />
             </div>
         </div>
 
@@ -19,7 +19,12 @@ definePageMeta({
             <div class="px-3 sm:px-5 md:px-6 w-full h-full max-h-full overflow-y-auto">
                 <AdminAddProductForm v-if="activeTab === 'Add Product'" />
                 <ProductListEditable v-else-if="activeTab === 'Edit Products'" />
-                <AdminAddCategoryForm v-else-if="activeTab === 'Edit Categories'" />
+                <div v-else-if="activeTab === 'Edit Categories'">
+                    <AdminAddCategoryForm />
+                    <div class="mt-8 flex justify-center">
+                        <AdminEditCategoryList />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
