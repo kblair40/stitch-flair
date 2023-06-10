@@ -29,7 +29,7 @@ const iconBtnClasses = [
 ]
 
 const handleClickDelete = () => {
-    store.openConfirmModal({ id: props.id, idx: props.idx });
+    store.openConfirmModal('product', { id: props.id, idx: props.idx });
 }
 </script>
 
@@ -37,7 +37,6 @@ const handleClickDelete = () => {
     <div :class="cardClasses">
         <button :class="iconBtnClasses" @click="handleClickDelete">
             <img v-if="store.deleting && store.deleting.id === id" class="animate-spin" src="/icons/loading.svg" />
-            <!-- <img v-if="loading" class="animate-spin" src="/icons/loading.svg" /> -->
             <img v-else class="scale-75" src="/icons/trash.svg" />
         </button>
 

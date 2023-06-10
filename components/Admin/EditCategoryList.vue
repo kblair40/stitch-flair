@@ -11,29 +11,37 @@ const categories = computed(() => {
     return store.categories.data;
 })
 
-const handleClickDelete = (id: number) => {
+const handleClickDelete = (id: number, idx: number) => {
     console.log('Delete clicked')
+    store.openConfirmModal('category', { id, idx })
 }
 
 const iconBtnClasses = [
     "transition-colors duration-300 bg-red-100 z-10",
-    "hover:bg-red-200 active:bg-red-300 rounded-full absolute top-1 right-1 border p-1",
+    "hover:bg-red-200 active:bg-red-300 rounded-full border p-1",
+    "h-7 w-7"
 ]
 </script>
 
 <template>
-    <div class="border w-full">
-        <h3 class="font-semibold text-xl">All Categories</h3>
-        <div v-if="categories.length" v-for="category in categories">
-            <div class="flex space-x-2">
-                <p class="font-medium">Category Title:</p>
-                <p>{{ category.title }}</p>
+    <div class="w-full">
+        <h3 class="font-semibold text-xl mb-3">All Categories</h3>
 
-                <button :class="iconBtnClasses" @click="handleClickDelete(category.id)">
-                    <img v-if="store.deleting && store.deleting.id === category.id" class="animate-spin" src="/icons/loading.svg" />
-                    <img v-else class="scale-75" src="/icons/trash.svg" />
-                </button>
+        <div v-if="categories.length" v-for="category, i in categories" class="mb-1">
+            <div class="flex space-x-2 items-center">
+                <div class="pr-4">
+                    <button :class="iconBtnClasses" @click="handleClickDelete(category.id, i)">
+                        <img v-if="store.deleting && store.deleting.id === category.id" class="animate-spin"
+                            src="/icons/loading.svg" />
+                        <img v-else class="scale-90" src="/icons/trash.svg" />
+                    </button>
+                </div>
+
+                <!-- <p class="font-medium">Category:</p> -->
+                <p class="font-medium">{{ category.title }}</p>
             </div>
         </div>
+
+        <ModalConfirm />
     </div>
 </template>
