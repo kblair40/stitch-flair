@@ -37,33 +37,20 @@ const handleSubmit = async () => {
     }
 }
 
-const categoryOptions = computed(() => {
-    if (categoryData.value) {
-        return categoryData.value.map(option => {
-            return { label: option.title, value: option.id }
-        })
-    }
-    return [];
-})
-
-const formWrapperClasses = [
-    // "border border-red-300",
-    "flex flex-col items-center md:flex-row md:items-start md:justify-center",
-    "w-full pt-6 md:space-x-6 lg:px-4 xl:px-8"
-]
 const formClasses = [
-    "w-full max-w-75",
-    "flex flex-col space-y-4 items-end",
-    "sm:flex-row sm:space-x-4 sm:space-y-0 sm:max-w-120 md:max-w-150"
+    "w-full flex flex-col space-y-4 items-end",
+    "sm:flex-row sm:space-x-4 sm:space-y-0"
 ]
 </script>
 
 <template>
-        <div :class="formWrapperClasses">
+        <div>
             <Toast :visible="showSuccessToast">Saved Category</Toast>
 
             <div :class="formClasses">
-                <FormKit v-model="title" label="Category Title" type="text" validation="required:trim|length:1,32" />
+                <div class="w-full">
+                    <FormKit v-model="title" label="Category Title" type="text" validation="required:trim|length:1,32" />
+                </div>
 
                 <div class="w-full sm:w-40">
                     <FormKit @click="handleSubmit" type="submit">Save</FormKit>

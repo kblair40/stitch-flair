@@ -13,8 +13,8 @@ const categories = computed(() => {
 </script>
 
 <template>
-    <div class="text-center">
-        <h3>All Categories</h3>
+    <div class="border w-full">
+        <h3 class="font-semibold text-xl">All Categories</h3>
         <div v-if="categories.length" v-for="category in categories">
             <div class="flex space-x-2">
                 <p class="font-medium">Category Title:</p>

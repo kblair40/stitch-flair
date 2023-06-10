@@ -5,6 +5,12 @@ const activeTab = ref(tabLabels[2])
 definePageMeta({
     layout: 'admin'
 })
+
+const categoryClasses = [
+    // "border border-red-300",
+    "flex flex-col items-center",
+    // "w-full pt-6 md:space-x-6 lg:px-4 xl:px-8"
+]
 </script> 
 
 <template>
@@ -19,10 +25,12 @@ definePageMeta({
             <div class="px-3 sm:px-5 md:px-6 w-full h-full max-h-full overflow-y-auto">
                 <AdminAddProductForm v-if="activeTab === 'Add Product'" />
                 <ProductListEditable v-else-if="activeTab === 'Edit Products'" />
-                <div v-else-if="activeTab === 'Edit Categories'">
-                    <AdminAddCategoryForm />
-                    <div class="mt-8 flex justify-center">
-                        <AdminEditCategoryList />
+                <div :class="categoryClasses" v-else-if="activeTab === 'Edit Categories'">
+                    <div class="w-full max-w-75 sm:max-w-120 md:max-w-150">
+                        <AdminAddCategoryForm />
+                        <div class="mt-8 flex justify-center">
+                            <AdminEditCategoryList />
+                        </div>
                     </div>
                 </div>
             </div>
