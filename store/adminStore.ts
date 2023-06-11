@@ -103,10 +103,10 @@ export const useAdminStore = defineStore("admin", {
           method: "DELETE",
         });
         const resVal = res.data.value as DeleteRes;
-        // console.log("\nDelete res:", resVal.affected);
-        // console.log("\nDelete res status:", resVal);
-        if (resVal && resVal.status && resVal.status !== 200) {
-          if (resVal.message) throw resVal.message;
+        // console.log("resVal:", resVal);
+        if (!resVal || !resVal.affected) {
+          // console.log("error return");
+          if (resVal?.message) throw resVal.message;
           else throw "Failed";
         }
 
