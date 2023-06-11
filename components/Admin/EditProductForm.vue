@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { FormKitMessages } from '@formkit/vue'
 
+import { useCustomFetch } from '~~/composables/useCustomFetch';
 import { useAdminStore } from '~~/store/adminStore';
 import type { Category, Product } from '~~/utils/types';
 
 const store = useAdminStore();
 
-const formRef = ref<HTMLFormElement | null>(null);
-const formValues = ref<Partial<Product>>({
+const defaultFormValues = {
     name: '',
     category_id: 1,
     description: '',
@@ -17,23 +17,27 @@ const formValues = ref<Partial<Product>>({
     on_sale_price: '',
     image_url: '',
     etsy_url: '',
-})
+}
+
+const formRef = ref<HTMLFormElement | null>(null);
+const formValues = ref<Partial<Product>>({ ...defaultFormValues })
+const initialFormValues = ref<Partial<Product>>({ ...defaultFormValues })
 
 const loading = ref(false) // use with save method to prevent inputs from being modified
 
 onBeforeMount(() => {
     const productToEdit = store.productToEdit as Product;
     console.log("productToEdit:", productToEdit);
-    formValues.value = {
-        ...productToEdit,
-        price: productToEdit.price.slice(1),
-    };
+
+    const newValues = { ...productToEdit, price: productToEdit.price.slice(1) };
+    formValues.value = { ...newValues };
+    initialFormValues.value = { ...newValues };
 })
 
 const handleSubmit = async (values: any) => {
     console.log('Form values:', values)
     try {
-        const res = await useCustomFetch('/product', {
+        const res = await useCustomFetch(`/product${values.id}`, {
             method: 'PATCH',
             body: values,
         })
