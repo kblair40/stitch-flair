@@ -10,18 +10,7 @@ onBeforeMount(() => {
 const categories = computed(() => store.categories.data);
 
 const handleClickDelete = (id: number, idx: number) => {
-    console.log('Delete clicked')
     store.openConfirmModal('category', { id, idx })
-}
-
-const handleConfirmDelete = async () => {
-    try {
-        saving.value = editing.id;
-        const res = await useCustomFetch(`/category/${editing.id}`, { method: 'DELETE' });
-        console.log('DELETE RES:', res);
-    } catch (e) {
-        console.log('Failed to save edited category')
-    }
 }
 
 const handleClickCancelEdit = () => {
