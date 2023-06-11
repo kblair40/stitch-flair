@@ -68,6 +68,12 @@ export const useAdminStore = defineStore("admin", {
         return;
       }
     },
+    updateCategory(id: number, title: string) {
+      const foundCategory = this.categories.data.find((category: Category) => {
+        return category.id === id;
+      });
+      if (foundCategory) foundCategory.title = title;
+    },
     openConfirmModal(productOrCategory: "product" | "category", info: Info) {
       if (productOrCategory === "product") {
         this.productToDelete = info;

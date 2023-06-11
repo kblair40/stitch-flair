@@ -34,6 +34,8 @@ const handleClickEdit = (id: number, title: string) => {
 
 const saving = ref<number | null>(null);
 const handleClickSave = async () => {
+    if (!editing.id || !editing.title) return;
+
     if (editing.title !== initialEditVal.value) {
         try {
             saving.value = editing.id;
@@ -42,6 +44,7 @@ const handleClickSave = async () => {
                 body: { title: editing.title },
             })
             console.log('SAVE RES:', res);
+            store.updateCategory(editing.id, editing.title);
         } catch (e) {
             console.log('Failed to save edited category')
         }
@@ -64,7 +67,7 @@ const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-1
         <h3 class="font-semibold text-xl mb-3">All Categories</h3>
 
         <div v-if="categories.length" v-for="category, i in categories" class="mb-1">
-            <div class="flex space-x-2 items-center border h-16">
+            <div class="flex space-x-2 items-center h-12">
                 <div class="pr-4 space-x-2 min-w-max">
                     <button :disabled="!!editing.id" :class="trashBtnClasses" @click="handleClickDelete(category.id, i)">
                         <img v-if="store.deleting && store.deleting.id === category.id" class="animate-spin"
