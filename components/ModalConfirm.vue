@@ -8,6 +8,21 @@ const emit = defineEmits(['confirm', 'cancel'])
 const handleConfirm = () => emit('confirm')
 const handleCancel = () => emit('cancel')
 
+const cancelRef = ref<null | HTMLButtonElement>(null);
+// const cancelRef: null | HTMLButtonElement = ref(null);
+
+// const isOpen = computed(() => store.showConfirmModal);
+
+onMounted(() => {
+    console.log('Cancel Ref Value:', cancelRef.value);
+})
+
+// watch(isOpen, () => {
+//     if (isOpen.value) {
+//         console.log('cancel ref value:', cancelRef.value);
+//     }
+// })
+
 const wrapperClasses = computed(() => {
     return [
         // 'border border-red-500',
@@ -33,7 +48,7 @@ const overlayClasses = [
             <h3 class="text-lg font-medium mb-5 z-50">Please confirm you want to delete this product</h3>
 
             <div class="flex space-x-4 w-full justify-end z-50">
-                <button @click="handleCancel" :class="btnClasses">Cancel</button>
+                <button ref="cancelRef" @click="handleCancel" :class="btnClasses">Cancel</button>
                 <button @click="handleConfirm" :class="btnClasses">Confirm</button>
             </div>
         </div>

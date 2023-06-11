@@ -97,6 +97,6 @@ const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-1
             </div>
         </div>
 
-        <ModalConfirm @confirm="store.deleteCategory" @cancel="store.closeConfirmModal" />
+        <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteCategory" @cancel="store.closeConfirmModal" />
     </div>
 </template>
