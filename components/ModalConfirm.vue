@@ -3,12 +3,15 @@ import { useAdminStore } from '~~/store/adminStore';
 
 const store = useAdminStore();
 
+const emit = defineEmits(['confirm', 'cancel'])
 
 const handleConfirm = () => {
-    store.deleteProduct();
+    emit('confirm')
+    // store.deleteProduct();
 }
 const handleCancel = () => {
-    store.closeConfirmModal();
+    emit('cancel');
+    // store.closeConfirmModal();
 }
 
 const wrapperClasses = computed(() => {
