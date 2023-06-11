@@ -19,7 +19,9 @@ const formValues = ref<Partial<Product>>({
     etsy_url: '',
 })
 
-onMounted(() => {
+const loading = ref(false) // use with save method to prevent inputs from being modified
+
+onBeforeMount(() => {
     const productToEdit = store.productToEdit as Product;
     console.log("productToEdit:", productToEdit);
     formValues.value = {
@@ -27,6 +29,14 @@ onMounted(() => {
         price: productToEdit.price.slice(1),
     };
 })
+// onMounted(() => {
+//     const productToEdit = store.productToEdit as Product;
+//     console.log("productToEdit:", productToEdit);
+//     formValues.value = {
+//         ...productToEdit,
+//         price: productToEdit.price.slice(1),
+//     };
+// })
 
 const handleSubmit = async (values: any) => {
     console.log('Form values:', values)
@@ -67,8 +77,8 @@ const formSectionClasses = [
 
 <template>
     <div :class="wrapperClasses">
-        <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
-            id="product-form" @submit="handleSubmit">
+        <FormKit :disabled="loading" v-model="formValues" ref="formRef" :form-class="formClasses" type="form"
+            submit-label="Save" id="product-form" @submit="handleSubmit">
             <div :class="formSectionClasses">
                 <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,32" />
                 <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
