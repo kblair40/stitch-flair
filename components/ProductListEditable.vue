@@ -39,8 +39,7 @@ const categoryOptions = computed(() => {
 const gridClasses = computed(() => {
     return [
         'flex flex-col items-center space-y-4 md:space-y-0',
-        'md:grid md:grid-cols-2 md:gap-3',
-        'md:justify-center md:grid-flow-row',
+        'md:grid md:grid-cols-2 md:gap-3 md:justify-center md:grid-flow-row',
         'lg:grid-cols-3 lg:gap-5',
     ]
 })
@@ -50,7 +49,7 @@ const gridClasses = computed(() => {
     <div class="relative h-full pt-4">
         <div class="flex justify-center h-18 mb-4">
             <div class="w-52 min-w-min">
-                <FormKit v-if="!store.products.loading && productList.length" type="select" label="Category"
+                <FormKit :disabled="store.products.loading" type="select" label="Category"
                     :options="[{ label: 'Any Category', value: null }, ...categoryOptions]" v-model="store.category" />
             </div>
         </div>
