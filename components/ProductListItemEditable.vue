@@ -25,20 +25,32 @@ const imgClasses = [
 ]
 const iconBtnClasses = [
     "transition-colors duration-300 bg-red-100 z-10",
-    "hover:bg-red-200 active:bg-red-300 rounded-full absolute top-1 right-1 border p-1",
+    "hover:bg-red-200 active:bg-red-300 rounded-full",
 ]
 
 const handleClickDelete = () => {
     store.openConfirmModal('product', { id: props.id, idx: props.idx });
 }
+const handleClickEdit = () => {
+    console.log('Edit clicked')
+}
 </script>
 
 <template>
     <div :class="cardClasses">
-        <button :class="iconBtnClasses" @click="handleClickDelete">
-            <img v-if="store.deleting && store.deleting.id === id" class="animate-spin" src="/icons/loading.svg" />
-            <img v-else class="scale-75" src="/icons/trash.svg" />
-        </button>
+        <div class="flex space-x-2 absolute top-1 right-1 border p-1">
+            <button :class="iconBtnClasses" @click="handleClickEdit">
+                <!-- <img class="animate-spin" src="/icons/loading.svg" /> -->
+                <img class="scale-75" src="/icons/edit.svg" />
+                <!-- <img v-if="store.deleting && store.deleting.id === id" class="animate-spin" src="/icons/loading.svg" />
+                <img v-else class="scale-75" src="/icons/edit.svg" /> -->
+            </button>
+
+            <button :class="iconBtnClasses" @click="handleClickDelete">
+                <img v-if="store.deleting && store.deleting.id === id" class="animate-spin" src="/icons/loading.svg" />
+                <img v-else class="scale-75" src="/icons/trash.svg" />
+            </button>
+        </div>
 
         <div :class="imgWrapperClasses">
             <img :src="image_url" :class="imgClasses" />
