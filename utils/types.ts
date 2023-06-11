@@ -8,6 +8,7 @@ export interface Product {
   featured: boolean;
   on_sale: boolean;
   on_sale_price?: null | string;
+  etsy_url?: string;
 }
 
 export interface Category {
