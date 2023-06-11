@@ -71,6 +71,5 @@ const gridClasses = computed(() => {
         </div>
 
         <ModalConfirm @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" />
-        <!-- <ModalConfirm /> -->
     </div>
 </template>

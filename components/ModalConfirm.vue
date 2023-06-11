@@ -5,14 +5,8 @@ const store = useAdminStore();
 
 const emit = defineEmits(['confirm', 'cancel'])
 
-const handleConfirm = () => {
-    emit('confirm')
-    // store.deleteProduct();
-}
-const handleCancel = () => {
-    emit('cancel');
-    // store.closeConfirmModal();
-}
+const handleConfirm = () => emit('confirm')
+const handleCancel = () => emit('cancel')
 
 const wrapperClasses = computed(() => {
     return [
