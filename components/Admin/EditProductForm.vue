@@ -29,14 +29,6 @@ onBeforeMount(() => {
         price: productToEdit.price.slice(1),
     };
 })
-// onMounted(() => {
-//     const productToEdit = store.productToEdit as Product;
-//     console.log("productToEdit:", productToEdit);
-//     formValues.value = {
-//         ...productToEdit,
-//         price: productToEdit.price.slice(1),
-//     };
-// })
 
 const handleSubmit = async (values: any) => {
     console.log('Form values:', values)
@@ -66,7 +58,7 @@ const categoryOptions = computed(() => {
 })
 
 const wrapperClasses = [
-    "px-2 pt-2 pb-1 md:px-4"
+    "px-2 pt-2 pb-1 md:px-4",
 ]
 const formClasses = 'flex flex-col w-full space-y-4 max-w-4xl'
 const formSectionClasses = [

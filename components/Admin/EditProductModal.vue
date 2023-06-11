@@ -3,10 +3,10 @@ import { useAdminStore } from '~~/store/adminStore';
 
 const store = useAdminStore();
 
-const emit = defineEmits(['confirm', 'cancel'])
+const emit = defineEmits(['save', 'close'])
 
-const handleConfirm = () => emit('confirm')
-const handleCancel = () => emit('cancel')
+const handleSave = () => emit('save')
+const handleClose = () => emit('close')
 
 const wrapperClasses = [
     // 'border border-red-500',
@@ -14,7 +14,6 @@ const wrapperClasses = [
     'py-4 px-3 max-w-xl w-4/5 sm:w-5/6 md:w-3/4 lg:w-2/3 transition-opacity rounded-md',
     // 'border border-slate-400'
 ]
-const btnClasses = 'border border-slate-300 px-3 py-1 rounded-md'
 const overlayClasses = [
     // 'border border-blue-600',
     'z-50 fixed top-0 bottom-0 left-0 right-0 w-screen h-screen',
@@ -24,14 +23,9 @@ const overlayClasses = [
 
 <template>
     <div v-if="store.showEditProductModal" class="z-50">
-        <div :class="overlayClasses" @click="handleCancel" />
+        <div :class="overlayClasses" @click="handleClose" />
         <div :class="wrapperClasses">
             <AdminEditProductForm />
-
-            <!-- <div class="flex space-x-4 w-full justify-end z-50">
-                <button @click="handleCancel" :class="btnClasses">Cancel</button>
-                <button @click="handleConfirm" :class="btnClasses">Confirm</button>
-            </div> -->
         </div>
     </div>
 </template>

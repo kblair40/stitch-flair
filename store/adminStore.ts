@@ -112,7 +112,11 @@ export const useAdminStore = defineStore("admin", {
       }
     },
 
-    closeEditProductModal() {},
+    closeEditProductModal() {
+      console.log("closing...");
+      this.productToEdit = null;
+      this.showEditProductModal = false;
+    },
     async deleteCategory() {
       const id = this.categoryToDelete?.id;
       const idx = this.categoryToDelete?.idx;

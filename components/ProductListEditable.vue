@@ -70,6 +70,6 @@ const gridClasses = computed(() => {
         </div>
 
         <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" />
-        <AdminEditProductModal v-if="store.showEditProductModal" />
+        <AdminEditProductModal @close="store.closeEditProductModal" v-if="store.showEditProductModal" />
     </div>
 </template>
