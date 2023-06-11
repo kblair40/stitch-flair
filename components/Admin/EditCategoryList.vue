@@ -7,13 +7,21 @@ onBeforeMount(() => {
     if (!store.categories.data?.length) store.getCategories();
 })
 
-const categories = computed(() => {
-    return store.categories.data;
-})
+const categories = computed(() => store.categories.data);
 
 const handleClickDelete = (id: number, idx: number) => {
     console.log('Delete clicked')
     store.openConfirmModal('category', { id, idx })
+}
+
+const handleConfirmDelete = async () => {
+    try {
+        saving.value = editing.id;
+        const res = await useCustomFetch(`/category/${editing.id}`, { method: 'DELETE' });
+        console.log('DELETE RES:', res);
+    } catch (e) {
+        console.log('Failed to save edited category')
+    }
 }
 
 const handleClickCancelEdit = () => {
@@ -55,6 +63,7 @@ const handleClickSave = async () => {
     editing.title = null;
     initialEditVal.value = '';
 }
+
 const flexCenter = " flex justify-center items-center"
 const iconBtnClasses = "transition-colors duration-300 z-10 rounded-full border p-1"
 const trashBtnClasses = "bg-red-100 hover:bg-red-200 active:bg-red-300 h-7 w-7 " + iconBtnClasses
@@ -99,6 +108,6 @@ const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-1
             </div>
         </div>
 
-        <ModalConfirm />
+        <ModalConfirm @confirm="store.deleteCategory" @cancel="store.closeConfirmModal" />
     </div>
 </template>

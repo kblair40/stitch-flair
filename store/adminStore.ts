@@ -10,6 +10,7 @@ import type { Category, Product } from "~~/utils/types";
 export type ProductInfo = null | { id: number; idx: number };
 export type CategoryInfo = null | { id: number; idx: number };
 export type Info = null | { id: number; idx: number };
+type DeleteRes = { status?: number; affected?: number; message?: string };
 
 export const useAdminStore = defineStore("admin", {
   state: () => ({
@@ -89,6 +90,42 @@ export const useAdminStore = defineStore("admin", {
       this.showConfirmModal = false;
 
       if (this.deleting) this.deleting = null;
+    },
+    async deleteCategory() {
+      const id = this.categoryToDelete?.id;
+      const idx = this.categoryToDelete?.idx;
+      if (!id || typeof idx !== "number") return;
+
+      try {
+        this.showConfirmModal = false;
+        this.deleting = this.categoryToDelete;
+        const res = await useCustomFetch(`/category/${id}`, {
+          method: "DELETE",
+        });
+        const resVal = res.data.value as DeleteRes;
+        console.log("\nDelete res:", resVal.affected);
+        console.log("\nDelete res status:", resVal);
+        if (resVal && resVal.status && resVal.status !== 200) {
+          if (resVal.message) throw resVal.message;
+          else throw "Failed";
+        } else if (resVal && resVal.status && resVal.status === 200) {
+          console.log("Delete Success");
+        }
+
+        // copy categories, and delete from the copy
+        const curCategories = [...this.categories.data];
+        curCategories.splice(idx, 1);
+
+        this.categoryToDelete = null;
+        this.categories.data = curCategories;
+        this.deleting = null;
+
+        return true;
+      } catch (e) {
+        console.error(e);
+        this.deleting = null;
+        return false;
+      }
     },
     async deleteProduct() {
       const id = this.productToDelete?.id;
