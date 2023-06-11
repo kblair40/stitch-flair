@@ -9,23 +9,20 @@ const showSuccessToast = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
 const title = ref({ title: '' });
 const handleSubmit = async (formValues: any) => {
-    // console.log('Category Title:', title)
-    console.log('formValues:', formValues);
+    // console.log('formValues:', formValues);
+    const { title } = formValues;
     try {
-        if (!title.value) return;
+        if (!title) return;
         const res = await useCustomFetch('/category', {
             method: 'POST',
             body: { title },
         })
         console.log('Create Category Res:', res.data, '\n');
         showSuccessToast.value = true;
-        console.log('Show Success Toast Value:', showSuccessToast.value)
-        // title.value = '';
         reset('category-form');
 
         setTimeout(() => {
             showSuccessToast.value = false;
-            console.log('Show Succes Toast Value:', showSuccessToast.value)
         }, 3000)
 
     } catch (e) {
@@ -55,7 +52,6 @@ const formClasses = [
                 </div>
 
                 <div v-show="false" class="text-center h-2 relative bottom-2">
-                    <!-- <div class="text-center h-2 relative bottom-2"> -->
                     <FormKitMessages :node="formRef?.node" />
                 </div>
             </div>
