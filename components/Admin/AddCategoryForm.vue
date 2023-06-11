@@ -1,22 +1,14 @@
 <script lang="ts" setup>
-
-// @PrimaryGeneratedColumn()
-// id: number;
-// @Column({ unique: true })
-// title: string;
-// @OneToMany(() => Product, (product) => product.category)
-// products: Product[];
+import { reset } from '@formkit/core';
 
 defineEmits(['submit'])
 
-const baseURL = 'http://localhost:3001';
-const { data: categoryData, pending, error } = useFetch<{ id: string, title: string }[]>('/category', { baseURL });
-
 const showSuccessToast = ref(false);
-
-const title = ref('');
-const handleSubmit = async () => {
-    console.log('Category Title:', title)
+const formRef = ref<HTMLFormElement | null>(null);
+const title = ref({ title: '' });
+const handleSubmit = async (formValues: any) => {
+    // console.log('Category Title:', title)
+    console.log('formValues:', formValues);
     try {
         if (!title.value) return;
         const res = await useCustomFetch('/category', {
@@ -26,6 +18,8 @@ const handleSubmit = async () => {
         console.log('Create Category Res:', res.data, '\n');
         showSuccessToast.value = true;
         console.log('Show Succes Toast Value:', showSuccessToast.value)
+        // title.value = '';
+        reset('category-form');
 
         setTimeout(() => {
             showSuccessToast.value = false;
@@ -44,17 +38,19 @@ const formClasses = [
 </script>
 
 <template>
-        <div>
-            <Toast :visible="showSuccessToast">Saved Category</Toast>
+    <div>
+        <Toast :visible="showSuccessToast">Saved Category</Toast>
 
+        <FormKit v-model="title" ref="formRef" id="category-form" @submit="handleSubmit" type="form" :actions="false">
             <div :class="formClasses">
                 <div class="w-full">
-                    <FormKit v-model="title" label="Category Title" type="text" validation="required:trim|length:1,32" />
+                    <FormKit name="title" label="Category Title" type="text" validation="required:trim|length:1,32" />
                 </div>
 
                 <div class="w-full sm:w-40">
-                    <FormKit @click="handleSubmit" type="submit">Save</FormKit>
+                    <FormKit type="submit">Save</FormKit>
                 </div>
             </div>
-        </div>
+        </FormKit>
+    </div>
 </template>
