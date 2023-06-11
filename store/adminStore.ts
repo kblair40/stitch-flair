@@ -15,6 +15,8 @@ type DeleteRes = { status?: number; affected?: number; message?: string };
 export const useAdminStore = defineStore("admin", {
   state: () => ({
     showConfirmModal: false,
+    showEditProductModal: false,
+    productToEdit: null as Product | null,
     productToDelete: null as Info,
     categoryToDelete: null as Info,
     deleting: null as Info,
@@ -91,6 +93,26 @@ export const useAdminStore = defineStore("admin", {
 
       if (this.deleting) this.deleting = null;
     },
+    openEditProductModal(productInfo: Info) {
+      console.log("productInfo:", productInfo);
+      if (productInfo === null) return;
+      const { id, idx } = productInfo;
+      let productToEdit = [...this.products.data][idx];
+      if (productToEdit) {
+        if (productToEdit.id === id) {
+          this.productToEdit = productToEdit;
+          this.showEditProductModal = true;
+        } else {
+          console.error(
+            `Found product with id ${productToEdit.id}, but a product with id of ${id} was requested`
+          );
+        }
+      } else {
+        console.error("Could not find product");
+      }
+    },
+
+    closeEditProductModal() {},
     async deleteCategory() {
       const id = this.categoryToDelete?.id;
       const idx = this.categoryToDelete?.idx;

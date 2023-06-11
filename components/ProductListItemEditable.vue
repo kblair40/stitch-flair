@@ -31,6 +31,7 @@ const handleClickDelete = () => {
     store.openConfirmModal('product', { id: props.id, idx: props.idx });
 }
 const handleClickEdit = () => {
+    store.openEditProductModal({ id: props.id, idx: props.idx })
     console.log('Edit clicked')
 }
 </script>
