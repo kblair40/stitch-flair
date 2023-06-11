@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { reset } from '@formkit/core';
+import { FormKitMessages } from '@formkit/vue'
+
 
 defineEmits(['submit'])
 
@@ -17,7 +19,7 @@ const handleSubmit = async (formValues: any) => {
         })
         console.log('Create Category Res:', res.data, '\n');
         showSuccessToast.value = true;
-        console.log('Show Succes Toast Value:', showSuccessToast.value)
+        console.log('Show Success Toast Value:', showSuccessToast.value)
         // title.value = '';
         reset('category-form');
 
@@ -33,7 +35,7 @@ const handleSubmit = async (formValues: any) => {
 
 const formClasses = [
     "w-full flex flex-col space-y-4 items-end",
-    "sm:flex-row sm:space-x-4 sm:space-y-0"
+    "sm:flex-row sm:space-x-4 sm:space-y-0 sm:items-end",
 ]
 </script>
 
@@ -41,14 +43,20 @@ const formClasses = [
     <div>
         <Toast :visible="showSuccessToast">Saved Category</Toast>
 
-        <FormKit v-model="title" ref="formRef" id="category-form" @submit="handleSubmit" type="form" :actions="false">
+        <FormKit :errors="[]" v-model="title" ref="formRef" id="category-form" @submit="handleSubmit" type="form"
+            :actions="false">
             <div :class="formClasses">
-                <div class="w-full">
+                <div class="w-full h-18 max-h-18">
                     <FormKit name="title" label="Category Title" type="text" validation="required:trim|length:1,32" />
                 </div>
 
                 <div class="w-full sm:w-40">
-                    <FormKit type="submit">Save</FormKit>
+                    <FormKit type="submit" validation-visibility="">Save</FormKit>
+                </div>
+
+                <div v-show="false" class="text-center h-2 relative bottom-2">
+                    <!-- <div class="text-center h-2 relative bottom-2"> -->
+                    <FormKitMessages :node="formRef?.node" />
                 </div>
             </div>
         </FormKit>

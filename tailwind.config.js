@@ -156,6 +156,9 @@ module.exports = {
         70: "280px",
         75: "300px",
       },
+      maxHeight: {
+        18: "72px",
+      },
       zIndex: {
         60: "60",
         70: "70",
