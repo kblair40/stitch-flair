@@ -65,10 +65,8 @@ const handleSubmit = async (values: Product) => {
     } catch (e) {
         console.log('Failed to create product:', e)
     }
-    // setTimeout(() => {
-    //     console.log('loading = false')
+
     loading.value = false
-    // }, 1500);
 }
 
 const categoryOptions = computed(() => {
