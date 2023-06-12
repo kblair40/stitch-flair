@@ -5,9 +5,12 @@ import { useCustomFetch } from '~~/composables/useCustomFetch';
 import { useAdminStore } from '~~/store/adminStore';
 import type { Category, Product } from '~~/utils/types';
 
+type FormValue = string | number | boolean | null | undefined;
+
 const store = useAdminStore();
 
-const defaultFormValues = {
+const defaultFormValues: Product = {
+    id: 0,
     name: '',
     category_id: 1,
     description: '',
@@ -34,8 +37,15 @@ onBeforeMount(() => {
     initialFormValues.value = { ...newValues };
 })
 
-const handleSubmit = async (values: any) => {
+const handleSubmit = async (values: Product) => {
     console.log('Form values:', values)
+    const diffs: { [key: string]: FormValue } = {}
+    for (let key of Object.keys(values)) {
+        if (initialFormValues.value[key] !== formValues.value[key]) {
+            diffs[key] = formValues.value[key];
+        }
+    }
+
     try {
         const res = await useCustomFetch(`/product${values.id}`, {
             method: 'PATCH',
