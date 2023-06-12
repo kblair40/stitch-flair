@@ -46,16 +46,27 @@ const handleSubmit = async (values: Product) => {
         }
     }
 
+    console.log('DIFFS:', diffs);
+    if (!Object.keys(diffs).length) {
+        console.log('No form values seem to have changed');
+        return;
+    }
+
+    loading.value = true;
     try {
-        const res = await useCustomFetch(`/product${values.id}`, {
+        const res = await useCustomFetch(`/product/${values.id}`, {
             method: 'PATCH',
-            body: values,
+            body: diffs,
         })
-        console.log('Create Product Res:', res.data, '\n');
+        console.log('Update Product Res:', res.data.value, '\n');
 
     } catch (e) {
         console.log('Failed to create product:', e)
     }
+    setTimeout(() => {
+        console.log('loading = false')
+        loading.value = false
+    }, 1500);
 }
 
 const categoryOptions = computed(() => {
@@ -79,12 +90,14 @@ const formSectionClasses = [
     "flex flex-col space-y-4",
     // "lg:flex-row lg:space-x-4 lg:space-y-0"
 ]
+// :submit-attrs="{ 'data-loading': loading }"
+// submit-label="Save"
 </script>
 
 <template>
     <div :class="wrapperClasses">
-        <FormKit :disabled="loading" v-model="formValues" ref="formRef" :form-class="formClasses" type="form"
-            submit-label="Save" id="product-form" @submit="handleSubmit">
+        <FormKit :actions="false" :disabled="loading" v-model="formValues" ref="formRef" :form-class="formClasses"
+            type="form" id="product-form" @submit="handleSubmit">
             <div :class="formSectionClasses">
                 <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,32" />
                 <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
@@ -108,6 +121,13 @@ const formSectionClasses = [
                 <FormKit validation="required" name="image_url" label="Image URL" type="text" />
                 <FormKit validation="required" name="etsy_url" label="Etsy URL" type="text" />
             </div>
+
+            <FormKit type="submit" :data-loading="loading">
+                <div v-if="loading" class="flex justify-center">
+                    <img class="animate-spin" src="/icons/loading.svg" />
+                </div>
+                <p v-else>Save</p>
+            </FormKit>
 
             <div class="text-center h-2 relative bottom-2">
                 <FormKitMessages :node="formRef?.node" />

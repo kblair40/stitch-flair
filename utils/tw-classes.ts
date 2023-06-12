@@ -4,6 +4,13 @@ const borderClasses = [
   "focus-within:border-gray-400 focus-within:hover:border-gray-400",
 ].join(" ");
 
+const buttonLoadingClasses = [
+  "formkit-loading:before:animate-spin",
+  // "formkit-loading:before:w-4 formkit-loading:before:h-4 formkit-loading:before:mr-2",
+  // "formkit-loading:before:border formkit-loading:before:border-2 formkit-loading:before:border-r-transparent",
+  // "formkit-loading:before:rounded-3xl formkit-loading:before:border-white formkit-loading:before:animate-spin",
+];
+
 const classes = {
   global: {
     outer: "formkit-disabled:opacity-60 w-full",
@@ -27,8 +34,7 @@ const classes = {
     label: "w-max",
   },
   "family:button": {
-    input:
-      "rounded-md w-full bg-emoryblue hover:bg-emoryblue-600 active:bg-emoryblue-700 font-medium tracking-wide py-2 px-6 rounded focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-1 formkit-disabled:bg-gray-400 formkit-loading:before:w-4 formkit-loading:before:h-4 formkit-loading:before:mr-2 formkit-loading:before:border formkit-loading:before:border-2 formkit-loading:before:border-r-transparent formkit-loading:before:rounded-3xl formkit-loading:before:border-white formkit-loading:before:animate-spin",
+    input: `rounded-md w-full bg-emoryblue hover:bg-emoryblue-600 active:bg-emoryblue-700 font-medium tracking-wide py-2 px-6 rounded focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-1 formkit-disabled:bg-gray-400 ${buttonLoadingClasses}`,
     wrapper: "mb-1",
     prefixIcon: "$reset block w-4 -ml-2 mr-2 stretch",
     suffixIcon: "$reset block w-4 ml-2 stretch",
@@ -45,7 +51,7 @@ const classes = {
   },
   submit: {
     input:
-      "border border-whitepeach-300 transition-colors duration-300 w-1/2 mx-auto py-2 px-6 rounded-md bg-lightpeach-50 hover:bg-lightpeach-100 active:bg-lightpeach-200",
+      "border border-whitepeach-300 transition-colors duration-300 mx-auto py-2 px-6 rounded-md bg-lightpeach-50 hover:bg-lightpeach-100 active:bg-lightpeach-200",
     label: "text-lg font-medium text-slate-100",
   },
 };
