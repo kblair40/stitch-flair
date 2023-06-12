@@ -1,4 +1,5 @@
 export interface Product {
+  [key: string]: string | number | boolean | null | undefined;
   id: number;
   price: string;
   image_url: string;
