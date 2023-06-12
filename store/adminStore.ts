@@ -17,6 +17,7 @@ export const useAdminStore = defineStore("admin", {
     showConfirmModal: false,
     showEditProductModal: false,
     productToEdit: null as Product | null,
+    productToEditIdx: null as number | null,
     productToDelete: null as Info,
     categoryToDelete: null as Info,
     deleting: null as Info,
@@ -101,6 +102,7 @@ export const useAdminStore = defineStore("admin", {
       if (productToEdit) {
         if (productToEdit.id === id) {
           this.productToEdit = productToEdit;
+          this.productToEditIdx = idx;
           this.showEditProductModal = true;
         } else {
           console.error(
@@ -111,7 +113,15 @@ export const useAdminStore = defineStore("admin", {
         console.error("Could not find product");
       }
     },
+    updateProducts(productVals: Product) {
+      if (!productVals || typeof this.productToEditIdx !== "number") return;
+      let products = [...this.products.data];
+      let product = products[this.productToEditIdx];
+      if (!product) return console.log("\nNo product to update");
 
+      products[this.productToEditIdx] = productVals;
+      this.products.data = products;
+    },
     closeEditProductModal() {
       console.log("closing...");
       this.productToEdit = null;

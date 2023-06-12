@@ -60,13 +60,15 @@ const handleSubmit = async (values: Product) => {
         })
         console.log('Update Product Res:', res.data.value, '\n');
 
+        // Replaces now outdated product in adminStore with new values
+        store.updateProducts(values);
     } catch (e) {
         console.log('Failed to create product:', e)
     }
-    setTimeout(() => {
-        console.log('loading = false')
-        loading.value = false
-    }, 1500);
+    // setTimeout(() => {
+    //     console.log('loading = false')
+    loading.value = false
+    // }, 1500);
 }
 
 const categoryOptions = computed(() => {
