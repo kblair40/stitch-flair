@@ -5,7 +5,6 @@ const store = useAdminStore();
 
 const emit = defineEmits(['save', 'close'])
 
-const handleSave = () => emit('save')
 const handleClose = () => emit('close')
 
 const wrapperClasses = [

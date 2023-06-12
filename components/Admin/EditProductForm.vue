@@ -88,10 +88,7 @@ const wrapperClasses = [
 const formClasses = 'flex flex-col w-full space-y-4 max-w-4xl'
 const formSectionClasses = [
     "flex flex-col space-y-4",
-    // "lg:flex-row lg:space-x-4 lg:space-y-0"
 ]
-// :submit-attrs="{ 'data-loading': loading }"
-// submit-label="Save"
 </script>
 
 <template>
