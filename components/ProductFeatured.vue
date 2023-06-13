@@ -1,16 +1,23 @@
 <script lang="ts" setup>
 interface Props {
-    title: string;
-    imgUrl: string;
-    price: number;
+    [key: string]: string | number | boolean | null | undefined;
+    price: string;
+    image_url: string;
+    name: string;
+    category_id: number;
+    description?: string;
+    featured: boolean;
+    on_sale: boolean;
+    on_sale_price?: null | string;
+    etsy_url?: string;
 }
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const cardClasses = [
-    // "bg-blue-200", 
-    "z-20 sm:mr-4 p-2",
-    "bg-white",
-    "cursor-pointer group rounded-md",
+    // "z-20 sm:mr-4 p-2 bg-white",
+    // "cursor-pointer group rounded-md",
+    'z-20 p-2 bg-white shadow-sm min-w-75 w-75 max-w-75',
+    "cursor-pointer group rounded-md"
 ]
 const imgWrapperClasses = [
     "overflow-hidden",
@@ -21,6 +28,14 @@ const imgClasses = [
     "group-hover:scale-105",
     "transition-transform duration-300"
 ]
+
+const nameClasses = 'font-medium mt-2 line-clamp-2 max-w-fit'
+const onSaleClasses = 'italic text-sm ml-1 opacity-100 text-darkpeach'
+const salePriceClasses = '';
+
+const priceClasses = computed(() => ([
+    props.on_sale ? 'line-through opacity-100 decoration-darkpeach/75 decoration-2 mr-3' : ''
+]))
 </script>
 
 <template>

@@ -26,8 +26,7 @@ const products = [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT];
                 FEATURED PRODUCTS
             </h2>
             <div :class="featuredProductClasses">
-                <ProductFeatured v-for="product, i in products" :key="i" :price="product.price" :title="product.title"
-                    :imgUrl="product.imgUrl" />
+                <ProductFeatured v-for="product, i in products" :key="i" v-bind="product" />
             </div>
         </div>
     </Page>
