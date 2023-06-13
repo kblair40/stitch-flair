@@ -2,8 +2,12 @@
 import { reset } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
 
+import type { Category } from '~~/utils/types';
+import { useAdminStore } from '~~/store/adminStore';
 
 defineEmits(['submit'])
+
+const store = useAdminStore();
 
 const showSuccessToast = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
@@ -15,9 +19,10 @@ const handleSubmit = async (formValues: any) => {
         if (!title) return;
         const res = await useCustomFetch('/category', {
             method: 'POST',
-            body: { title },
+            body: { title: title.toLowerCase().trim() },
         })
-        console.log('Create Category Res:', res.data, '\n');
+        console.log('Create Category Res:', res.data.value, '\n');
+        store.addCategory(res.data.value as Category);
         showSuccessToast.value = true;
         reset('category-form');
 

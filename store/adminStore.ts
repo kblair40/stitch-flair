@@ -72,6 +72,9 @@ export const useAdminStore = defineStore("admin", {
         return;
       }
     },
+    addCategory(category: Category) {
+      this.categories.data.push(category);
+    },
     updateCategory(id: number, title: string) {
       const foundCategory = this.categories.data.find((category: Category) => {
         return category.id === id;
