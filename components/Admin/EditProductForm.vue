@@ -7,6 +7,7 @@ import type { Category, Product } from '~~/utils/types';
 
 type FormValue = string | number | boolean | null | undefined;
 
+const emit = defineEmits(['done']);
 const store = useAdminStore();
 
 const defaultFormValues: Product = {
@@ -62,6 +63,7 @@ const handleSubmit = async (values: Product) => {
 
         // Replaces now outdated product in adminStore with new values
         store.updateProducts(values);
+        emit('done')
     } catch (e) {
         console.log('Failed to create product:', e)
     }

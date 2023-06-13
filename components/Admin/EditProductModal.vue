@@ -24,7 +24,7 @@ const overlayClasses = [
     <div v-if="store.showEditProductModal" class="z-50">
         <div :class="overlayClasses" @click="handleClose" />
         <div :class="wrapperClasses">
-            <AdminEditProductForm />
+            <AdminEditProductForm @done="handleClose" />
         </div>
     </div>
 </template>

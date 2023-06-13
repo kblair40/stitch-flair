@@ -2,6 +2,8 @@
 import { reset } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
 
+import { toTitleCase } from '~~/utils/helpers';
+
 defineEmits(['submit'])
 
 const imageUrls = [
@@ -89,7 +91,8 @@ const saveDummyProduct = async () => {
 const categoryOptions = computed(() => {
     if (categoryData.value) {
         return categoryData.value.map(option => {
-            return { label: option.title, value: option.id }
+            return { label: toTitleCase(option.title), value: option.id }
+            // return { label: option.title, value: option.id }
         })
     }
     return [];
