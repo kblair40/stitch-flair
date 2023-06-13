@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useAdminStore } from '~~/store/adminStore';
+import { toTitleCase } from '~~/utils/helpers'
+import type { Category } from '~~/utils/types';
 
 const store = useAdminStore();
 
@@ -7,7 +9,9 @@ onBeforeMount(() => {
     if (!store.categories.data?.length) store.getCategories();
 })
 
-const categories = computed(() => store.categories.data);
+const categories = computed(() => store.categories.data.map((cat: Category) => {
+    return { ...cat, title: toTitleCase(cat.title) };
+}));
 
 const handleClickDelete = (id: number, idx: number) => {
     store.openConfirmModal('category', { id, idx })
