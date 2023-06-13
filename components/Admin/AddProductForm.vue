@@ -3,6 +3,7 @@ import { reset } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
 
 import { toTitleCase } from '~~/utils/helpers';
+import type { Product } from '~~/utils/types';
 
 defineEmits(['submit'])
 
@@ -32,7 +33,8 @@ const { data: categoryData, pending, error } = useFetch<{ id: string, title: str
 
 const showSuccessToast = ref(false);
 
-const formValues = ref({
+// const formValues = ref<Partial<Product>>({
+const formValues = ref<Omit<Product, "id">>({
     name: '',
     category_id: 1,
     description: '',
@@ -150,7 +152,8 @@ const formSectionClasses = [
 
             <div class="flex flex-col mt-8 md:mt-0">
                 <h4 class="text-xl font-medium mb-1 text-center">Preview</h4>
-                <ProductPreview :name="formValues.name" :img-url="formValues.image_url" :price="formValues.price" />
+                <ProductPreview v-bind="formValues" />
+                <!-- <ProductPreview :name="formValues.name" :img-url="formValues.image_url" :price="formValues.price" /> -->
             </div>
 
         </div>
