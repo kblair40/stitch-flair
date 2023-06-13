@@ -43,7 +43,9 @@ const formValues = ref({
     image_url: '',
     etsy_url: '',
 })
+
 const handleSubmit = async (values: any) => {
+    values = { ...values, name: values.name.toLowerCase().trim() }
     console.log('Form values:', values)
     try {
         const res = await useCustomFetch('/product', {
