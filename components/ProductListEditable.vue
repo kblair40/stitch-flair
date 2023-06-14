@@ -2,7 +2,6 @@
 import { useAdminStore } from '~~/store/adminStore';
 import type { Product, Category } from '~/utils/types'
 
-// const config = useRuntimeConfig();
 const store = useAdminStore();
 store.getProducts();
 store.getCategories();
@@ -11,13 +10,7 @@ const productList = computed(() => {
     const products = store.categoryProducts;
     if (products && Array.isArray(products) && products.length) {
         // console.log('Products:', products);
-        return products.map((product: Product, i: number) => ({
-            name: product.name,
-            image_url: product.image_url,
-            price: product.price,
-            id: product.id,
-            idx: i,
-        }))
+        return products.map((product: Product, i: number) => ({ ...product, idx: i }))
     }
 
     return [];
