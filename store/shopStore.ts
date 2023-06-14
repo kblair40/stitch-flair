@@ -2,10 +2,6 @@ import { defineStore } from "pinia";
 
 import { categories as categoryList } from "~/utils/constants";
 
-const toTitleCase = (str: string) => {
-  return str[0].toUpperCase() + str.slice(1).toLowerCase();
-};
-
 export const useShopStore = defineStore("shop", {
   state: () => ({
     selectedCategory: "All",
