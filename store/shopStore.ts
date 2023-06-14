@@ -20,8 +20,17 @@ export const useShopStore = defineStore("shop", {
       error: false,
       data: [] as Category[],
     },
+    category: null as number | null,
   }),
   getters: {
+    categoryProducts(state) {
+      if (!state.category) return state.products.data;
+      let products = state.products.data.filter((prod: Product) => {
+        return prod.category_id === state.category;
+      });
+
+      return products;
+    },
     // categories(state) {
     //   return categoryList.map((cat) => {
     //     return { label: cat, qty: Math.floor(Math.random() * 30) };
