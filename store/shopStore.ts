@@ -31,6 +31,9 @@ export const useShopStore = defineStore("shop", {
 
       return products;
     },
+    featuredProducts(state) {
+      return state.products.data.filter((product) => product.featured);
+    },
     // categories(state) {
     //   return categoryList.map((cat) => {
     //     return { label: cat, qty: Math.floor(Math.random() * 30) };

@@ -1,11 +1,17 @@
 <script lang="ts" setup>
-import { DUMMY_PRODUCT } from '../utils/constants';
+// import { DUMMY_PRODUCT } from '../utils/constants';
+import { useShopStore } from '~~/store/shopStore';
+
+const store = useShopStore();
+store.getProducts();
+store.getCategories();
 
 const featuredProductClasses = [
     "w-full",
     "mt-4 flex flex-wrap justify-center",
+    "space-y-4 md:space-y-0 md:space-x-4"
 ]
-const products = [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT];
+// const products = [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT];
 </script>
 
 <template>
@@ -26,7 +32,7 @@ const products = [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT];
                 FEATURED PRODUCTS
             </h2>
             <div :class="featuredProductClasses">
-                <ProductFeatured v-for="product, i in products" :key="i" v-bind="product" />
+                <ProductCard v-for="product, i in store.featuredProducts" :key="i" v-bind="product" />
             </div>
         </div>
     </Page>
