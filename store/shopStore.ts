@@ -41,9 +41,12 @@ export const useShopStore = defineStore("shop", {
     // },
   },
   actions: {
-    setSelectedCategory(category: string) {
-      this.selectedCategory = category;
+    setSelectedCategory(category: number) {
+      this.category = category;
     },
+    // setSelectedCategory(category: string) {
+    //   this.selectedCategory = category;
+    // },
     async getProducts() {
       try {
         this.products.loading = true;
