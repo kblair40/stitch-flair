@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import { useShopStore } from '../store/shopStore';
+import { useShopStore } from '~~/store/shopStore';
+import { toTitleCase } from '~~/utils/helpers';
 
 const store = useShopStore();
+store.getCategories();
 
 const listClasses = [
     "flex flex-col w-full",
@@ -26,7 +28,15 @@ const selectedItemClasses = [
 
 <template>
     <div :class="listClasses">
-        <div 
+        MENU
+        <div v-for="category, i in store.categories.data" :key="i"
+            :class="store.category === category.id ? selectedItemClasses : itemClasses"
+            @click="store.setSelectedCategory(category.id)">
+            <p class="two-lines">{{ toTitleCase(category.title) }}</p>
+
+            <!-- <p class="ml-3 lg:ml-4 sm:hidden md:inline">{{ category.qty }}</p> -->
+        </div>
+        <!-- <div 
             :class="store.selectedCategory === category.label ? selectedItemClasses : itemClasses" 
             @click="store.setSelectedCategory(category.label)" 
             v-for="category, i in store.categories" 
@@ -35,16 +45,17 @@ const selectedItemClasses = [
             <p class="two-lines">{{ category.label }}</p>
 
             <p class="ml-3 lg:ml-4 sm:hidden md:inline">{{ category.qty }}</p>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <style lang="css" scoped>
 .two-lines {
-   overflow: hidden;
-   display: -webkit-box;
-   -webkit-line-clamp: 2; /* number of lines to show */
-           line-clamp: 2; 
-   -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 </style>
