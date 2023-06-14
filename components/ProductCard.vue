@@ -2,7 +2,6 @@
 import { toTitleCase } from '~~/utils/helpers';
 
 interface Props {
-    [key: string]: string | number | boolean | null | undefined;
     price: string;
     image_url: string;
     name: string;
@@ -12,6 +11,7 @@ interface Props {
     on_sale: boolean;
     on_sale_price?: null | string;
     etsy_url?: string;
+    preview?: boolean;
 }
 const props = defineProps<Props>();
 
@@ -32,16 +32,17 @@ const priceClasses = computed(() => ([
     props.on_sale ? 'line-through opacity-100 decoration-darkpeach/75 decoration-2 mr-3' : ''
 ]))
 
+const formatPrice = (price: string | null) => {
+    return price ? parseFloat(price).toFixed(2) : '';
+}
+
 const percentDiscount = computed(() => {
     if (!props.price || !props.on_sale_price || !props.on_sale) return '';
 
     // slice(1) removes '$' so value can be parsed by parseFloat
-    const price = typeof props.price === 'string'
-        ? parseFloat(props.price.slice(1))
-        : 0;
-    const salePrice = typeof props.on_sale_price === 'string'
-        ? parseFloat(props.on_sale_price.slice(1))
-        : 0;
+    const price = props.preview ? parseFloat(props.price) : parseFloat(props.price.slice(1));
+    const salePrice = props.preview ? parseFloat(props.on_sale_price) : parseFloat(props.on_sale_price.slice(1));
+
     const discountPercent = (price - salePrice) / price;
 
     return Math.floor(discountPercent * 100) + '%';
@@ -56,11 +57,13 @@ const percentDiscount = computed(() => {
 
         <p :class="nameClasses">{{ toTitleCase(name) }}</p>
         <div class="flex">
-            <p :class="priceClasses" class="font-semibold mt-1">{{ price }}</p>
+            <p v-if="!preview" :class="priceClasses" class="font-semibold mt-1">{{ price }}</p>
+            <p v-else :class="priceClasses" class="font-semibold mt-1">${{ formatPrice(price) }}</p>
 
             <p v-if="on_sale" :class="salePriceClasses" class="font-semibold mt-1">
-                {{ props.on_sale_price }}
-                <span :class="onSaleClasses">{{ percentDiscount }} off!</span>
+                {{ preview && on_sale_price ? `$${formatPrice(on_sale_price)}` : on_sale_price ? on_sale_price : '' }}
+                <span v-if="!preview" :class="onSaleClasses">{{ percentDiscount }} off!</span>
+                <span v-else :class="onSaleClasses">{{ percentDiscount }} off!</span>
             </p>
         </div>
 

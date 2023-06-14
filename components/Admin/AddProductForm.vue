@@ -96,7 +96,6 @@ const categoryOptions = computed(() => {
     if (categoryData.value) {
         return categoryData.value.map(option => {
             return { label: toTitleCase(option.title), value: option.id }
-            // return { label: option.title, value: option.id }
         })
     }
     return [];
@@ -152,8 +151,7 @@ const formSectionClasses = [
 
             <div class="flex flex-col mt-8 md:mt-0">
                 <h4 class="text-xl font-medium mb-1 text-center">Preview</h4>
-                <ProductPreview v-bind="formValues" />
-                <!-- <ProductPreview :name="formValues.name" :img-url="formValues.image_url" :price="formValues.price" /> -->
+                <ProductCard v-bind="formValues" :preview="true" />
             </div>
 
         </div>
