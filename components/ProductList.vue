@@ -1,21 +1,8 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
-
-import { DUMMY_PRODUCT } from '~~/utils/constants';
 import { useShopStore } from '~~/store/shopStore';
 
-// const config = useRuntimeConfig();
-
-const store = useShopStore()
-
-const products = computed(() => {
-    const category = store.selectedCategory;
-    const catObj = store.categories.find(cat => cat.label === category);
-
-    return catObj
-        ? new Array(catObj.qty).map((_) => DUMMY_PRODUCT)
-        : []
-})
+const store = useShopStore();
+store.getProducts();
 
 const gridClasses = [
     'flex flex-col items-center space-y-4 md:space-y-0',
@@ -29,7 +16,7 @@ const gridClasses = [
     <div class="relative">
         <div class="flex justify-center">
             <div :class="gridClasses">
-                <ProductListItem v-bind="DUMMY_PRODUCT" v-for="product in products" />
+                <ProductCard v-for="product in store.categoryProducts" v-bind="product" />
             </div>
         </div>
     </div>
