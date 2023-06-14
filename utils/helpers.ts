@@ -3,7 +3,8 @@ export const toTitleCase = (str: string) => {
     .toLowerCase()
     .split(" ")
     .map(function (word) {
-      return word.replace(word[0], word[0].toUpperCase());
+      console.log("WORD:", word, typeof word);
+      return word ? word.replace(word[0], word[0].toUpperCase()) : "";
     })
     .join(" ");
 };
