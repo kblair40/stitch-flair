@@ -2,14 +2,10 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 import type { Product, Category } from "~~/utils/types";
-// import { categories as categoryList } from "~/utils/constants";
 
 export const useShopStore = defineStore("shop", {
   state: () => ({
     selectedCategory: "All",
-    // categories: categoryList.concat(categoryList).map((cat) => {
-    //   return { label: cat, qty: Math.floor(Math.random() * 30) };
-    // }),
     products: {
       loading: false,
       error: false,
@@ -20,7 +16,7 @@ export const useShopStore = defineStore("shop", {
       error: false,
       data: [] as Category[],
     },
-    category: null as number | null,
+    category: 0 as number | null,
   }),
   getters: {
     categoryProducts(state) {
@@ -34,19 +30,11 @@ export const useShopStore = defineStore("shop", {
     featuredProducts(state) {
       return state.products.data.filter((product) => product.featured);
     },
-    // categories(state) {
-    //   return categoryList.map((cat) => {
-    //     return { label: cat, qty: Math.floor(Math.random() * 30) };
-    //   });
-    // },
   },
   actions: {
-    setSelectedCategory(category: number) {
+    setSelectedCategory(category: number | null) {
       this.category = category;
     },
-    // setSelectedCategory(category: string) {
-    //   this.selectedCategory = category;
-    // },
     async getProducts() {
       try {
         this.products.loading = true;
@@ -66,7 +54,8 @@ export const useShopStore = defineStore("shop", {
         this.categories.loading = true;
         const res = await axios.get("http://localhost:3001/category");
         console.log("\n\nCategories res:", res.data, "\n\n");
-        if (res.data) this.categories.data = res.data;
+        if (res.data)
+          this.categories.data = [{ title: "All", id: 0 }, ...res.data];
         this.categories.loading = false;
         this.categories.error = false;
       } catch (e) {

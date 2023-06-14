@@ -36,16 +36,6 @@ const selectedItemClasses = [
 
             <!-- <p class="ml-3 lg:ml-4 sm:hidden md:inline">{{ category.qty }}</p> -->
         </div>
-        <!-- <div 
-            :class="store.selectedCategory === category.label ? selectedItemClasses : itemClasses" 
-            @click="store.setSelectedCategory(category.label)" 
-            v-for="category, i in store.categories" 
-            :key="i"
-        >
-            <p class="two-lines">{{ category.label }}</p>
-
-            <p class="ml-3 lg:ml-4 sm:hidden md:inline">{{ category.qty }}</p>
-        </div> -->
     </div>
 </template>
 
