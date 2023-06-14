@@ -55,6 +55,7 @@ const gridClasses = computed(() => {
 
             <div :class="gridClasses" v-else-if="productList.length">
                 <ProductListItemEditable v-for="product in productList" v-bind="product" />
+                <!-- <ProductCard v-for="product in productList" v-bind="product" /> -->
             </div>
 
             <div v-else-if="!productList.length">

@@ -16,28 +16,9 @@ interface Props {
     idx: number;
 }
 
-// interface Props {
-//     name: string;
-//     image_url: string;
-//     price: string;
-//     id: number;
-//     idx: number;
-// }
 const props = defineProps<Props>();
 
 const store = useAdminStore();
-
-const cardClasses = [
-    'z-10 p-2 bg-white relative',
-    "min-w-75 w-75 max-w-75",
-    "cursor-pointer group rounded-md",
-]
-const imgWrapperClasses = "overflow-hidden w-full h-auto sm:h-56 lg:h-64";
-const imgClasses = [
-    "object-cover h-full rounded-sm",
-    "group-hover:scale-105",
-    "transition-transform duration-300"
-]
 const iconBtnClasses = "transition-colors duration-300 z-10 rounded-full h-7 w-7 flex justify-center items-center"
 const deleteBtnClasses = "bg-red-100 hover:bg-red-200 active:bg-red-300 " + iconBtnClasses;
 const editBtnClasses = "bg-white hover:bg-slate-100 active:bg-slate-200 " + iconBtnClasses;

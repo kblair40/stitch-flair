@@ -39,9 +39,13 @@ const formatPrice = (price: string | null) => {
 const percentDiscount = computed(() => {
     if (!props.price || !props.on_sale_price || !props.on_sale) return '';
     const price = typeof props.price === 'string' ? parseFloat(props.price) : 0;
+    console.log('price:', price)
     const salePrice = typeof props.on_sale_price === 'string' ? parseFloat(props.on_sale_price) : 0;
+    console.log('salePrice:', salePrice)
     const discountAmount = price - salePrice;
+    console.log('discountAmount:', discountAmount)
     const discountPercent = discountAmount / price;
+    console.log('discountPercent:', discountPercent)
     // const discountPercent = price / discountAmount;
     return Math.floor(discountPercent * 100) + '%';
 })
