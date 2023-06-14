@@ -32,21 +32,18 @@ const priceClasses = computed(() => ([
     props.on_sale ? 'line-through opacity-100 decoration-darkpeach/75 decoration-2 mr-3' : ''
 ]))
 
-const formatPrice = (price: string | null) => {
-    console.log('Formatting', price, typeof price)
-    return price ? parseFloat(price).toFixed(2) : '';
-}
 const percentDiscount = computed(() => {
     if (!props.price || !props.on_sale_price || !props.on_sale) return '';
-    const price = typeof props.price === 'string' ? parseFloat(props.price) : 0;
-    console.log('price:', price)
-    const salePrice = typeof props.on_sale_price === 'string' ? parseFloat(props.on_sale_price) : 0;
-    console.log('salePrice:', salePrice)
-    const discountAmount = price - salePrice;
-    console.log('discountAmount:', discountAmount)
-    const discountPercent = discountAmount / price;
-    console.log('discountPercent:', discountPercent)
-    // const discountPercent = price / discountAmount;
+
+    // slice(1) removes '$' so value can be parsed by parseFloat
+    const price = typeof props.price === 'string'
+        ? parseFloat(props.price.slice(1))
+        : 0;
+    const salePrice = typeof props.on_sale_price === 'string'
+        ? parseFloat(props.on_sale_price.slice(1))
+        : 0;
+    const discountPercent = (price - salePrice) / price;
+
     return Math.floor(discountPercent * 100) + '%';
 })
 </script>
@@ -62,7 +59,7 @@ const percentDiscount = computed(() => {
             <p :class="priceClasses" class="font-semibold mt-1">{{ price }}</p>
 
             <p v-if="on_sale" :class="salePriceClasses" class="font-semibold mt-1">
-                ${{ formatPrice(on_sale_price) }}
+                {{ props.on_sale_price }}
                 <span :class="onSaleClasses">{{ percentDiscount }} off!</span>
             </p>
         </div>

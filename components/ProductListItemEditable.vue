@@ -15,7 +15,6 @@ interface Props {
     id: number;
     idx: number;
 }
-
 const props = defineProps<Props>();
 
 const store = useAdminStore();
