@@ -33,7 +33,7 @@ const selectedItemClasses = [
             @click="store.setSelectedCategory(category.id)">
             <p class="two-lines">{{ toTitleCase(category.title) }}</p>
 
-            <!-- <p class="ml-3 lg:ml-4 sm:hidden md:inline">{{ category.qty }}</p> -->
+            <p class="ml-3 lg:ml-4 sm:hidden md:inline text-sm text-gray-500">{{ category.products?.length || '' }}</p>
         </div>
     </div>
 </template>
