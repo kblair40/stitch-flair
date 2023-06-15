@@ -103,7 +103,7 @@ const categoryOptions = computed(() => {
 const formWrapperClasses = [
     // "border border-red-300",
     "flex flex-col items-center md:flex-row md:items-start md:justify-center",
-    "w-full pt-6 md:space-x-6 lg:px-4 xl:px-8"
+    "w-full pt-6 md:space-x-6 lg:space-x-12 lg:px-4 xl:px-8"
 ]
 const formClasses = 'flex flex-col w-full space-y-4 max-w-4xl'
 const formSectionClasses = [
@@ -149,7 +149,7 @@ const formSectionClasses = [
             </FormKit>
 
 
-            <div class="flex flex-col mt-8 md:mt-0">
+            <div class="flex flex-col mt-8 md:mt-0 min-w-75">
                 <h4 class="text-xl font-medium mb-1 text-center">Preview</h4>
                 <ProductCard v-bind="formValues" :preview="true" />
             </div>
