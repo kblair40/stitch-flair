@@ -44,26 +44,16 @@ const observerClasses = computed(() => ([
     "border-transparent",
     // store.isIntersecting ? "border-blue-500" : "border-red-500"
 ]))
-
-const rootClasses = [
-    ""
-    // "border border-green-500",
-    // isIntersecting ? "border-green-500" : "border-red-500"
-]
 </script>
 
 <template>
     <div class="min-h-screen flex flex-column">
 
-        <div :class="rootClasses" id="observerRoot" class="main-content min-h-screen flex flex-col justify-between">
+        <!-- <div :class="rootClasses" id="observerRoot" class="main-content min-h-screen flex flex-col justify-between"> -->
+        <div :class="rootClasses" id="observerRoot" class="main-content min-h-screen flex flex-col">
             <div :class="observerClasses" id="intersectionObserver" />
-            <slot></slot>
 
-            <!-- <div :class="observerClasses" id="intersectionObserver">
-                <div>
-                    <slot></slot>
-                </div>
-            </div> -->
+            <slot></slot>
 
             <p class="pt-10 mb-1.5 text-center text-sm">
                 &#169; Stitch Flair {{ new Date().getFullYear() }}
@@ -76,7 +66,6 @@ const rootClasses = [
 
 <style lang="css" scoped>
 .main-content {
-    /* border: 1px solid red; */
     overflow-y: auto;
     position: absolute;
     top: 160px;
