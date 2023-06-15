@@ -17,7 +17,7 @@ const categoryClasses = [
     <div class="flex flex-col items-center h-screen overflow-y-auto">
         <div class="tabs-container border border-red-200">
             <div class="tabs-container fixed top-0 pt-2 pb-0 left-1/2 -translate-x-1/2 border w-screen bg-white">
-                <Tabs defaultTab="Edit Products" @change="(tab) => activeTab = tab" :tabLabels="tabLabels" />
+                <Tabs defaultTab="Edit Products" @change="(tab: string) => activeTab = tab" :tabLabels="tabLabels" />
             </div>
         </div>
 
