@@ -14,13 +14,16 @@ interface Props {
     preview?: boolean;
 }
 const props = defineProps<Props>();
-
 const cardClasses = [
-    'z-20 p-2 bg-white shadow-sm min-w-75 w-75 max-w-75',
+    // "border border-blue-200",
+    // xs = 320px
+    'w-full max-w-xs md:max-w-75',
+    'z-20 p-2 bg-white shadow-sm',
     "relative cursor-pointer group rounded-md",
 ]
-const imgWrapperClasses = "overflow-hidden w-full h-auto sm:h-56 lg:h-64"
+const imgWrapperClasses = "overflow-hidden w-full h-56 sm:h-56 lg:h-64"
 const imgClasses = [
+    // "border border-red-200",
     "object-cover h-full rounded-sm group-hover:scale-105",
     "transition-transform duration-300"
 ]
@@ -56,11 +59,11 @@ const percentDiscount = computed(() => {
         </div>
 
         <p :class="nameClasses">{{ toTitleCase(name) }}</p>
-        <div class="flex">
-            <p v-if="!preview" :class="priceClasses" class="font-semibold mt-1">{{ price }}</p>
-            <p v-else :class="priceClasses" class="font-semibold mt-1">${{ formatPrice(price) }}</p>
+        <div class="flex mt-1 font-semibold text-no-wrap h-6 overflow-hidden">
+            <p v-if="!preview" :class="priceClasses">{{ price }}</p>
+            <p v-else :class="priceClasses">${{ formatPrice(price) }}</p>
 
-            <p v-if="on_sale" :class="salePriceClasses" class="font-semibold mt-1">
+            <p v-if="on_sale" :class="salePriceClasses">
                 {{ preview && on_sale_price ? `$${formatPrice(on_sale_price)}` : on_sale_price ? on_sale_price : '' }}
                 <span v-if="!preview" :class="onSaleClasses">{{ percentDiscount }} off!</span>
                 <span v-else :class="onSaleClasses">{{ percentDiscount }} off!</span>
