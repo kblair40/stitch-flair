@@ -12,6 +12,7 @@ const tabInnerClasses = "py-2 px-3 flex items-center justify-center h-min whites
 const activeTabClasses = 'font-medium border-b border-purplegrey'
 
 const handleChangeTab = (tab: string) => {
+    console.log('new tab:', tab);
     activeTab.value = tab;
     emit('change', tab);
 }

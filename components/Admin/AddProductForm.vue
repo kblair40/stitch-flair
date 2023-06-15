@@ -37,7 +37,8 @@ const showSuccessToast = ref(false);
 // const formValues = ref<Partial<Product>>({
 const formValues = ref<Omit<Product, "id">>({
     name: '',
-    category_id: 1,
+    // category_id: -1,
+    category_id: -1,
     description: '',
     price: '',
     featured: false,
@@ -99,12 +100,13 @@ const categoryOptions = computed(() => {
         let options = store.categories.data.map(category => ({
             label: toTitleCase(category.title),
             value: category.id,
-            // productCount: category.products?.length || 0,
         }))
         console.log('CATEGORY OPTIONS:', options);
-        return options;
+        return [{ label: 'Select Category', value: -1 }, ...options.slice(1)];
     }
+    return [];
 })
+
 const formWrapperClasses = [
     // "border border-red-300",
     "flex flex-col items-center md:flex-row md:items-start md:justify-center",
