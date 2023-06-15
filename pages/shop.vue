@@ -1,12 +1,10 @@
 <script lang="ts" setup>
 const menuWrapperClasses = [
-    // "border border-blue-700",
     'hidden sm:block',
-    'h-full w-48 md:w-64 lg:w-76 lg:pl-2',
+    'h-full w-48 md:w-60 lg:w-68 lg:pl-2 xl:w-76',
 ]
 const mainContentClasses = [
-    // 'border border-red-500'
-    'px-4 md:px-6 w-full h-full',
+    'px-4 xl:px-6 w-full h-full',
 ]
 const menuAndContentWrapperClasses = "flex w-full h-full"
 </script>
