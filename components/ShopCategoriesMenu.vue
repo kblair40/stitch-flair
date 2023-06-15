@@ -12,7 +12,7 @@ const listClasses = [
 
 const itemClasses = [
     "flex items-center justify-between sm:pl-4 sm:pr-2 md:pr-6 md:pl-6",
-    "text-sm lg:text-mdsm font-medium",
+    "text-mdsm md:text-base font-medium",
     "w-full h-12 min-h-[40px] cursor-pointer",
     "cursor-pointer",
     "transition-colors duration-300 ease-in-out",
@@ -28,7 +28,6 @@ const selectedItemClasses = [
 
 <template>
     <div :class="listClasses">
-        MENU
         <div v-for="category, i in store.categories.data" :key="i"
             :class="store.category === category.id ? selectedItemClasses : itemClasses"
             @click="store.setSelectedCategory(category.id)">
