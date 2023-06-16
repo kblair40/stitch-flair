@@ -1,12 +1,26 @@
 <script lang="ts" setup>
-withDefaults(defineProps<{ text: string; color?: string }>(), {
+import type { PromoColor } from '~~/utils/types';
+
+const props = withDefaults(defineProps<{ text: string; color?: PromoColor }>(), {
     text: '',
     color: 'green',
 })
 
+const colorClasses: { [key: string]: string } = {
+    green: 'bg-green-300',
+    blue: 'bg-blue-300',
+    orange: 'bg-red-300', // TODO: Fix this with actual orange color
+    peach: 'bg-peach-300'
+}
+
+const classes = computed(() => ([
+    colorClasses[props.color],
+    'flex justify-center items-center rounded-full w-min px-3 py-1',
+    'leading-none whitespace-nowrap text-sm font-semibold'
+]))
 
 </script>
 
 <template>
-    <div class="w-10 h-6 rounded-full">{{ text }}</div>
+    <div :class="classes">{{ text }}</div>
 </template>
