@@ -17,3 +17,21 @@ export interface Category {
   title: string;
   products?: Product[];
 }
+
+export type PromoColor =
+  | "green"
+  | "red"
+  | "blue"
+  | "orange"
+  | "yellow"
+  | "purple"
+  | "peach";
+
+export interface Promotion {
+  id?: number;
+  text: string;
+  active: boolean;
+  color: PromoColor;
+  created_time?: string | Date;
+  updated_time?: string | Date;
+}
