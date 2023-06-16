@@ -20,7 +20,7 @@ const handleChangeTab = (tab: string) => {
 
 <template>
     <div class="w-full flex justify-center">
-        <div v-for="tabLabel in tabLabels" class="cursor-pointer h-min w-36" @click="handleChangeTab(tabLabel)">
+        <div v-for="tabLabel in tabLabels" class="cursor-pointer h-min w-48" @click="handleChangeTab(tabLabel)">
             <div :class="activeTab === tabLabel ? `${tabInnerClasses} ${activeTabClasses}` : tabInnerClasses">
                 {{ tabLabel }}
             </div>
