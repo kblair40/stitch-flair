@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 // import { useRuntimeConfig } from "nuxt/app";
 import axios from "axios";
 
-import type { Category, Product } from "~~/utils/types";
+import type { Category, Product, Promotion } from "~~/utils/types";
 
 // const config = useRuntimeConfig();
 // const BASE_URL = config.API_BASE_URL;
@@ -30,6 +30,11 @@ export const useAdminStore = defineStore("admin", {
       loading: false,
       error: false,
       data: [] as Category[],
+    },
+    promotions: {
+      loading: false,
+      error: false,
+      data: [] as Promotion[],
     },
     category: null as number | null,
   }),
@@ -74,6 +79,9 @@ export const useAdminStore = defineStore("admin", {
     },
     addCategory(category: Category) {
       this.categories.data.push(category);
+    },
+    addPromtion(promo: Promotion) {
+      this.promotions.data.push(promo);
     },
     updateCategory(id: number, title: string) {
       const foundCategory = this.categories.data.find((category: Category) => {
