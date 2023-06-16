@@ -80,7 +80,7 @@ export const useAdminStore = defineStore("admin", {
     addCategory(category: Category) {
       this.categories.data.push(category);
     },
-    addPromtion(promo: Promotion) {
+    addPromotion(promo: Promotion) {
       this.promotions.data.push(promo);
     },
     updateCategory(id: number, title: string) {
