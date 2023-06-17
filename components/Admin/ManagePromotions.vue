@@ -62,6 +62,10 @@ const deleteBtnClasses = [
     'h-5 w-5 rounded-full absolute top-0.5 right-0.5 z-10',
     'transition-colors bg-white hover:bg-red-50 active:bg-red-100'
 ]
+
+const handleClickDelete = (id: number, idx: number) => {
+    store.openConfirmModal('promo', { id, idx })
+}
 </script>
 
 <template>
@@ -71,9 +75,9 @@ const deleteBtnClasses = [
         <div class="w-full max-w-75 sm:max-w-120 md:max-w-150 mt-6">
             <div class="w-full mb-20">
                 <h3 class="font-semibold text-xl mb-3">All Promos</h3>
-                <div class="flex flex-wrap border">
-                    <div class="relative pr-6 mr-4 mb-2" v-for="promo in store.promotions.data">
-                        <button :class="deleteBtnClasses">
+                <div class="flex flex-wrap">
+                    <div class="relative pr-6 mr-4 mb-2" v-for="promo, i in store.promotions.data">
+                        <button v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
                             <img class="scale-90" src="/icons/close.svg" />
                         </button>
                         <ChipPromo :text="promo.text" :color="promo.color" />
@@ -114,5 +118,7 @@ const deleteBtnClasses = [
             </div>
 
         </div>
+
+        <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deletePromo" @cancel="store.closeConfirmModal" />
     </div>
 </template>

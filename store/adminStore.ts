@@ -192,6 +192,7 @@ export const useAdminStore = defineStore("admin", {
     async deletePromo() {
       if (!this.promoToDelete) return;
       const { id, idx } = this.promoToDelete;
+      console.log("Delete args:", { id, idx });
 
       try {
         this.showConfirmModal = false;
@@ -199,7 +200,7 @@ export const useAdminStore = defineStore("admin", {
         const res = await useCustomFetch(`/promotion/${id}`, {
           method: "DELETE",
         });
-        // console.log("\nDelete res:", res.data);
+        console.log("\nDelete res:", res.data.value);
 
         // copy promos, and delete from the copy
         const curPromos = [...this.promotions.data];
