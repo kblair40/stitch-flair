@@ -41,8 +41,6 @@ type FormValues = Omit<Product, "id">;
 const formValues = ref<FormValues>({
     name: '',
     category_id: -1,
-    // promo_id: -1,
-    // promo_ids: [-1],
     promo_ids: [],
     description: '',
     price: '',
