@@ -49,8 +49,9 @@ const classes = {
   select: {
     // outer: "formkit-multiple:h-18",
     inner: "pr-2 formkit-multiple:pr-0",
-    input:
-      "pl-2 formkit-multiple:h-16 formkit-multiple:pt-1 formkit-multiple:max-h-min",
+    input: "pl-2",
+    // input:
+    //   "pl-2 formkit-multiple:h-16 formkit-multiple:pt-1 formkit-multiple:max-h-min",
     // selectIcon: "border border-red-500",
     // option: "formkit-multiple:p-3 formkit-multiple:text-sm text-gray-700",
   },

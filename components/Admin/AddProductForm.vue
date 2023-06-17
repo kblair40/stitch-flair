@@ -37,15 +37,9 @@ const formRef = ref<HTMLFormElement | null>(null)
 
 const showSuccessToast = ref(false);
 
-interface ProductFormValues extends Product {
-    promo_id: number;
-}
-// type FormValues = Omit<ProductFormValues, "id" | "promo_ids">;
 type FormValues = Omit<Product, "id">;
-
 const formValues = ref<FormValues>({
     name: '',
-    // category_id: -1,
     category_id: -1,
     // promo_id: -1,
     // promo_ids: [-1],
@@ -128,13 +122,20 @@ const promoOptions = computed(() => {
             value: promotion.id,
         }))
         console.log('PROMO OPTIONS:', options);
-        // return [{ label: 'Select Promo', value: -1 }, ...options];
-        return [...options];
+
+        return options;
     }
 
     return []
 })
 
+const heightClasses = ['h-8', 'h-14']
+const multiSelectClasses = computed(() => {
+    const promoCount = promoOptions.value.length
+    const heightClass = promoCount > 2 ? 'h-24' : heightClasses[promoCount - 1];
+    const paddingClass = !!promoCount ? 'pt-1' : '';
+    return [heightClass, paddingClass].join(' ')
+})
 const formWrapperClasses = [
     // "border border-red-300",
     "flex flex-col items-center md:flex-row md:items-start md:justify-center",
@@ -174,7 +175,8 @@ const formSectionClasses = [
                 </div>
 
                 <div :class="formSectionClasses">
-                    <FormKit multiple name="promo_id" label="Promotion" type="select" :options="promoOptions" />
+                    <FormKit :input-class="multiSelectClasses" multiple name="promo_id" label="Promotion" type="select"
+                        :options="promoOptions" />
                 </div>
 
                 <div :class="formSectionClasses">
