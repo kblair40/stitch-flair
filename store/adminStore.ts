@@ -20,6 +20,7 @@ export const useAdminStore = defineStore("admin", {
     productToEditIdx: null as number | null,
     productToDelete: null as Info,
     categoryToDelete: null as Info,
+    promoToDelete: null as Info,
     deleting: null as Info,
     products: {
       loading: false,
@@ -103,11 +104,13 @@ export const useAdminStore = defineStore("admin", {
       });
       if (foundCategory) foundCategory.title = title;
     },
-    openConfirmModal(productOrCategory: "product" | "category", info: Info) {
-      if (productOrCategory === "product") {
+    openConfirmModal(entity: "product" | "category" | "promo", info: Info) {
+      if (entity === "product") {
         this.productToDelete = info;
-      } else {
+      } else if (entity === "category") {
         this.categoryToDelete = info;
+      } else {
+        this.promoToDelete = info;
       }
       this.showConfirmModal = true;
     },
@@ -182,6 +185,33 @@ export const useAdminStore = defineStore("admin", {
         return true;
       } catch (e) {
         console.error(e);
+        this.deleting = null;
+        return false;
+      }
+    },
+    async deletePromo() {
+      if (!this.promoToDelete) return;
+      const { id, idx } = this.promoToDelete;
+
+      try {
+        this.showConfirmModal = false;
+        this.deleting = this.promoToDelete;
+        const res = await useCustomFetch(`/promotion/${id}`, {
+          method: "DELETE",
+        });
+        // console.log("\nDelete res:", res.data);
+
+        // copy promos, and delete from the copy
+        const curPromos = [...this.promotions.data];
+        curPromos.splice(idx, 1);
+
+        this.promoToDelete = null;
+        this.promotions.data = curPromos;
+        this.deleting = null;
+
+        return res;
+      } catch (e) {
+        console.log("\nFailed to Delete Promo:", e);
         this.deleting = null;
         return false;
       }
