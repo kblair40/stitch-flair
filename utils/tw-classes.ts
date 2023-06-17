@@ -19,11 +19,18 @@ const classes = {
     // inner: //  <-- PREV
     //   "w-full border border-gray-200 rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500",
     input:
-      "w-full h-10 px-3 border-none text-base text-gray-800 placeholder-gray-400 focus-visible:outline-none",
+      "w-full px-3 border-none text-base text-gray-800 placeholder-gray-400 focus-visible:outline-none",
+    // "w-full h-10 px-3 border-none text-base text-gray-800 placeholder-gray-400 focus-visible:outline-none",
     help: "text-xs text-gray-500",
     messages: "list-none p-0 mt-1 mb-0",
     message: "text-red-500 mb-1 text-xs",
     // wrapper: "border",
+  },
+  text: {
+    input: "h-10",
+  },
+  number: {
+    input: "h-10",
   },
   checkbox: {
     // outer: "flex border border-red-300 w-max",
@@ -34,14 +41,16 @@ const classes = {
     label: "w-max",
   },
   "family:button": {
-    input: `rounded-md w-full bg-emoryblue hover:bg-emoryblue-600 active:bg-emoryblue-700 font-medium tracking-wide py-2 px-6 rounded focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-1 formkit-disabled:bg-gray-400 ${buttonLoadingClasses}`,
+    input: `h-10 rounded-md w-full bg-emoryblue hover:bg-emoryblue-600 active:bg-emoryblue-700 font-medium tracking-wide py-2 px-6 rounded focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-1 formkit-disabled:bg-gray-400 ${buttonLoadingClasses}`,
     wrapper: "mb-1",
     prefixIcon: "$reset block w-4 -ml-2 mr-2 stretch",
     suffixIcon: "$reset block w-4 ml-2 stretch",
   },
   select: {
-    inner: "pr-2",
-    input: "pl-2",
+    // outer: "formkit-multiple:h-18",
+    inner: "pr-2 formkit-multiple:pr-0",
+    input:
+      "pl-2 formkit-multiple:h-16 formkit-multiple:pt-1 formkit-multiple:max-h-min",
     // selectIcon: "border border-red-500",
     // option: "formkit-multiple:p-3 formkit-multiple:text-sm text-gray-700",
   },

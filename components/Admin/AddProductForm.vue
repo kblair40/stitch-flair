@@ -40,13 +40,16 @@ const showSuccessToast = ref(false);
 interface ProductFormValues extends Product {
     promo_id: number;
 }
-type FormValues = Omit<ProductFormValues, "id" | "promo_ids">;
+// type FormValues = Omit<ProductFormValues, "id" | "promo_ids">;
+type FormValues = Omit<Product, "id">;
 
 const formValues = ref<FormValues>({
     name: '',
     // category_id: -1,
     category_id: -1,
-    promo_id: -1,
+    // promo_id: -1,
+    // promo_ids: [-1],
+    promo_ids: [],
     description: '',
     price: '',
     featured: false,
@@ -125,7 +128,8 @@ const promoOptions = computed(() => {
             value: promotion.id,
         }))
         console.log('PROMO OPTIONS:', options);
-        return [{ label: 'Select Promo', value: -1 }, ...options];
+        // return [{ label: 'Select Promo', value: -1 }, ...options];
+        return [...options];
     }
 
     return []
@@ -170,8 +174,7 @@ const formSectionClasses = [
                 </div>
 
                 <div :class="formSectionClasses">
-                    <FormKit name="promo_id" label="Promotion" type="select" :options="promoOptions"
-                        validation="required" />
+                    <FormKit multiple name="promo_id" label="Promotion" type="select" :options="promoOptions" />
                 </div>
 
                 <div :class="formSectionClasses">
