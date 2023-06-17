@@ -5,7 +5,8 @@ export interface Product {
   image_url: string;
   name: string;
   category_id: number;
-  promo_ids?: number[];
+  promo_ids?: any[];
+  // promo_ids?: number[];
   description?: string;
   featured: boolean;
   on_sale: boolean;

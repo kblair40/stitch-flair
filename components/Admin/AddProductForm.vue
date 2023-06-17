@@ -175,8 +175,10 @@ const formSectionClasses = [
                 </div>
 
                 <div :class="formSectionClasses">
-                    <FormKit :input-class="multiSelectClasses" multiple name="promo_id" label="Promotion" type="select"
-                        :options="promoOptions" />
+                    <FormKit multiple type="select" name="promo_ids" label="Promotion" :options="promoOptions"
+                        :input-class="multiSelectClasses"
+                        help="Click on promo while holding command (macOS) or control (PC) to deselect a promo or to select multiple" />
+                    <pre wrap>{{ formValues.promo_ids }}</pre>
                 </div>
 
                 <div :class="formSectionClasses">
