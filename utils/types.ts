@@ -23,7 +23,6 @@ export type PromoColor =
   | "red"
   | "blue"
   | "orange"
-  | "yellow"
   | "purple"
   | "peach";
 
