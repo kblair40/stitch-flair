@@ -5,12 +5,14 @@ const props = withDefaults(defineProps<{ text: string; color?: PromoColor }>(), 
     text: '',
     color: 'green',
 })
-
+// const colorOptions = ['green', 'red', 'blue', 'orange', 'purple', 'peach'];
 const colorClasses: { [key: string]: string } = {
     green: 'bg-green-300',
+    red: 'bg-red-300',
     blue: 'bg-blue-300',
-    orange: 'bg-red-300', // TODO: Fix this with actual orange color
-    peach: 'bg-peach-300'
+    orange: 'bg-orange-300', // TODO: Fix this with actual orange color
+    purple: 'bg-purple-300',
+    peach: 'bg-peach-300',
 }
 
 const classes = computed(() => ([

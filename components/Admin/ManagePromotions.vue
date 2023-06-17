@@ -39,6 +39,7 @@ const handleSubmit = async (formValues: any) => {
     }
 }
 
+const colorOptions = ['green', 'red', 'blue', 'orange', 'purple', 'peach'];
 const formClasses = [
     "w-full flex flex-col space-y-4 items-end",
     "sm:flex-row sm:space-x-4 sm:space-y-0 sm:items-end",
@@ -68,7 +69,7 @@ const formClasses = [
 
                             <div class="w-full h-18 max-h-18">
                                 <FormKit name="color" label="Color" type="select"
-                                    :options="['green', 'blue', 'orange', 'peach']" />
+                                    :options="colorOptions" />
                             </div>
                         </div>
 

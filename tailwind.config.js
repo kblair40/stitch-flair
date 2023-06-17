@@ -19,6 +19,8 @@ module.exports = {
       blue: colors.blue,
       green: colors.green,
       emerald: colors.emerald,
+      orange: colors.orange,
+      purple: colors.purple,
       bronze: {
         DEFAULT: "#CE882B",
         500: "#CE882B",
