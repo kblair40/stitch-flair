@@ -77,6 +77,20 @@ export const useAdminStore = defineStore("admin", {
         return;
       }
     },
+    async getPromotions() {
+      try {
+        this.promotions.loading = true;
+        const res = await axios.get("http://localhost:3001/promotion");
+        console.log("\n\nPromotions res:", res.data, "\n\n");
+        if (res.data) this.promotions.data = res.data;
+        this.promotions.loading = false;
+        this.promotions.error = false;
+      } catch (e) {
+        this.promotions.error = true;
+        this.promotions.loading = false;
+        return;
+      }
+    },
     addCategory(category: Category) {
       this.categories.data.push(category);
     },

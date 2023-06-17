@@ -2,6 +2,7 @@
 import { reset } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
 
+import { toTitleCase } from '~~/utils/helpers';
 import type { Promotion, PromoColor } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
 
@@ -11,21 +12,27 @@ interface FormValues {
 }
 
 const store = useAdminStore();
+store.getPromotions();
 
 const showSuccessToast = ref(false);
+const loading = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
 const formValues = ref<FormValues>({ text: '', color: 'green' });
 
 const handleSubmit = async (formValues: any) => {
     console.log('formValues:', formValues);
-    const { text } = formValues;
+    const { text, color } = formValues;
     try {
-        if (!text) return;
+        if (!text || !color) return;
+
+        loading.value = true;
+
         const res = await useCustomFetch('/promotion', {
             method: 'POST',
-            body: { text: text.toLowerCase().trim() },
+            body: { text: text.toLowerCase().trim(), color },
         })
         console.log('Create Promotion Res:', res.data.value, '\n');
+        console.log('Create Promotion Text:', res.data.value, '\n');
         store.addPromotion(res.data.value as Promotion);
         showSuccessToast.value = true;
         reset('promo-form');
@@ -37,6 +44,7 @@ const handleSubmit = async (formValues: any) => {
     } catch (e) {
         console.log('Failed to create product:', e)
     }
+    loading.value = false;
 }
 
 const colorOptions = ['green', 'red', 'blue', 'orange', 'purple', 'peach'];
@@ -53,7 +61,11 @@ const formClasses = [
         <div class="w-full max-w-75 sm:max-w-120 md:max-w-150 mt-6">
             <div class="w-full mb-20">
                 <h3 class="font-semibold text-xl mb-3">All Promos</h3>
-                <p class="m-0">Edit/delete promo forms here</p>
+                <div class="flex space-x-4">
+                    <div class="border relative pl-4" v-for="promo in store.promotions.data">
+                        <ChipPromo :text="toTitleCase(promo.text)" :color="promo.color" />
+                    </div>
+                </div>
             </div>
 
             <div class="w-full">
@@ -68,13 +80,12 @@ const formClasses = [
                             </div>
 
                             <div class="w-full h-18 max-h-18">
-                                <FormKit name="color" label="Color" type="select"
-                                    :options="colorOptions" />
+                                <FormKit name="color" label="Color" type="select" :options="colorOptions" />
                             </div>
                         </div>
 
                         <div class="w-full sm:w-40">
-                            <FormKit type="submit" validation-visibility="">Save</FormKit>
+                            <FormKit :loading="loading" type="submit">Save</FormKit>
                         </div>
 
                         <div v-show="false" class="text-center h-2 relative bottom-2">
