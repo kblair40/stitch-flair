@@ -2,14 +2,19 @@
 import { reset } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
 
-import type { Promotion } from '~~/utils/types';
+import type { Promotion, PromoColor } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
+
+interface FormValues {
+    text: string;
+    color: PromoColor
+}
 
 const store = useAdminStore();
 
 const showSuccessToast = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
-const formValues = ref({ text: '', color: 'green' });
+const formValues = ref<FormValues>({ text: '', color: 'green' });
 
 const handleSubmit = async (formValues: any) => {
     console.log('formValues:', formValues);
