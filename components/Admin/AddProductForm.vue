@@ -37,11 +37,16 @@ const formRef = ref<HTMLFormElement | null>(null)
 
 const showSuccessToast = ref(false);
 
-// const formValues = ref<Partial<Product>>({
-const formValues = ref<Omit<Product, "id">>({
+interface ProductFormValues extends Product {
+    promo_id: number;
+}
+type FormValues = Omit<ProductFormValues, "id" | "promo_ids">;
+
+const formValues = ref<FormValues>({
     name: '',
     // category_id: -1,
     category_id: -1,
+    promo_id: -1,
     description: '',
     price: '',
     featured: false,
