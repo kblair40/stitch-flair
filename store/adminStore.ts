@@ -192,7 +192,7 @@ export const useAdminStore = defineStore("admin", {
     async deletePromo() {
       if (!this.promoToDelete) return;
       const { id, idx } = this.promoToDelete;
-      console.log("Delete args:", { id, idx });
+      // console.log("Delete args:", { id, idx });
 
       try {
         this.showConfirmModal = false;

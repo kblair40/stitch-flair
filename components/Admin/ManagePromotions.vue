@@ -20,7 +20,7 @@ const formRef = ref<HTMLFormElement | null>(null);
 const formValues = ref<FormValues>({ text: '', color: 'green' });
 
 const handleSubmit = async (formValues: any) => {
-    console.log('formValues:', formValues);
+    // console.log('formValues:', formValues);
     const { text, color } = formValues;
     try {
         if (!text || !color) return;
