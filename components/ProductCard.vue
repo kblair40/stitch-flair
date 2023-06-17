@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { toTitleCase } from '~~/utils/helpers';
+import type { PromoColor } from '~~/utils/types';
 
 interface Props {
     price: string;
@@ -11,6 +12,7 @@ interface Props {
     on_sale: boolean;
     on_sale_price?: null | string;
     etsy_url?: string;
+    promos?: { text: string; color: PromoColor }[];
     preview?: boolean;
 }
 const props = defineProps<Props>();
@@ -21,7 +23,7 @@ const cardClasses = [
     'z-20 p-2 bg-white shadow-sm',
     "relative cursor-pointer group rounded-md",
 ]
-const imgWrapperClasses = "overflow-hidden w-full h-56 sm:h-56 lg:h-64"
+const imgWrapperClasses = "overflow-hidden w-full h-56 sm:h-56 lg:h-64 relative"
 const imgClasses = [
     // "border border-red-200",
     "object-cover h-full rounded-sm group-hover:scale-105",
@@ -50,15 +52,27 @@ const percentDiscount = computed(() => {
 
     return Math.floor(discountPercent * 100) + '%';
 })
+
+const chipWrapperClasses = [
+    'flex flex-wrap mt-1 overflow-x-hidden',
+    'absolute bottom-0 left-0.5'
+]
+const chipClasses = 'mb-1 mr-1'
 </script>
 
 <template>
     <div :class="cardClasses">
         <div :class="imgWrapperClasses">
             <img :src="image_url" :class="imgClasses" />
+            <div v-if="promos && promos.length" :class="chipWrapperClasses">
+                <div v-for="promo in promos" :class="chipClasses">
+                    <ChipPromo v-bind="promo" />
+                </div>
+            </div>
         </div>
 
         <p :class="nameClasses">{{ toTitleCase(name) }}</p>
+
         <div class="flex mt-1 font-semibold text-no-wrap h-6 overflow-hidden">
             <p v-if="!preview" :class="priceClasses">{{ price }}</p>
             <p v-else :class="priceClasses">${{ formatPrice(price) }}</p>

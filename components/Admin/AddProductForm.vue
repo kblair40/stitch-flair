@@ -129,6 +129,18 @@ const promoOptions = computed(() => {
     return []
 })
 
+const selectedPromos = computed(() => {
+    const promoIds = formValues.value.promo_ids;
+    if (!promoIds) return [];
+
+    const promos = [];
+    for (let promoId of promoIds) {
+        const promo = store.promotions.data.find(p => p.id === promoId)
+        if (promo) promos.push({ text: promo.text, color: promo.color });
+    }
+    return promos;
+})
+
 const heightClasses = ['h-8', 'h-14']
 const multiSelectClasses = computed(() => {
     const promoCount = promoOptions.value.length
@@ -178,7 +190,7 @@ const formSectionClasses = [
                     <FormKit multiple type="select" name="promo_ids" label="Promotion" :options="promoOptions"
                         :input-class="multiSelectClasses"
                         help="Click on promo while holding command (macOS) or control (PC) to deselect a promo or to select multiple" />
-                    <pre wrap>{{ formValues.promo_ids }}</pre>
+                    <!-- <pre wrap>{{ formValues.promo_ids }}</pre> -->
                 </div>
 
                 <div :class="formSectionClasses">
@@ -194,7 +206,7 @@ const formSectionClasses = [
 
             <div class="flex flex-col mt-8 md:mt-0 min-w-75">
                 <h4 class="text-xl font-medium mb-1 text-center">Preview</h4>
-                <ProductCard v-bind="formValues" :preview="true" />
+                <ProductCard v-bind="{ ...formValues, promos: selectedPromos }" :preview="true" />
             </div>
 
         </div>
