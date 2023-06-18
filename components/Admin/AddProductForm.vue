@@ -166,14 +166,14 @@ const formSectionClasses = [
             <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
                 id="product-form" @submit="handleSubmit">
                 <div :class="formSectionClasses">
-                    <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,60" />
-                    <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
+                    <FormKit name="name" label="Product Name *" type="text" validation="required:trim|length:1,60" />
+                    <FormKit name="category_id" label="Category *" type="select" :options="categoryOptions"
                         validation="required|min:0" :validation-messages="{ min: 'Category is required' }" />
                 </div>
 
                 <div :class="formSectionClasses">
                     <FormKit name="description" label="Description" type="textarea" rows="3" />
-                    <FormKit validation="required" name="price" label="Price" type="number" :step="0.01" />
+                    <FormKit validation="required" name="price" label="Price *" type="number" :step="0.01" />
                 </div>
 
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 lg:space-x-8">
@@ -191,8 +191,8 @@ const formSectionClasses = [
                 </div>
 
                 <div :class="formSectionClasses">
-                    <FormKit validation="required" name="image_url" label="Image URL" type="text" />
-                    <FormKit validation="required" name="etsy_url" label="Etsy URL" type="text" />
+                    <FormKit validation="required" name="image_url" label="Image URL *" type="text" />
+                    <FormKit validation="required" name="etsy_url" label="Etsy URL *" type="text" />
                 </div>
 
                 <div class="text-center h-2 relative bottom-2">
