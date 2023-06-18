@@ -5,12 +5,17 @@ import type { Product, Category } from '~/utils/types'
 const store = useAdminStore();
 store.getProducts();
 store.getCategories();
+store.getPromotions();
 
 const productList = computed(() => {
     const products = store.categoryProducts;
     if (products && Array.isArray(products) && products.length) {
         // console.log('Products:', products);
-        return products.map((product: Product, i: number) => ({ ...product, idx: i }))
+        return products.map((product: Product, i: number) => ({
+            ...product,
+            // promo_ids: product.promos ? product.promos.map(promo => promo.id) : [],
+            idx: i
+        }))
     }
 
     return [];

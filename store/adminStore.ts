@@ -147,10 +147,23 @@ export const useAdminStore = defineStore("admin", {
       this.showEditProductModal = true;
     },
     updateProducts(productVals: Product) {
+      console.log("\n\nUpdate prods rcvd:", productVals);
       if (!productVals || typeof this.productToEditIdx !== "number") return;
       let products = [...this.products.data];
       let product = products[this.productToEditIdx];
       if (!product) return console.log("\nNo product to update");
+
+      if (productVals.promos?.length !== productVals.promo_ids?.length) {
+        console.log("TRUE TRUE TRUE");
+        if (!productVals.promo_ids) return;
+        const promos: any[] = productVals.promo_ids.map((promoId) => {
+          let promo = this.promotions.data.find((p) => (p.id = promoId));
+          console.log("\nMATCHED PROMO:", promo, "\n");
+          return promo;
+        });
+        console.log("FOUND PROMOS:", promos);
+        productVals.promos = promos;
+      }
 
       console.log("\nUpdate product vals:", productVals, "\n");
       products[this.productToEditIdx] = productVals;

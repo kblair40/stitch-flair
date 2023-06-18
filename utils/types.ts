@@ -6,6 +6,7 @@ export interface Product {
   name: string;
   category_id: number;
   promo_ids?: any[];
+  promos?: Promotion[];
   // promo_ids?: number[];
   description?: string;
   featured: boolean;

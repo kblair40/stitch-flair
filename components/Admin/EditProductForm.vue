@@ -18,6 +18,7 @@ const defaultFormValues: FormValues = {
     id: 0,
     name: '',
     category_id: 1,
+    promo_ids: [],
     description: '',
     price: '',
     featured: false,
@@ -47,6 +48,12 @@ onBeforeMount(() => {
         price: parseMoney(productToEdit.price),
         on_sale_price: parseMoney(productToEdit.on_sale_price),
     };
+
+    if (productToEdit.promos && productToEdit.promos.length) {
+        newValues['promo_ids'] = productToEdit.promos.map(promo => promo.id);
+    } else newValues['promo_ids'] = [];
+
+    console.log('\n\nInitial Values =', { ...newValues });
     formValues.value = { ...newValues };
     initialFormValues.value = { ...newValues };
 })
@@ -55,8 +62,26 @@ const handleSubmit = async (values: Product) => {
     console.log('Form values:', values)
     const diffs: { [key: string]: FormValue } = {}
     for (let key of Object.keys(values)) {
+        if (key === 'promo_ids') continue;
         if (initialFormValues.value[key] !== formValues.value[key]) {
             diffs[key] = formValues.value[key];
+        }
+    }
+
+    if (formValues.value.promo_ids && initialFormValues.value.promo_ids) {
+        const newIds = [...formValues.value.promo_ids];
+        console.log('\n\nNEW IDS:', newIds);
+        const oldIds = [...initialFormValues.value.promo_ids];
+        const longestArr = Math.max(newIds.length, oldIds.length)
+        if (newIds.length !== oldIds.length) {
+            diffs['promo_ids'] = newIds;
+        } else {
+            for (let i = 0; i < longestArr; i++) {
+                if (newIds[i] !== oldIds[i]) {
+                    console.log('\n\nFOUND PROMO DIFF:', { new: newIds[i], old: oldIds[i] })
+                    diffs['promo_ids'] = newIds;
+                }
+            }
         }
     }
 
@@ -73,7 +98,6 @@ const handleSubmit = async (values: Product) => {
             body: diffs,
         })
         console.log('Update Product Res:', res.data.value, '\n');
-        console.log('Update Product Keys:', Object.keys(res.data), '\n');
 
         // Replaces now outdated product in adminStore with new values
         store.updateProducts(values);
@@ -99,9 +123,30 @@ const categoryOptions = computed(() => {
     return [];
 })
 
-const wrapperClasses = [
-    "px-2 pt-2 pb-1 md:px-4",
-]
+const promoOptions = computed(() => {
+    console.log('STORE.PROMOTIONS:', store.promotions.data);
+    if (!store.promotions.loading && store.promotions.data.length) {
+        let options = store.promotions.data.map(promotion => ({
+            label: promotion.text,
+            value: promotion.id,
+        }))
+        console.log('PROMO OPTIONS:', options);
+
+        return options;
+    }
+
+    return []
+})
+
+const heightClasses = ['h-8', 'h-14']
+const multiSelectClasses = computed(() => {
+    const promoCount = promoOptions.value.length
+    const heightClass = promoCount > 2 ? 'h-24' : heightClasses[promoCount - 1];
+    const paddingClass = !!promoCount ? 'pt-1' : '';
+    return [heightClass, paddingClass].join(' ')
+})
+
+const wrapperClasses = "px-2 pt-2 pb-1 md:px-4 max-h-screen overflow-y-auto"
 const formClasses = 'flex flex-col w-full space-y-4 max-w-4xl'
 const formSectionClasses = [
     "flex flex-col space-y-4",
@@ -129,6 +174,12 @@ const formSectionClasses = [
                     <FormKit name="on_sale" label="On Sale?" type="checkbox" />
                 </div>
                 <FormKit label="Sale Price" name="on_sale_price" type="number" :step="0.01" />
+            </div>
+
+            <div :class="formSectionClasses">
+                <FormKit multiple type="select" name="promo_ids" label="Promotion" :options="promoOptions"
+                    :input-class="multiSelectClasses"
+                    help="Click on promo while holding command (macOS) or control (PC) to deselect a promo or to select multiple" />
             </div>
 
             <div :class="formSectionClasses">
