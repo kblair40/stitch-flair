@@ -63,7 +63,7 @@ const handleSubmit = async (values: Product) => {
     console.log('DIFFS:', diffs);
     if (!Object.keys(diffs).length) {
         console.log('No form values seem to have changed');
-        return;
+        return emit('done');
     }
 
     loading.value = true;
