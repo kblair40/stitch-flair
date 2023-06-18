@@ -68,7 +68,9 @@ const chipClasses = 'mb-1 mr-1'
     <div :class="cardClasses">
         <div :class="imgWrapperClasses">
             <img v-if="image_url" :src="image_url" :class="imgClasses" />
-            <img v-else :src="noImageUrl" :class="imgClasses" class="opacity-20" />
+            <div v-else-if="preview" class="bg-slate-50 flex items-center justify-center w-full h-full rounded-sm border border-slate-200">
+                <p class="opacity-30">Image Here</p>
+            </div>
 
             <div v-if="promos && promos.length" :class="chipWrapperClasses">
                 <div v-for="promo in promos" :class="chipClasses">

@@ -100,10 +100,18 @@ const saveDummyProduct = async () => {
 const categoryOptions = computed(() => {
     console.log('STORE.CATEGORIES:', store.categories.data);
     if (!store.categories.loading && store.categories.data.length) {
-        let options = store.categories.data.map(category => ({
-            label: toTitleCase(category.title),
-            value: category.id,
-        }))
+        let options = store.categories.data.map(category => {
+            const option = {
+                label: toTitleCase(category.title),
+                value: category.id,
+            };
+            console.log('\nOPTION:', option);
+            return option;
+        })
+        // let options = store.categories.data.map(category => ({
+        //     label: toTitleCase(category.title),
+        //     value: category.id,
+        // }))
         console.log('CATEGORY OPTIONS:', options);
         return [{ label: 'Select Category', value: -1 }, ...options];
         // return [{ label: 'Select Category', value: -1 }, ...options.slice(1)];
@@ -168,7 +176,7 @@ const formSectionClasses = [
                 <div :class="formSectionClasses">
                     <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,60" />
                     <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
-                        validation="required" />
+                        validation="required|min:0" :validation-messages="{ min: 'Category is required' }" />
                 </div>
 
                 <div :class="formSectionClasses">
@@ -188,7 +196,6 @@ const formSectionClasses = [
                     <FormKit multiple type="select" name="promo_ids" label="Promotion" :options="promoOptions"
                         :input-class="multiSelectClasses"
                         help="Click on promo while holding command (macOS) or control (PC) to deselect a promo or to select multiple" />
-                    <!-- <pre wrap>{{ formValues.promo_ids }}</pre> -->
                 </div>
 
                 <div :class="formSectionClasses">
