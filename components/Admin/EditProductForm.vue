@@ -5,12 +5,16 @@ import { useCustomFetch } from '~~/composables/useCustomFetch';
 import { useAdminStore } from '~~/store/adminStore';
 import type { Category, Product } from '~~/utils/types';
 
-type FormValue = string | number | boolean | null | undefined;
+type FormValue = string | number | boolean | null | undefined | any[];
 
 const emit = defineEmits(['done']);
 const store = useAdminStore();
 
-const defaultFormValues: Product = {
+interface FormValues extends Product {
+    [key: string]: FormValue;
+}
+
+const defaultFormValues: FormValues = {
     id: 0,
     name: '',
     category_id: 1,
@@ -24,8 +28,8 @@ const defaultFormValues: Product = {
 }
 
 const formRef = ref<HTMLFormElement | null>(null);
-const formValues = ref<Partial<Product>>({ ...defaultFormValues })
-const initialFormValues = ref<Partial<Product>>({ ...defaultFormValues })
+const formValues = ref<Partial<FormValues>>({ ...defaultFormValues })
+const initialFormValues = ref<Partial<FormValues>>({ ...defaultFormValues })
 
 const loading = ref(false) // use with save method to prevent inputs from being modified
 
@@ -71,16 +75,39 @@ const handleSubmit = async (values: Product) => {
     loading.value = false
 }
 
-const categoryOptions = computed(() => {
-    const { data: categories } = store.categories;
-    if (categories && Array.isArray(categories) && categories.length) {
-        // console.log('Categories:', categories);
-        return categories.map((category: Category) => ({
-            label: category.title,
-            value: category.id,
-        }))
-    }
+// const categoryOptions = computed(() => {
+//     const { data: categories } = store.categories;
+//     if (categories && Array.isArray(categories) && categories.length) {
+//         // console.log('Categories:', categories);
+//         return categories.map((category: Category) => ({
+//             label: category.title,
+//             value: category.id,
+//         }))
+//     }
 
+//     return [];
+// })
+
+const categoryOptions = computed(() => {
+    console.log('STORE.CATEGORIES:', store.categories.data);
+    if (!store.categories.loading && store.categories.data.length) {
+        let options = store.categories.data.map(category => {
+            const option = {
+                label: toTitleCase(category.title),
+                value: category.id,
+            };
+            console.log('\nOPTION:', option);
+            return option;
+        })
+        // let options = store.categories.data.map(category => ({
+        //     label: toTitleCase(category.title),
+        //     value: category.id,
+        // }))
+        console.log('CATEGORY OPTIONS:', options);
+        return [{ label: 'Select Category', value: -1 }, ...options];
+        // return [{ label: 'Select Category', value: -1 }, ...options.slice(1)];
+        // return [{ label: 'Select Category', value: -1 }, options];
+    }
     return [];
 })
 
@@ -100,7 +127,7 @@ const formSectionClasses = [
             <div :class="formSectionClasses">
                 <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,32" />
                 <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
-                    validation="required" />
+                    validation="required|min:0" :validation-messages="{ min: 'Category is required' }" />
             </div>
 
             <div :class="formSectionClasses">
