@@ -101,21 +101,13 @@ const categoryOptions = computed(() => {
     console.log('STORE.CATEGORIES:', store.categories.data);
     if (!store.categories.loading && store.categories.data.length) {
         let options = store.categories.data.map(category => {
-            const option = {
+            return {
                 label: toTitleCase(category.title),
                 value: category.id,
             };
-            console.log('\nOPTION:', option);
-            return option;
         })
-        // let options = store.categories.data.map(category => ({
-        //     label: toTitleCase(category.title),
-        //     value: category.id,
-        // }))
         console.log('CATEGORY OPTIONS:', options);
         return [{ label: 'Select Category', value: -1 }, ...options];
-        // return [{ label: 'Select Category', value: -1 }, ...options.slice(1)];
-        // return [{ label: 'Select Category', value: -1 }, options];
     }
     return [];
 })
