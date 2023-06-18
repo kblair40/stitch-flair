@@ -166,7 +166,7 @@ const formSectionClasses = [
             <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
                 id="product-form" @submit="handleSubmit">
                 <div :class="formSectionClasses">
-                    <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,32" />
+                    <FormKit name="name" label="Product Name" type="text" validation="required:trim|length:1,60" />
                     <FormKit name="category_id" label="Category" type="select" :options="categoryOptions"
                         validation="required" />
                 </div>
