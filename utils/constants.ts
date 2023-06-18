@@ -22,3 +22,6 @@ export const DUMMY_PRODUCT = {
   title: "Stuffed Animal",
   price: 35,
 };
+
+export const noImageUrl =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png";

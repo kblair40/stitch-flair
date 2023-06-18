@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { toTitleCase } from '~~/utils/helpers';
 import type { PromoColor } from '~~/utils/types';
+import { noImageUrl } from '~~/utils/constants'
 
 interface Props {
     price: string;
@@ -29,7 +30,10 @@ const imgClasses = [
     "object-cover h-full rounded-sm group-hover:scale-105",
     "transition-transform duration-300"
 ]
-const nameClasses = 'font-medium mt-2 line-clamp-2 max-w-fit'
+const nameClasses = [
+    'mt-2 leading-none min-h-5',
+    'font-medium line-clamp-2 max-w-fit'
+]
 const onSaleClasses = 'italic text-sm ml-1 opacity-100 text-darkpeach'
 const salePriceClasses = '';
 
@@ -63,7 +67,9 @@ const chipClasses = 'mb-1 mr-1'
 <template>
     <div :class="cardClasses">
         <div :class="imgWrapperClasses">
-            <img :src="image_url" :class="imgClasses" />
+            <img v-if="image_url" :src="image_url" :class="imgClasses" />
+            <img v-else :src="noImageUrl" :class="imgClasses" class="opacity-20" />
+
             <div v-if="promos && promos.length" :class="chipWrapperClasses">
                 <div v-for="promo in promos" :class="chipClasses">
                     <ChipPromo v-bind="promo" />
