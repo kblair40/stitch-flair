@@ -125,21 +125,26 @@ export const useAdminStore = defineStore("admin", {
     openEditProductModal(productInfo: Info) {
       console.log("productInfo:", productInfo);
       if (productInfo === null) return;
+
+      const productsCopy = [...this.products.data];
       const { id, idx } = productInfo;
-      let productToEdit = [...this.products.data][idx];
-      if (productToEdit) {
-        if (productToEdit.id === id) {
-          this.productToEdit = productToEdit;
-          this.productToEditIdx = idx;
-          this.showEditProductModal = true;
-        } else {
-          console.error(
-            `Found product with id ${productToEdit.id}, but a product with id of ${id} was requested`
-          );
-        }
+
+      let productToEdit, prodIdx;
+      if (!!this.category) {
+        prodIdx = productsCopy.findIndex((product) => product.id === id);
+        if (prodIdx > -1) productToEdit = productsCopy[prodIdx];
       } else {
-        console.error("Could not find product");
+        productToEdit = [...this.products.data][idx];
       }
+
+      if (!productToEdit) {
+        console.error("Could not find product");
+        return;
+      }
+
+      this.productToEdit = productToEdit;
+      this.productToEditIdx = prodIdx ?? idx;
+      this.showEditProductModal = true;
     },
     updateProducts(productVals: Product) {
       if (!productVals || typeof this.productToEditIdx !== "number") return;
