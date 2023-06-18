@@ -49,7 +49,7 @@ const formClasses = [
             :actions="false">
             <div :class="formClasses">
                 <div class="w-full h-18 max-h-18">
-                    <FormKit name="title" label="Category Title" type="text" validation="required:trim|length:1,32" />
+                    <FormKit name="title" label="Category Title *" type="text" validation="required:trim|length:1,32" />
                 </div>
 
                 <div class="w-full sm:w-40">

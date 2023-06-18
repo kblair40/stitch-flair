@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { reset } from '@formkit/core';
+import { reset, FormKitOptions } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
 
-// import { toTitleCase } from '~~/utils/helpers';
+import { toTitleCase } from '~~/utils/helpers';
 import type { Promotion, PromoColor } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
 
@@ -24,6 +24,7 @@ const handleSubmit = async (formValues: any) => {
     const { text, color } = formValues;
     try {
         if (!text || !color) return;
+        // color = color.toLowerCase();
 
         loading.value = true;
 
@@ -51,7 +52,13 @@ const handleSubmit = async (formValues: any) => {
     }, 2000)
 }
 
-const colorOptions = ['green', 'red', 'blue', 'orange', 'purple', 'peach'];
+const colors = ['Green', 'Red', 'Blue', 'Orange', 'Purple', 'Peach']
+const colorOptions = computed(() => {
+    return colors.map(color => {
+        return { value: color.toLowerCase(), label: color }
+    })
+})
+
 const formClasses = [
     "w-full flex flex-col space-y-4 items-end",
     "sm:flex-row sm:space-x-4 sm:space-y-0 sm:items-end",
@@ -92,12 +99,12 @@ const handleClickDelete = (id: number, idx: number) => {
                     <div :class="formClasses">
                         <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 w-full">
                             <div class="w-full h-18 max-h-18">
-                                <FormKit name="text" label="Promo Text" type="text"
+                                <FormKit name="text" label="Promo Text Label *" type="text"
                                     validation="required:trim|length:1,32" />
                             </div>
 
                             <div class="w-full h-18 max-h-18">
-                                <FormKit name="color" label="Color" type="select" :options="colorOptions" />
+                                <FormKit name="color" label="Color *" type="select" :options="colorOptions" />
                             </div>
                         </div>
 
