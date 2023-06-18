@@ -34,7 +34,8 @@ const initialFormValues = ref<Partial<FormValues>>({ ...defaultFormValues })
 const loading = ref(false) // use with save method to prevent inputs from being modified
 
 const parseMoney = (value?: string | null) => {
-    return value ? value.slice(1) : '';
+    if (!value) return '';
+    return value.startsWith('$') ? value.slice(1) : value;
 }
 
 onBeforeMount(() => {

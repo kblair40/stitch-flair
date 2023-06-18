@@ -30,7 +30,7 @@ const btnClasses = [
                     <img src="/icons/close.svg" />
                 </button>
 
-                <AdminEditProductForm @done;="handleClose" />
+                <AdminEditProductForm @done="handleClose" />
             </div>
         </div>
     </div>
