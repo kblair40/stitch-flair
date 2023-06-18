@@ -147,6 +147,7 @@ export const useAdminStore = defineStore("admin", {
       let product = products[this.productToEditIdx];
       if (!product) return console.log("\nNo product to update");
 
+      console.log("\nUpdate product vals:", productVals, "\n");
       products[this.productToEditIdx] = productVals;
       this.products.data = products;
     },

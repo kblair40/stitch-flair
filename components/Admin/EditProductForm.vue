@@ -33,11 +33,19 @@ const initialFormValues = ref<Partial<FormValues>>({ ...defaultFormValues })
 
 const loading = ref(false) // use with save method to prevent inputs from being modified
 
+const parseMoney = (value?: string | null) => {
+    return value ? value.slice(1) : '';
+}
+
 onBeforeMount(() => {
     const productToEdit = store.productToEdit as Product;
     console.log("productToEdit:", productToEdit);
 
-    const newValues = { ...productToEdit, price: productToEdit.price.slice(1) };
+    const newValues = {
+        ...productToEdit,
+        price: parseMoney(productToEdit.price),
+        on_sale_price: parseMoney(productToEdit.on_sale_price),
+    };
     formValues.value = { ...newValues };
     initialFormValues.value = { ...newValues };
 })
@@ -64,6 +72,7 @@ const handleSubmit = async (values: Product) => {
             body: diffs,
         })
         console.log('Update Product Res:', res.data.value, '\n');
+        console.log('Update Product Keys:', Object.keys(res.data), '\n');
 
         // Replaces now outdated product in adminStore with new values
         store.updateProducts(values);
@@ -75,38 +84,16 @@ const handleSubmit = async (values: Product) => {
     loading.value = false
 }
 
-// const categoryOptions = computed(() => {
-//     const { data: categories } = store.categories;
-//     if (categories && Array.isArray(categories) && categories.length) {
-//         // console.log('Categories:', categories);
-//         return categories.map((category: Category) => ({
-//             label: category.title,
-//             value: category.id,
-//         }))
-//     }
-
-//     return [];
-// })
-
 const categoryOptions = computed(() => {
-    console.log('STORE.CATEGORIES:', store.categories.data);
     if (!store.categories.loading && store.categories.data.length) {
         let options = store.categories.data.map(category => {
-            const option = {
+            return {
                 label: toTitleCase(category.title),
                 value: category.id,
             };
-            console.log('\nOPTION:', option);
-            return option;
         })
-        // let options = store.categories.data.map(category => ({
-        //     label: toTitleCase(category.title),
-        //     value: category.id,
-        // }))
         console.log('CATEGORY OPTIONS:', options);
         return [{ label: 'Select Category', value: -1 }, ...options];
-        // return [{ label: 'Select Category', value: -1 }, ...options.slice(1)];
-        // return [{ label: 'Select Category', value: -1 }, options];
     }
     return [];
 })
