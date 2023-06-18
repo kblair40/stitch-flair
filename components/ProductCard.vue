@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { toTitleCase } from '~~/utils/helpers';
 import type { PromoColor } from '~~/utils/types';
-import { noImageUrl } from '~~/utils/constants'
 
 interface Props {
     price: string;
@@ -42,15 +41,36 @@ const priceClasses = computed(() => ([
 ]))
 
 const formatPrice = (price: string | null) => {
-    return price ? parseFloat(price).toFixed(2) : '';
+    if (price === '' || price === '$0.00') return '';
+    else if (!price) return '0';
+
+    if (price.startsWith('$')) price = price.slice(1);
+    return parseFloat(price).toFixed(2);
+}
+const parseMoney = (value?: string | null) => {
+    // if (value === '$0.00') return 0;
+    if (!value || value === '$0.00') return 0;
+    return value.startsWith('$') ? parseFloat(value.slice(1)) : parseFloat(value);
 }
 
 const percentDiscount = computed(() => {
     if (!props.price || !props.on_sale_price || !props.on_sale) return '';
 
+    console.log('Discount props:', {
+        price: props.price,
+        on_sale_price: props.on_sale_price,
+        on_sale: props.on_sale,
+        preview: props.preview
+    })
+
+    // {price: '$13.50', on_sale_price: '$2.00', on_sale: true}
+    // {price: '6.00', on_sale_price: '4.5', on_sale: true}
+
     // slice(1) removes '$' so value can be parsed by parseFloat
-    const price = props.preview ? parseFloat(props.price) : parseFloat(props.price.slice(1));
-    const salePrice = props.preview ? parseFloat(props.on_sale_price) : parseFloat(props.on_sale_price.slice(1));
+    // const price = props.preview ? parseFloat(props.price) : parseFloat(props.price.slice(1));
+    // const salePrice = props.preview ? parseFloat(props.on_sale_price) : parseFloat(props.on_sale_price.slice(1));
+    const price = parseMoney(props.price);
+    const salePrice = parseMoney(props.on_sale_price);
 
     const discountPercent = (price - salePrice) / price;
 
@@ -68,7 +88,8 @@ const chipClasses = 'mb-1 mr-1'
     <div :class="cardClasses">
         <div :class="imgWrapperClasses">
             <img v-if="image_url" :src="image_url" :class="imgClasses" />
-            <div v-else-if="preview" class="bg-slate-50 flex items-center justify-center w-full h-full rounded-sm border border-slate-200">
+            <div v-else-if="preview"
+                class="bg-slate-50 flex items-center justify-center w-full h-full rounded-sm border border-slate-200">
                 <p class="opacity-30">Image Here</p>
             </div>
 

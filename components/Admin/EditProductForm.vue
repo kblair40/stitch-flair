@@ -3,7 +3,7 @@ import { FormKitMessages } from '@formkit/vue'
 
 import { useCustomFetch } from '~~/composables/useCustomFetch';
 import { useAdminStore } from '~~/store/adminStore';
-import type { Category, Product } from '~~/utils/types';
+import type { Product } from '~~/utils/types';
 
 type FormValue = string | number | boolean | null | undefined | any[];
 
@@ -34,7 +34,7 @@ const initialFormValues = ref<Partial<FormValues>>({ ...defaultFormValues })
 const loading = ref(false) // use with save method to prevent inputs from being modified
 
 const parseMoney = (value?: string | null) => {
-    if (!value) return '';
+    if (!value || value === "$0.00") return '';
     return value.startsWith('$') ? value.slice(1) : value;
 }
 
