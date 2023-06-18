@@ -150,23 +150,35 @@ export const useAdminStore = defineStore("admin", {
       console.log("\n\nUpdate prods rcvd:", productVals);
       if (!productVals || typeof this.productToEditIdx !== "number") return;
       let products = [...this.products.data];
-      let product = products[this.productToEditIdx];
-      if (!product) return console.log("\nNo product to update");
-
-      if (productVals.promos?.length !== productVals.promo_ids?.length) {
-        console.log("TRUE TRUE TRUE");
-        if (!productVals.promo_ids) return;
-        const promos: any[] = productVals.promo_ids.map((promoId) => {
-          let promo = this.promotions.data.find((p) => (p.id = promoId));
-          console.log("\nMATCHED PROMO:", promo, "\n");
-          return promo;
-        });
-        console.log("FOUND PROMOS:", promos);
-        productVals.promos = promos;
+      let product = { ...this.productToEdit };
+      if (!product || !Object.keys(product).length) {
+        return console.log("\nNo product to update");
+      }
+      let productIdx = products.findIndex((p) => p.id === product.id);
+      if (productIdx === -1) {
+        console.error("\nCould not find product\n\n");
+        return;
       }
 
-      console.log("\nUpdate product vals:", productVals, "\n");
-      products[this.productToEditIdx] = productVals;
+      if (productVals.promo_ids) {
+        if (!productVals.promo_ids.length) {
+          productVals.promos = [];
+        } else {
+          const promos: (Promotion | undefined)[] = productVals.promo_ids
+            .map((promoId) => {
+              let promo: Promotion | undefined = this.promotions.data.find(
+                (p) => p.id === promoId
+              );
+              console.log("\nMATCHED PROMO:", promo, "\n");
+              return promo;
+            })
+            .filter(Boolean);
+
+          productVals.promos = promos as Promotion[];
+        }
+      }
+
+      products[productIdx] = productVals;
       this.products.data = products;
     },
     closeEditProductModal() {
