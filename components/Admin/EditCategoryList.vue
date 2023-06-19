@@ -26,6 +26,7 @@ const handleClickCancelEdit = () => {
 type EditInfo = { id: null | number, title: null | string }
 const editing: EditInfo = reactive({ id: null, title: null })
 const initialEditVal = ref(''); // holds original category title.  No update will happen if initialEditVal === 'new' saved value.
+const showErrorToast = ref(false);
 
 const handleClickEdit = (id: number, title: string) => {
     editing.id = id;
@@ -48,6 +49,8 @@ const handleClickSave = async () => {
             store.updateCategory(editing.id, editing.title);
         } catch (e) {
             console.log('Failed to save edited category')
+            showErrorToast.value = true;
+            setTimeout(() => showErrorToast.value = false, 6000);
         }
     }
 
@@ -66,6 +69,8 @@ const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-1
 
 <template>
     <div class="w-full">
+        <Toast :error="true" :visible="showErrorToast">Something went wrong</Toast>
+
         <h3 class="font-semibold text-xl mb-3">All Categories</h3>
 
         <div v-if="categories.length" v-for="category, i in categories" class="mb-1">
