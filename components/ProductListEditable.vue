@@ -34,6 +34,17 @@ const categoryOptions = computed(() => {
     return [];
 })
 
+const showErrorToast = ref(false);
+const errorMsg = ref('');
+const handleShowError = (msg: string) => {
+    errorMsg.value = msg;
+    showErrorToast.value = true;
+    setTimeout(() => {
+        errorMsg.value = '';
+        showErrorToast.value = false;
+    });
+}
+
 const gridClasses = computed(() => {
     return [
         'flex flex-col items-center space-y-4 md:space-y-0',
@@ -60,8 +71,6 @@ const gridClasses = computed(() => {
 
             <div :class="gridClasses" v-else-if="productList.length">
                 <ProductListItemEditable v-for="product in productList" v-bind="product" :preview="true" />
-                <!-- <ProductListItemEditable v-for="product in productList" :product="product" /> -->
-                <!-- <ProductCard v-for="product in productList" v-bind="product" /> -->
             </div>
 
             <div v-else-if="!productList.length">
@@ -70,6 +79,6 @@ const gridClasses = computed(() => {
         </div>
 
         <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" />
-        <AdminEditProductModal @close="store.closeEditProductModal" v-if="store.showEditProductModal" />
+        <AdminEditProductModal @error="handleShowError" @close="store.closeEditProductModal" v-if="store.showEditProductModal" />
     </div>
 </template>

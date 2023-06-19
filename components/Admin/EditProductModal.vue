@@ -3,7 +3,7 @@ import { useAdminStore } from '~~/store/adminStore';
 
 const store = useAdminStore();
 
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits(['close', 'error'])
 
 const handleClose = () => emit('close')
 
