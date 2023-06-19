@@ -167,7 +167,7 @@ const formSectionClasses = [
     <div>
         <div :class="formWrapperClasses">
             <Toast :visible="showSuccessToast">Saved</Toast>
-            <Toast :visible="showErrorToast">Something went wrong</Toast>
+            <Toast :error="true" :visible="showErrorToast">Something went wrong</Toast>
 
             <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
                 id="product-form" @submit="handleSubmit">

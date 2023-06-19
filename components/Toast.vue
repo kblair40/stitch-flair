@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 interface Props {
     visible: boolean;
+    error?: boolean;
 }
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+    error: false,
+})
 
 const visibleClasses = ['-translate-y-full']
 const notVisibleClasses = ['-translate-y-0']
@@ -13,11 +16,12 @@ const wrapperClasses = computed(() => {
         `${props.visible ? visibleClasses : notVisibleClasses}`
     ]
 })
-const textWrapperClasses = [
+const textWrapperClasses = computed(() => ([
     // 'border border-emerald-500',
-    'h-full py-4 px-8 rounded-md shadow-lg bg-emerald-200/50',
-    'flex justify-center items-center'
-]
+    'h-full py-4 px-8 rounded-md shadow-lg',
+    'flex justify-center items-center',
+    props.error ? 'bg-red-200/50' : 'bg-green-200/50',
+]))
 </script>
 
 <template>
