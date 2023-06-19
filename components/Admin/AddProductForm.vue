@@ -36,6 +36,7 @@ const DUMMY_PRODUCT = () => ({
 const formRef = ref<HTMLFormElement | null>(null)
 
 const showSuccessToast = ref(false);
+const showErrorToast = ref(false);
 
 type FormValues = Omit<Product, "id">;
 const formValues = ref<FormValues>({
@@ -65,12 +66,16 @@ const handleSubmit = async (values: any) => {
 
         setTimeout(() => {
             showSuccessToast.value = false;
-            console.log('Show Succes Toast Value:', showSuccessToast.value)
+            console.log('Show Success Toast Value:', showSuccessToast.value)
         }, 6000)
 
         reset('product-form') // clears all inputs
     } catch (e) {
         console.log('Failed to create product:', e)
+        showErrorToast.value = true;
+        setTimeout(() => {
+            showErrorToast.value = false;
+        })
     }
 }
 
@@ -162,6 +167,7 @@ const formSectionClasses = [
     <div>
         <div :class="formWrapperClasses">
             <Toast :visible="showSuccessToast">Saved</Toast>
+            <Toast :visible="showErrorToast">Something went wrong</Toast>
 
             <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
                 id="product-form" @submit="handleSubmit">
