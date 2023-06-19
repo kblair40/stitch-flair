@@ -165,7 +165,7 @@ const formSectionClasses = [
 
             <div :class="formSectionClasses">
                 <FormKit name="description" label="Description" type="textarea" rows="3" />
-                <FormKit validation="required" name="price *" label="Price" type="number" :step="0.01" />
+                <FormKit validation="required" name="price" label="Price *" type="number" :step="0.01" />
             </div>
 
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 lg:space-x-8">
