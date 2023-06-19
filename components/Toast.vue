@@ -16,7 +16,7 @@ const wrapperClasses = computed(() => ([
 
 <template>
     <div :class="props.visible ? '-translate-y-full' : '-translate-y-0'"
-        class="pb-4 fixed top-vh left-1/2 -translate-x-1/2 transition-transform ease-in-out duration-300">
+        class="z-50 pb-4 fixed top-vh left-1/2 -translate-x-1/2 transition-transform ease-in-out duration-300">
         <div :class="wrapperClasses">
             <p class="font-medium capitalize leading-tight">
                 <slot></slot>

@@ -37,12 +37,13 @@ const categoryOptions = computed(() => {
 const showErrorToast = ref(false);
 const errorMsg = ref('');
 const handleShowError = (msg: string) => {
+    console.log('msg received by product list:', msg);
     errorMsg.value = msg;
     showErrorToast.value = true;
     setTimeout(() => {
-        errorMsg.value = '';
         showErrorToast.value = false;
-    });
+        errorMsg.value = '';
+    }, 6000);
 }
 
 const gridClasses = computed(() => {
@@ -56,6 +57,8 @@ const gridClasses = computed(() => {
 
 <template>
     <div class="relative h-full pt-4">
+        <Toast :error="true" :visible="showErrorToast">{{ errorMsg }}</Toast>
+
         <div class="flex justify-center h-18 mb-4">
             <div class="w-52 min-w-min">
                 <FormKit :disabled="store.products.loading" type="select" label="Category"
@@ -79,6 +82,7 @@ const gridClasses = computed(() => {
         </div>
 
         <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" />
-        <AdminEditProductModal @error="handleShowError" @close="store.closeEditProductModal" v-if="store.showEditProductModal" />
+        <AdminEditProductModal @error="handleShowError" @close="store.closeEditProductModal"
+            v-if="store.showEditProductModal" />
     </div>
 </template>
