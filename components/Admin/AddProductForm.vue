@@ -85,7 +85,7 @@ const handleSubmit = async (values: any) => {
         })
         console.log('Create Product Res:', res);
 
-        if (res.error && res.error.value && !res.data) {
+        if (res.error && res.error.value) {
             showErrorToast.value = true;
             errorMsg.value = res.error.value.response?._data.message || 'Something went wrong';
 
@@ -130,13 +130,13 @@ const categoryOptions = computed(() => {
 })
 
 const promoOptions = computed(() => {
-    console.log('STORE.PROMOTIONS:', store.promotions.data);
+    console.log('\nstore.promotions:', store.promotions.data);
     if (!store.promotions.loading && store.promotions.data.length) {
         let options = store.promotions.data.map(promotion => ({
             label: promotion.text,
             value: promotion.id,
         }))
-        console.log('PROMO OPTIONS:', options);
+        console.log('Promo Options:', options);
 
         return options;
     }
