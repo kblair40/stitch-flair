@@ -7,13 +7,16 @@ store.getProducts();
 store.getCategories();
 store.getPromotions();
 
+const deletedProductIds = ref<number[]>([])
+
 const productList = computed(() => {
-    const products = store.categoryProducts;
+    const products = store.categoryProducts.filter(prod => {
+        return !deletedProductIds.value.includes(prod.id);
+    })
     if (products && Array.isArray(products) && products.length) {
         // console.log('Products:', products);
         return products.map((product: Product, i: number) => ({
             ...product,
-            // promo_ids: product.promos ? product.promos.map(promo => promo.id) : [],
             idx: i
         }))
     }
@@ -46,6 +49,14 @@ const handleShowError = (msg: string) => {
     }, 6000);
 }
 
+const handleDeleteProduct = async () => {
+    const deleteRes = await store.deleteProduct();
+    if (deleteRes && store.productToDelete) {
+        deletedProductIds.value.push(store.productToDelete.id);
+        store.productToDelete = null;
+    }
+}
+
 const gridClasses = computed(() => {
     return [
         'flex flex-col items-center space-y-4 md:space-y-0',
@@ -71,7 +82,6 @@ const gridClasses = computed(() => {
                 <img class="animate-spin scale-200" src="/icons/loading.svg" />
             </div>
 
-
             <div :class="gridClasses" v-else-if="productList.length">
                 <ProductListItemEditable v-for="product in productList" v-bind="product" :preview="true" />
             </div>
@@ -81,7 +91,8 @@ const gridClasses = computed(() => {
             </div>
         </div>
 
-        <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" />
+        <!-- <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" /> -->
+        <ModalConfirm v-if="store.showConfirmModal" @confirm="handleDeleteProduct" @cancel="store.closeConfirmModal" />
         <AdminEditProductModal @error="handleShowError" @close="store.closeEditProductModal"
             v-if="store.showEditProductModal" />
     </div>

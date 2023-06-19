@@ -249,8 +249,8 @@ export const useAdminStore = defineStore("admin", {
       }
     },
     async deleteProduct() {
-      const id = this.productToDelete?.id;
-      const idx = this.productToDelete?.idx;
+      if (!this.productToDelete) return;
+      const { id, idx } = this.productToDelete;
       if (!id || typeof idx !== "number") return;
 
       try {
@@ -259,17 +259,11 @@ export const useAdminStore = defineStore("admin", {
         const res = await useCustomFetch(`/product/${id}`, {
           method: "DELETE",
         });
-        // console.log("\nDelete res:", res.data);
+        console.log("\nDelete res:", res);
 
-        // copy products, and delete from the copy
-        const curProducts = [...this.products.data];
-        curProducts.splice(idx, 1);
-
-        this.productToDelete = null;
-        this.products.data = curProducts;
         this.deleting = null;
 
-        return res;
+        return res.error.value ? false : res;
       } catch (e) {
         console.log("\nFailed to delete product");
         this.deleting = null;
