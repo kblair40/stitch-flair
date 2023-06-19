@@ -78,37 +78,26 @@ const errorMsg = ref('');
 
 const handleSubmit = async (values: any) => {
     values = { ...values, name: values.name.toLowerCase().trim() }
-    console.log('Form values:', values)
     try {
         const res = await useCustomFetch('/product', {
             method: 'POST',
             body: values,
         })
+        console.log('Create Product Res:', res);
 
-        const { value } = res.data;
-        console.log('Create Product Res:', value, '\n');
-        // Error res.data.value.(message, name, options, response, status)
-        // Good res.data.value.(category_id, name, etc etc all 'Product' fields)
-
-        if (!value) throw 'Something went wrong'
-        // @ts-ignore
-        else if (value.status && value.status !== 200) {
+        if (res.error && res.error.value && !res.data) {
             showErrorToast.value = true;
-            // @ts-ignore;
-            errorMsg.value = value.message;
-            console.log('Show Error Toast Value:', showErrorToast.value)
+            errorMsg.value = res.error.value.response?._data.message || 'Something went wrong';
+
             setTimeout(() => {
                 showErrorToast.value = false;
                 errorMsg.value = ''
-                console.log('Show Error Toast Value:', showErrorToast.value)
             }, 6000)
 
         } else {
             showSuccessToast.value = true;
-            console.log('Show Success Toast Value:', showSuccessToast.value)
             setTimeout(() => {
                 showSuccessToast.value = false;
-                console.log('Show Success Toast Value:', showSuccessToast.value)
             }, 6000)
 
             reset('product-form') // clears all inputs
@@ -134,7 +123,7 @@ const categoryOptions = computed(() => {
                 value: category.id,
             };
         })
-        console.log('CATEGORY OPTIONS:', options);
+        console.log('Category Options:', options);
         return [{ label: 'Select Category', value: -1 }, ...options];
     }
     return [];
