@@ -35,9 +35,6 @@ const DUMMY_PRODUCT = () => ({
 
 const formRef = ref<HTMLFormElement | null>(null)
 
-const showSuccessToast = ref(false);
-const showErrorToast = ref(false);
-
 type FormValues = Omit<Product, "id">;
 const formValues = ref<FormValues>({
     name: '',
@@ -51,33 +48,6 @@ const formValues = ref<FormValues>({
     image_url: '',
     etsy_url: '',
 })
-
-const handleSubmit = async (values: any) => {
-    values = { ...values, name: values.name.toLowerCase().trim() }
-    console.log('Form values:', values)
-    try {
-        const res = await useCustomFetch('/product', {
-            method: 'POST',
-            body: values,
-        })
-        console.log('Create Product Res:', res.data, '\n');
-        showSuccessToast.value = true;
-        console.log('Show Succes Toast Value:', showSuccessToast.value)
-
-        setTimeout(() => {
-            showSuccessToast.value = false;
-            console.log('Show Success Toast Value:', showSuccessToast.value)
-        }, 6000)
-
-        reset('product-form') // clears all inputs
-    } catch (e) {
-        console.log('Failed to create product:', e)
-        showErrorToast.value = true;
-        setTimeout(() => {
-            showErrorToast.value = false;
-        })
-    }
-}
 
 const saveDummyProduct = async () => {
     const product = DUMMY_PRODUCT();
@@ -99,6 +69,59 @@ const saveDummyProduct = async () => {
         reset('product-form') // clears all inputs
     } catch (e) {
         console.log('Failed to create product:', e)
+    }
+}
+
+const showSuccessToast = ref(false);
+const showErrorToast = ref(false);
+const errorMsg = ref('');
+
+const handleSubmit = async (values: any) => {
+    values = { ...values, name: values.name.toLowerCase().trim() }
+    console.log('Form values:', values)
+    try {
+        const res = await useCustomFetch('/product', {
+            method: 'POST',
+            body: values,
+        })
+
+        const { value } = res.data;
+        console.log('Create Product Res:', value, '\n');
+        // Error res.data.value.(message, name, options, response, status)
+        // Good res.data.value.(category_id, name, etc etc all 'Product' fields)
+
+        if (!value) throw 'Something went wrong'
+        // @ts-ignore
+        else if (value.status && value.status !== 200) {
+            showErrorToast.value = true;
+            // @ts-ignore;
+            errorMsg.value = value.message;
+            console.log('Show Error Toast Value:', showErrorToast.value)
+            setTimeout(() => {
+                showErrorToast.value = false;
+                errorMsg.value = ''
+                console.log('Show Error Toast Value:', showErrorToast.value)
+            }, 6000)
+
+        } else {
+            showSuccessToast.value = true;
+            console.log('Show Success Toast Value:', showSuccessToast.value)
+            setTimeout(() => {
+                showSuccessToast.value = false;
+                console.log('Show Success Toast Value:', showSuccessToast.value)
+            }, 6000)
+
+            reset('product-form') // clears all inputs
+        }
+
+    } catch (e) {
+        console.log('Failed to create product:', e)
+        errorMsg.value = 'Something went wrong'
+        showErrorToast.value = true;
+        setTimeout(() => {
+            showErrorToast.value = false;
+            errorMsg.value = '';
+        })
     }
 }
 
@@ -167,7 +190,7 @@ const formSectionClasses = [
     <div>
         <div :class="formWrapperClasses">
             <Toast :visible="showSuccessToast">Saved</Toast>
-            <Toast :error="true" :visible="showErrorToast">Something went wrong</Toast>
+            <Toast :error="true" :visible="showErrorToast">{{ errorMsg }}</Toast>
 
             <FormKit v-model="formValues" ref="formRef" :form-class="formClasses" type="form" submit-label="Save"
                 id="product-form" @submit="handleSubmit">
