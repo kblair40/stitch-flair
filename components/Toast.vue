@@ -6,27 +6,13 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
     error: false,
 })
-
-const visibleClasses = ['-translate-y-full']
-const notVisibleClasses = ['-translate-y-0']
-const wrapperClasses = computed(() => {
-    return [
-        'pb-4 fixed top-vh left-1/2 -translate-x-1/2',
-        'transition-transform ease-in-out duration-300',
-        `${props.visible ? visibleClasses : notVisibleClasses}`
-    ]
-})
-const textWrapperClasses = computed(() => ([
-    // 'border border-emerald-500',
-    'h-full py-4 px-8 rounded-md shadow-lg',
-    'flex justify-center items-center',
-    props.error ? 'bg-red-200/50' : 'bg-green-200/50',
-]))
 </script>
 
 <template>
-    <div :class="wrapperClasses">
-        <div :class="textWrapperClasses">
+    <div :class="props.visible ? '-translate-y-full' : '-translate-y-0'"
+        class="pb-4 fixed top-vh left-1/2 -translate-x-1/2 transition-transform ease-in-out duration-300">
+        <div :class="props.error ? 'bg-red-600/75 text-white' : 'bg-green-600/75 text-white'"
+            class="h-full py-4 px-8 rounded-md shadow-lg flex justify-center items-center text-white">
             <p class="font-medium text-lg capitalize">
                 <slot></slot>
             </p>
