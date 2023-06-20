@@ -16,7 +16,7 @@ const handleError = () => {
     setTimeout(() => showErrorToast.value = false, 10000); // 10s
 }
 
-const content = ref();;
+const content = ref();
 
 const { data: text, error } = await useCustomFetch('/text');
 console.log('Text/Error:', { text: toRaw(text.value), error: toRaw(error.value) });
@@ -36,10 +36,8 @@ const featuredProductClasses = [
             <PageTitle v-show="content && !!content.text">Welcome to Stitch Flair!</PageTitle>
         </div>
 
-        <div 
-            class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm md:text-mdsm"
-            :class="content && !!content.text ? '' : 'min-h-14'"
-        >
+        <div class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm md:text-mdsm"
+            :class="content && !!content.text ? '' : 'min-h-14'">
             <p v-show="content && !!content.text">
                 Velit enim commodo adipisicing sunt aliquip officia do velit do voluptate ullamco. Elit nisi proident dolor
                 sunt
