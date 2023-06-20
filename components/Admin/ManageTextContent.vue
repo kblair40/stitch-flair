@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import { reset } from '@formkit/core';
+import { FormKitMessages } from '@formkit/vue'
+
 import type { TextContent } from '~~/utils/types';
 
+const loading = ref(false);
 const showErrorToast = ref(false);
 const errorMsg = ref('Something went wrong');
+const formRef = ref<HTMLFormElement | null>(null);
+const initialContent = ref({ header: '', body: '' });
+const homeContent = ref({ header: '', body: '' });
 
 const handleError = (msg?: string) => {
     showErrorToast.value = true;
@@ -13,8 +20,9 @@ const handleError = (msg?: string) => {
     }, 8000); // 8s
 }
 
-const initialContent = ref({ header: '', body: '' });
-const homeContent = ref({ header: '', body: '' });
+const handleSubmit = async () => {
+    console.log('Text Form Values:', homeContent)
+}
 
 const { data: text, error } = await useCustomFetch<TextContent>('/text');
 console.log('Text/Error:', { text: toRaw(text.value), error: toRaw(error.value) });
@@ -29,17 +37,43 @@ else {
     }
 }
 
+const formClasses = [
+    "w-full flex flex-col space-y-4 items-end",
+    "xl:flex-row xl:space-x-4 xl:space-y-0 xl:items-end",
+]
+
 </script>
 
 <template>
     <div class="flex flex-col items-center">
         <Toast :error="true" :visible="showErrorToast">{{ errorMsg }}</Toast>
 
-        <div class="w-full max-w-75 sm:max-w-120 md:max-w-150 mt-6">
+        <div class="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-3xl xl:max-w-none xl:px-8 mt-6">
             <div class="w-full mb-20">
-                <h3 class="font-semibold text-xl mb-3">Home Page</h3>
+                <h3 class="font-semibold text-xl mb-5">Home Page</h3>
 
-                <FormKit type="text" :actions="false" label="Header" />
+                <FormKit :errors="[]" v-model="homeContent" ref="formRef" id="promo-form" @submit="handleSubmit" type="form"
+                    :actions="false">
+                    <div :class="formClasses">
+                        <div class="flex flex-col space-y-4 xl:flex-row xl:space-y-0 xl:space-x-4 w-full">
+                            <div class="w-full h-18 max-h-18">
+                                <FormKit name="header" label="Header" type="text" validation="length:1,120" />
+                            </div>
+
+                            <div class="w-full h-18 max-h-18">
+                                <FormKit name="body" label="Intro Paragraph" type="textarea" :rows="8" />
+                            </div>
+                        </div>
+
+                        <div class="w-full pt-6 xl:w-40 xl:pt-0">
+                            <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
+                        </div>
+
+                        <div v-show="false" class="text-center h-2 relative bottom-2">
+                            <FormKitMessages :node="formRef?.node" />
+                        </div>
+                    </div>
+                </FormKit>
             </div>
         </div>
     </div>
