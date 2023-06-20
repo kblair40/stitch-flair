@@ -1,6 +1,6 @@
 <script lang='ts' setup>
-const tabLabels = ['Add Product', 'Manage Products', 'Manage Categories', 'Manage Promos'];
-const activeTab = ref(tabLabels[0])
+const tabLabels = ['Add Product', 'Manage Products', 'Manage Categories', 'Manage Promos', 'Manage Text Content'];
+const activeTab = ref(tabLabels[4])
 
 definePageMeta({
     layout: 'admin'
@@ -17,7 +17,7 @@ const categoryClasses = [
     <div class="flex flex-col items-center h-screen overflow-y-auto">
         <div class="tabs-container border border-red-200">
             <div class="tabs-container fixed top-0 pt-2 pb-0 left-1/2 -translate-x-1/2 border w-screen bg-white">
-                <Tabs defaultTab="Add Product" @change="(tab: string) => activeTab = tab" :tabLabels="tabLabels" />
+                <Tabs defaultTab="Manage Text Content" @change="(tab: string) => activeTab = tab" :tabLabels="tabLabels" />
             </div>
         </div>
 
@@ -35,6 +35,7 @@ const categoryClasses = [
                     </div>
                 </div>
                 <AdminManagePromotions v-else-if="activeTab === 'Manage Promos'" />
+                <AdminManageTextContent v-else-if="activeTab === 'Manage Text Content'" />
             </div>
         </div>
     </div>
