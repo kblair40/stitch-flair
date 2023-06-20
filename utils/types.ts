@@ -37,3 +37,8 @@ export interface Promotion {
   created_time?: string | Date;
   updated_time?: string | Date;
 }
+
+export interface TextContent {
+  homeText: string;
+  homeTitle: string;
+}
