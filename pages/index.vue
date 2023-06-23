@@ -33,17 +33,13 @@ const featuredProductClasses = [
 <template>
     <Page>
         <div class="h-10 mb-5">
-            <PageTitle v-show="content && !!content.text">Welcome to Stitch Flair!</PageTitle>
+            <PageTitle v-show="content && !!content.text">{{ content.text.homeTitle }}</PageTitle>
         </div>
 
         <div class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm md:text-mdsm"
             :class="content && !!content.text ? '' : 'min-h-14'">
             <p v-show="content && !!content.text">
-                Velit enim commodo adipisicing sunt aliquip officia do velit do voluptate ullamco. Elit nisi proident dolor
-                sunt
-                nisi esse sit eu fugiat cillum magna. Ut commodo fugiat quis consectetur culpa deserunt duis et irure magna
-                laborum
-                dolore officia. Mollit veniam in ipsum elit nostrud.
+                {{ content.text.homeText }}
             </p>
         </div>
 
