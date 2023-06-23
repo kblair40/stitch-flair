@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { reset } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
 
 import type { TextContent } from '~~/utils/types';
@@ -22,6 +21,28 @@ const handleError = (msg?: string) => {
 
 const handleSubmit = async () => {
     console.log('Text Form Values:', homeContent)
+    const start = initialContent.value;
+    const end = homeContent.value;
+
+    const body: { [key: string]: string } = {};
+    if (start.header.trim() !== end.header.trim()) {
+        body['homeTitle'] = end.header;
+    }
+    if (start.body.trim() !== end.body.trim()) {
+        body['homeText'] = end.body;
+    }
+
+    if (!Object.keys(body).length) {
+        console.log('No changes made')
+        return;
+    }
+
+    try {
+        const res = await useCustomFetch('/text', { method: 'PATCH', body });
+        console.log('\nPATCH RES:', res);
+    } catch (e) {
+        console.log('Failed patch:', e);
+    }
 }
 
 const { data: text, error } = await useCustomFetch<TextContent>('/text');
