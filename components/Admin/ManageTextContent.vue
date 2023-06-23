@@ -20,7 +20,6 @@ const handleError = (msg?: string) => {
 }
 
 const handleSubmit = async () => {
-    console.log('Text Form Values:', homeContent)
     const start = initialContent.value;
     const end = homeContent.value;
 
