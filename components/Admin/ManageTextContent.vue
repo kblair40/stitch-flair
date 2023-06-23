@@ -38,8 +38,8 @@ const handleSubmit = async () => {
     }
 
     try {
-        const res = await useCustomFetch('/text', { method: 'PATCH', body });
-        console.log('\nPATCH RES:', res);
+        const { data, error } = await useCustomFetch('/text/1', { method: 'PATCH', body });
+        console.log('\nPATCH RES:', { data, error });
     } catch (e) {
         console.log('Failed patch:', e);
     }
@@ -81,7 +81,7 @@ const formClasses = [
                                 <FormKit name="header" label="Header" type="text" validation="length:1,120" />
                             </div>
 
-                            <div class="w-full h-18 max-h-18">
+                            <div class="w-full xl:h-18 xl:max-h-18">
                                 <FormKit name="body" label="Intro Paragraph" type="textarea" :rows="8" />
                             </div>
                         </div>
