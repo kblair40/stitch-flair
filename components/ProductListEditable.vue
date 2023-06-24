@@ -49,6 +49,12 @@ const handleShowError = (msg: string) => {
     }, 6000);
 }
 
+const showSuccessToast = ref(false);
+const handleEditSuccess = () => {
+    showSuccessToast.value = true;
+    setTimeout(() => showSuccessToast.value = false, 6000);
+}
+
 const handleDeleteProduct = async () => {
     const deleteRes = await store.deleteProduct();
     if (deleteRes && store.productToDelete) {
@@ -57,7 +63,10 @@ const handleDeleteProduct = async () => {
     }
 }
 
-const handleClose = () => {
+const handleClose = (success?: boolean) => {
+    // Show success/error toast here
+    console.log('\nSuccess:', success);
+    if (success) handleEditSuccess();
     store.closeEditProductModal();
 }
 
@@ -97,7 +106,6 @@ const gridClasses = computed(() => {
 
         <!-- <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" /> -->
         <ModalConfirm v-if="store.showConfirmModal" @confirm="handleDeleteProduct" @cancel="store.closeConfirmModal" />
-        <AdminEditProductModal @error="handleShowError" @close="handleClose"
-            v-if="store.showEditProductModal" />
+        <AdminEditProductModal @success="handleClose(true)" @error="handleShowError" @close="handleClose" v-if="store.showEditProductModal" />
     </div>
 </template>

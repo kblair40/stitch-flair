@@ -7,7 +7,7 @@ import type { Product } from '~~/utils/types';
 
 type FormValue = string | number | boolean | null | undefined | any[];
 
-const emit = defineEmits(['done', 'error']);
+const emit = defineEmits(['done', 'error', 'success']);
 const store = useAdminStore();
 
 interface FormValues extends Product {
@@ -98,11 +98,12 @@ const handleSubmit = async (values: Product) => {
             body: diffs,
         })
         console.log('Update Product Res:', res, '\n');
-        if (res.data.value) {
+        if (!res.error.value) {
             // Replaces now outdated product in adminStore with new values
             store.updateProducts(values);
-            emit('done')
-        } else if (res.error.value) {
+            console.log('\nEMITTING SUCCESS')
+            emit('success')
+        } else {
             let msg = res.error.value.response?._data.message
                 ? res.error.value.response?._data.message
                 : 'Something went wrong'

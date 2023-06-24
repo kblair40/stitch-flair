@@ -3,9 +3,8 @@ import { useAdminStore } from '~~/store/adminStore';
 
 const store = useAdminStore();
 
-const emit = defineEmits(['close', 'error'])
+const emit = defineEmits(['close', 'error', 'success'])
 
-const handleClose = () => emit('close')
 const handleError = (msg: string) => {
     console.log('msg in modal:', msg);
     emit('error', msg);
@@ -27,14 +26,14 @@ const btnClasses = [
 
 <template>
     <div v-if="store.showEditProductModal" class="z-50">
-        <div :class="overlayClasses" class="bg-slate-300/50" @click="handleClose" />
+        <div :class="overlayClasses" class="bg-slate-300/50" @click="$emit('close')" />
         <div :class="wrapperClasses">
             <div :class="innerWrapperClasses">
-                <button @click="handleClose" :class="btnClasses">
+                <button @click="$emit('close')" :class="btnClasses">
                     <img src="/icons/close.svg" />
                 </button>
 
-                <AdminEditProductForm @done="handleClose" @error="handleError" />
+                <AdminEditProductForm @success="$emit('success')" @done="$emit('close')" @error="handleError" />
             </div>
         </div>
     </div>
