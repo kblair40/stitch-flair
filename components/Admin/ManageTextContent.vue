@@ -11,13 +11,13 @@ const formRef = ref<HTMLFormElement | null>(null);
 const initialContent = ref({ header: '', body: '' });
 const homeContent = ref({ header: '', body: '' });
 
-const handleError = (msg?: string) => {
-    showErrorToast.value = true;
+const handleError = (msg?: string, duration = 8000) => {
     if (msg) errorMsg.value = msg;
+    showErrorToast.value = true;
     setTimeout(() => {
         showErrorToast.value = false
         errorMsg.value = "Something went wrong"
-    }, 8000); // 8s
+    }, duration);
 }
 
 const handleSubmit = async () => {
@@ -35,12 +35,7 @@ const handleSubmit = async () => {
 
     if (!Object.keys(body).length) {
         console.log('No changes made')
-        errorMsg.value = "No changes were made"
-        showErrorToast.value = true;
-        setTimeout(() => {
-            showErrorToast.value = false;
-            errorMsg.value = '';
-        }, 3000)
+        handleError("No changes were made", 3000);
         return;
     }
 
@@ -49,12 +44,7 @@ const handleSubmit = async () => {
         console.log('\nPATCH RES:', { data, error });
 
         if (error.value) {
-            errorMsg.value = 'Something went wrong'
-            showErrorToast.value = true;
-            setTimeout(() => {
-                showErrorToast.value = false;
-                errorMsg.value = '';
-            }, 5000)
+            handleError();
         } else {
             initialContent.value = homeContent.value;
             showSuccessToast.value = true;
@@ -62,6 +52,7 @@ const handleSubmit = async () => {
         }
 
     } catch (e) {
+        handleError()
         console.log('Failed patch:', e);
     }
 }
