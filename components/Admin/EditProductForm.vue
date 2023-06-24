@@ -97,11 +97,9 @@ const handleSubmit = async (values: Product) => {
             method: 'PATCH',
             body: diffs,
         })
-        console.log('Update Product Res:', res, '\n');
         if (!res.error.value) {
             // Replaces now outdated product in adminStore with new values
             store.updateProducts(values);
-            console.log('\nEMITTING SUCCESS')
             emit('success')
         } else {
             let msg = res.error.value.response?._data.message
