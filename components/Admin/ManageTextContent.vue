@@ -23,6 +23,7 @@ const handleError = (msg?: string) => {
 const handleSubmit = async () => {
     const start = initialContent.value;
     const end = homeContent.value;
+    console.log('Start/End', { start, end })
 
     const body: { [key: string]: string } = {};
     if (start.header.trim() !== end.header.trim()) {
@@ -34,6 +35,12 @@ const handleSubmit = async () => {
 
     if (!Object.keys(body).length) {
         console.log('No changes made')
+        errorMsg.value = "No changes were made"
+        showErrorToast.value = true;
+        setTimeout(() => {
+            showErrorToast.value = false;
+            errorMsg.value = '';
+        }, 3000)
         return;
     }
 
@@ -41,11 +48,18 @@ const handleSubmit = async () => {
         const { data, error } = await useCustomFetch('/text/1', { method: 'PATCH', body });
         console.log('\nPATCH RES:', { data, error });
 
-        showSuccessToast.value = true;
-
-        setTimeout(() => {
-            showSuccessToast.value = false;
-        }, 3000)
+        if (error.value) {
+            errorMsg.value = 'Something went wrong'
+            showErrorToast.value = true;
+            setTimeout(() => {
+                showErrorToast.value = false;
+                errorMsg.value = '';
+            }, 5000)
+        } else {
+            initialContent.value = homeContent.value;
+            showSuccessToast.value = true;
+            setTimeout(() => showSuccessToast.value = false, 3000)
+        }
 
     } catch (e) {
         console.log('Failed patch:', e);
