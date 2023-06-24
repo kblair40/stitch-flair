@@ -52,7 +52,7 @@ const handleShowError = (msg: string) => {
 const showSuccessToast = ref(false);
 const handleEditSuccess = () => {
     showSuccessToast.value = true;
-    setTimeout(() => showSuccessToast.value = false, 6000);
+    setTimeout(() => showSuccessToast.value = false, 3000);
 }
 
 const handleDeleteProduct = async () => {
@@ -82,6 +82,7 @@ const gridClasses = computed(() => {
 <template>
     <div class="relative h-full pt-4">
         <Toast :error="true" :visible="showErrorToast">{{ errorMsg }}</Toast>
+        <Toast :visible="showSuccessToast">Updated</Toast>
 
         <div class="flex justify-center h-18 mb-4">
             <div class="w-52 min-w-min">
@@ -106,6 +107,7 @@ const gridClasses = computed(() => {
 
         <!-- <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" /> -->
         <ModalConfirm v-if="store.showConfirmModal" @confirm="handleDeleteProduct" @cancel="store.closeConfirmModal" />
-        <AdminEditProductModal @success="handleClose(true)" @error="handleShowError" @close="handleClose" v-if="store.showEditProductModal" />
+        <AdminEditProductModal @success="handleClose(true)" @error="handleShowError" @close="handleClose"
+            v-if="store.showEditProductModal" />
     </div>
 </template>
