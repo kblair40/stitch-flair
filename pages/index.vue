@@ -38,7 +38,7 @@ const featuredProductClasses = [
 
         <div class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm md:text-mdsm"
             :class="content && !!content.text ? '' : 'min-h-14'">
-            <p v-show="content && !!content.text">
+            <p v-show="content && !!content.text" class="whitespace-pre-wrap">
                 {{ content.text.homeText }}
             </p>
         </div>
