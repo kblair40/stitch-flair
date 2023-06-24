@@ -85,35 +85,37 @@ const chipClasses = 'mb-1 mr-1'
 </script>
 
 <template>
-    <div :class="cardClasses">
-        <div :class="imgWrapperClasses">
-            <img v-if="image_url" :src="image_url" :class="imgClasses" />
-            <div v-else-if="preview"
-                class="bg-slate-50 flex items-center justify-center w-full h-full rounded-sm border border-slate-200">
-                <p class="opacity-30">Image Here</p>
-            </div>
+    <NuxtLink to="https://www.etsy.com/shop/stitchflair" target="_blank">
+        <div :class="cardClasses">
+            <div :class="imgWrapperClasses">
+                <img v-if="image_url" :src="image_url" :class="imgClasses" />
+                <div v-else-if="preview"
+                    class="bg-slate-50 flex items-center justify-center w-full h-full rounded-sm border border-slate-200">
+                    <p class="opacity-30">Image Here</p>
+                </div>
 
-            <div v-if="promos && promos.length" :class="chipWrapperClasses">
-                <div v-for="promo in promos" :class="chipClasses">
-                    <ChipPromo v-bind="promo" />
+                <div v-if="promos && promos.length" :class="chipWrapperClasses">
+                    <div v-for="promo in promos" :class="chipClasses">
+                        <ChipPromo v-bind="promo" />
+                    </div>
                 </div>
             </div>
+
+            <p :class="nameClasses">{{ toTitleCase(name) }}</p>
+
+            <div class="flex mt-1 font-semibold text-no-wrap h-6 overflow-hidden">
+                <p v-if="!preview" :class="priceClasses">{{ price }}</p>
+                <p v-else :class="priceClasses">${{ formatPrice(price) }}</p>
+
+                <p v-if="on_sale" :class="salePriceClasses">
+                    {{ preview && on_sale_price ? `$${formatPrice(on_sale_price)}` : on_sale_price ? on_sale_price : '' }}
+                    <span v-if="!preview" :class="onSaleClasses">{{ percentDiscount }} off!</span>
+                    <span v-else :class="onSaleClasses">{{ percentDiscount }} off!</span>
+                </p>
+            </div>
+
+            <slot></slot>
+
         </div>
-
-        <p :class="nameClasses">{{ toTitleCase(name) }}</p>
-
-        <div class="flex mt-1 font-semibold text-no-wrap h-6 overflow-hidden">
-            <p v-if="!preview" :class="priceClasses">{{ price }}</p>
-            <p v-else :class="priceClasses">${{ formatPrice(price) }}</p>
-
-            <p v-if="on_sale" :class="salePriceClasses">
-                {{ preview && on_sale_price ? `$${formatPrice(on_sale_price)}` : on_sale_price ? on_sale_price : '' }}
-                <span v-if="!preview" :class="onSaleClasses">{{ percentDiscount }} off!</span>
-                <span v-else :class="onSaleClasses">{{ percentDiscount }} off!</span>
-            </p>
-        </div>
-
-        <slot></slot>
-
-    </div>
+    </NuxtLink>
 </template>
