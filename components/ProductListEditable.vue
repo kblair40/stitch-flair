@@ -57,6 +57,10 @@ const handleDeleteProduct = async () => {
     }
 }
 
+const handleClose = () => {
+    store.closeEditProductModal();
+}
+
 const gridClasses = computed(() => {
     return [
         'flex flex-col items-center space-y-4 md:space-y-0',
@@ -93,7 +97,7 @@ const gridClasses = computed(() => {
 
         <!-- <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" /> -->
         <ModalConfirm v-if="store.showConfirmModal" @confirm="handleDeleteProduct" @cancel="store.closeConfirmModal" />
-        <AdminEditProductModal @error="handleShowError" @close="store.closeEditProductModal"
+        <AdminEditProductModal @error="handleShowError" @close="handleClose"
             v-if="store.showEditProductModal" />
     </div>
 </template>
