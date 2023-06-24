@@ -83,7 +83,7 @@ const formClasses = [
         <Toast :visible="showSuccessToast">Saved</Toast>
 
         <div class="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-3xl xl:max-w-none xl:px-8 mt-6">
-            <div class="w-full mb-20">
+            <div class="w-full">
                 <h3 class="font-semibold text-xl mb-5">Home Page</h3>
 
                 <FormKit :errors="[]" v-model="homeContent" ref="formRef" id="promo-form" @submit="handleSubmit" type="form"
@@ -109,6 +109,17 @@ const formClasses = [
                     </div>
                 </FormKit>
             </div>
+        </div>
+
+        <div class="h-px w-full bg-slate-300 my-5" />
+
+        <div class="w-full">
+            <h1 class="font-medium text-xl mb-2 text-gray-500 text-center">Preview</h1>
+
+            <PageTitle margin="ml-0">{{ homeContent.header }}</PageTitle>
+            <p class="whitespace-pre-wrap">
+                {{ homeContent.body }}
+            </p>
         </div>
     </div>
 </template>
