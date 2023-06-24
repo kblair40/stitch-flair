@@ -5,6 +5,7 @@ import type { TextContent } from '~~/utils/types';
 
 const loading = ref(false);
 const showErrorToast = ref(false);
+const showSuccessToast = ref(false);
 const errorMsg = ref('Something went wrong');
 const formRef = ref<HTMLFormElement | null>(null);
 const initialContent = ref({ header: '', body: '' });
@@ -39,6 +40,13 @@ const handleSubmit = async () => {
     try {
         const { data, error } = await useCustomFetch('/text/1', { method: 'PATCH', body });
         console.log('\nPATCH RES:', { data, error });
+
+        showSuccessToast.value = true;
+
+        setTimeout(() => {
+            showSuccessToast.value = false;
+        }, 3000)
+
     } catch (e) {
         console.log('Failed patch:', e);
     }
@@ -67,6 +75,7 @@ const formClasses = [
 <template>
     <div class="flex flex-col items-center">
         <Toast :error="true" :visible="showErrorToast">{{ errorMsg }}</Toast>
+        <Toast :visible="showSuccessToast">Saved</Toast>
 
         <div class="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-3xl xl:max-w-none xl:px-8 mt-6">
             <div class="w-full mb-20">
