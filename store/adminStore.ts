@@ -1,7 +1,12 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-import type { Category, Product, Promotion, PromoColor } from "~~/utils/types";
+import type {
+  Category,
+  Promotion,
+  PromoColor,
+  PopulatedProduct,
+} from "~~/utils/types";
 
 export type ProductInfo = null | { id: number; idx: number };
 export type CategoryInfo = null | { id: number; idx: number };
@@ -13,7 +18,7 @@ export const useAdminStore = defineStore("admin", {
   state: () => ({
     showConfirmModal: false,
     showEditProductModal: false,
-    productToEdit: null as Product | null,
+    productToEdit: null as PopulatedProduct | null,
     productToEditIdx: null as number | null,
     productToDelete: null as Info,
     categoryToDelete: null as Info,
@@ -22,7 +27,7 @@ export const useAdminStore = defineStore("admin", {
     products: {
       loading: false,
       error: false,
-      data: [] as Product[],
+      data: [] as PopulatedProduct[],
     },
     categories: {
       loading: false,
@@ -39,8 +44,8 @@ export const useAdminStore = defineStore("admin", {
   getters: {
     categoryProducts(state) {
       if (!state.category) return state.products.data;
-      let products = state.products.data.filter((prod: Product) => {
-        return prod.category_id === state.category;
+      let products = state.products.data.filter((prod: PopulatedProduct) => {
+        return prod.category.id === state.category;
       });
 
       return products;
@@ -149,7 +154,7 @@ export const useAdminStore = defineStore("admin", {
       this.productToEditIdx = prodIdx ?? idx;
       this.showEditProductModal = true;
     },
-    updateProducts(productVals: Product) {
+    updateProducts(productVals: PopulatedProduct) {
       console.log("\n\nUpdate prods rcvd:", productVals);
       if (!productVals || typeof this.productToEditIdx !== "number") return;
       let products = [...this.products.data];
@@ -200,11 +205,10 @@ export const useAdminStore = defineStore("admin", {
         const res = await useCustomFetch(`/category/${id}`, {
           method: "DELETE",
         });
-        const resVal = res.data.value as DeleteRes;
-        // console.log("resVal:", resVal);
-        if (!resVal || !resVal.affected) {
-          // console.log("error return");
-          if (resVal?.message) throw resVal.message;
+        const deleteRes = res.data.value as DeleteRes;
+        // console.log("deleteRes:", deleteRes);
+        if (!deleteRes || !deleteRes.affected) {
+          if (deleteRes?.message) throw deleteRes.message;
           else throw "Failed";
         }
 
@@ -226,7 +230,6 @@ export const useAdminStore = defineStore("admin", {
     async deletePromo() {
       if (!this.promoToDelete) return;
       const { id, idx } = this.promoToDelete;
-      // console.log("Delete args:", { id, idx });
 
       try {
         this.showConfirmModal = false;
