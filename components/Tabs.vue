@@ -8,7 +8,11 @@ const emit = defineEmits(['change'])
 
 const activeTab = ref(props.defaultTab || props.tabLabels[0])
 
-const tabInnerClasses = "py-2 px-3 md:px-6 flex items-center justify-center h-min whitespace-nowrap"
+const tabInnerClasses = [
+    "flex items-center justify-center",
+    "py-2 px-3 md:px-6 text-mdsm",
+    "h-min whitespace-nowrap border-b border-transparent"
+].join(' ')
 const activeTabClasses = 'font-medium border-b border-purplegrey'
 
 const handleChangeTab = (tab: string) => {
@@ -19,9 +23,9 @@ const handleChangeTab = (tab: string) => {
 </script>
 
 <template>
-    <div class="w-full flex justify-center">
-        <div v-for="tabLabel in tabLabels" class="cursor-pointer h-min" @click="handleChangeTab(tabLabel)">
-            <div :class="activeTab === tabLabel ? `${tabInnerClasses} ${activeTabClasses}` : tabInnerClasses">
+    <div class="w-min mx-auto h-full pt-2 flex xl:justify-center border-b">
+        <div :class="activeTab === tabLabel ? activeTabClasses : ''" v-for="tabLabel in tabLabels" class="cursor-pointer h-min" @click="handleChangeTab(tabLabel)">
+            <div :class="tabInnerClasses">
                 {{ tabLabel }}
             </div>
         </div>
