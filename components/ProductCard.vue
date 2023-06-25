@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { NavigateToOptions } from 'nuxt/dist/app/composables/router';
 import { toTitleCase } from '~~/utils/helpers';
 import type { PromoColor } from '~~/utils/types';
 
@@ -54,7 +53,6 @@ const formatPrice = (price: string | null) => {
     return parseFloat(price).toFixed(2);
 }
 const parseMoney = (value?: string | null) => {
-    // if (value === '$0.00') return 0;
     if (!value || value === '$0.00') return 0;
     return value.startsWith('$') ? parseFloat(value.slice(1)) : parseFloat(value);
 }
@@ -80,11 +78,7 @@ const percentDiscount = computed(() => {
     return Math.floor(discountPercent * 100) + '%';
 })
 
-const chipWrapperClasses = [
-    'flex flex-wrap mt-1 overflow-x-hidden',
-    'absolute bottom-0 left-0.5'
-]
-const chipClasses = 'mb-1 mr-1'
+const chipWrapperClasses = 'flex flex-wrap mt-1 overflow-x-hidden absolute bottom-0 left-0.5'
 </script>
 
 <template>
@@ -97,7 +91,7 @@ const chipClasses = 'mb-1 mr-1'
             </div>
 
             <div v-if="promos && promos.length" :class="chipWrapperClasses">
-                <div v-for="promo in promos" :class="chipClasses">
+                <div v-for="promo in promos" class="mb-1 mr-1">
                     <ChipPromo v-bind="promo" />
                 </div>
             </div>
