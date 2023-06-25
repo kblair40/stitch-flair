@@ -15,13 +15,19 @@ const store = useAdminStore();
 store.getPromotions();
 
 const showSuccessToast = ref(false);
+const showErrorToast = ref(false);
+const successMsg = ref('');
 const loading = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
 const formValues = ref<FormValues>({ text: '', color: 'green' });
 
-const openSuccessToast = (endEdit = false) => {
+const openSuccessToast = (endEdit = false, msg = "Saved Promotion") => {
+    successMsg.value = msg;
     showSuccessToast.value = true;
-    setTimeout(() => showSuccessToast.value = false, 3000)
+    setTimeout(() => {
+        showSuccessToast.value = false
+        successMsg.value = ''
+    }, 3000)
 
     if (endEdit) editing.value = null;
 }
@@ -77,6 +83,17 @@ const editBtnClasses = [
 const handleClickDelete = (id: number, idx: number) => {
     store.openConfirmModal('promo', { id, idx })
 }
+const handleConfirmDelete = async () => {
+    const deleteRes = await store.deletePromo();
+    if (!deleteRes) {
+        showErrorToast.value = true;
+        setTimeout(() => showErrorToast.value = false, 6000);
+    } else {
+        openSuccessToast(false, 'Deleted Promotion')
+        // showSuccessToast.value = true;
+        // setTimeout(() => showSuccessToast.value = true, 6000);
+    }
+}
 
 const editing = ref<number | null>(null);
 const handleClickEdit = (idx: number) => editing.value = idx;
@@ -85,7 +102,8 @@ const finishEdit = () => editing.value = null;
 
 <template>
     <div class="flex flex-col items-center">
-        <Toast :visible="showSuccessToast">Saved Promotion</Toast>
+        <Toast :visible="showSuccessToast">{{ successMsg }}</Toast>
+        <Toast :error="true" :visible="showErrorToast">Something went wrong</Toast>
 
         <div class="w-full max-w-75 sm:max-w-120 md:max-w-150 mt-6">
             <div class="w-full mb-12">
@@ -143,6 +161,6 @@ const finishEdit = () => editing.value = null;
             </div>
         </div>
 
-        <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deletePromo" @cancel="store.closeConfirmModal" />
+        <ModalConfirm v-if="store.showConfirmModal" @confirm="handleConfirmDelete" @cancel="store.closeConfirmModal" />
     </div>
 </template>

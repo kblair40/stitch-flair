@@ -221,7 +221,7 @@ export const useAdminStore = defineStore("admin", {
         this.promotions.data = curPromos;
         this.deleting = null;
 
-        return res;
+        return true;
       } catch (e) {
         console.log("\nFailed to Delete Promo:", e);
         this.deleting = null;
