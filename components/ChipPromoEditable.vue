@@ -58,8 +58,13 @@ const handleSubmit = async (formValues: Props) => {
 const formClasses = [
     "w-full flex flex-col space-y-4 items-end",
     "md:flex-row md:space-x-4 md:space-y-0 md:items-end",
+    // 'border'
 ]
 const inputClasses = 'h-8 w-min'
+const iconBtnClasses = [
+    'relative bottom-1 border transition-colors',
+    'bg-white hover:bg-gray-50 active:bg-gray-100'
+]
 </script>
 
 <template>
@@ -83,7 +88,15 @@ const inputClasses = 'h-8 w-min'
                     </div>
                 </div>
 
-                <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
+                <div class="flex space-x-2 w-full items-center">
+                    <div class="w-full">
+                        <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
+                    </div>
+                    <button :class="iconBtnClasses" class="rounded-full h-8 w-8 min-w-8 flex items-center justify-center"
+                        @click="$emit('cancel')">
+                        <img src="/icons/close.svg" />
+                    </button>
+                </div>
             </div>
         </FormKit>
     </div>

@@ -61,7 +61,6 @@ const formClasses = [
     "sm:flex-row sm:space-x-4 sm:space-y-0 sm:items-end",
 ]
 const iconBtnClasses = [
-    // 'border border-slate-300',
     'border border-slate-300 h-5 w-5 rounded-full absolute z-10',
     'transition-colors bg-white'
 ]
@@ -138,7 +137,7 @@ const handleClickEdit = (idx: number) => {
                 </div>
             </div>
 
-            <div class="w-full mt-8 min-h-12 border rounded-md py-2" v-if="typeof editing === 'number'">
+            <div class="w-full mt-4 pt-4 min-h-12 border-t rounded-md" v-if="typeof editing === 'number'">
                 <ChipPromoEditable :color="store.promotions.data[editing].color"
                     :text="store.promotions.data[editing].text" />
             </div>
