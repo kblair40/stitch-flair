@@ -19,12 +19,9 @@ const formRef = ref<HTMLFormElement | null>(null);
 const formValues = ref<FormValues>({ text: '', color: 'green' });
 
 const handleSubmit = async (formValues: any) => {
-    // console.log('formValues:', formValues);
     const { text, color } = formValues;
     try {
         if (!text || !color) return;
-        // color = color.toLowerCase();
-
         loading.value = true;
 
         const res = await useCustomFetch('/promotion', {
@@ -62,14 +59,25 @@ const formClasses = [
     "w-full flex flex-col space-y-4 items-end",
     "sm:flex-row sm:space-x-4 sm:space-y-0 sm:items-end",
 ]
+const iconBtnClasses = [
+    // 'border border-slate-300',
+    'border border-slate-300 h-5 w-5 rounded-full absolute z-10',
+    'transition-colors bg-white'
+]
 const deleteBtnClasses = [
-    // 'border border-red-300',
-    'border border-slate-300',
-    'h-5 w-5 rounded-full absolute top-0.5 right-0.5 z-10',
-    'transition-colors bg-white hover:bg-red-50 active:bg-red-100'
+    ...iconBtnClasses,
+    'top-0.5 right-0.5 hover:bg-red-50 active:bg-red-100'
+]
+const editBtnClasses = [
+    ...iconBtnClasses,
+    'top-0.5 right-6 hover:bg-slate-50 active:bg-slate-100'
 ]
 
 const handleClickDelete = (id: number, idx: number) => {
+    store.openConfirmModal('promo', { id, idx })
+}
+
+const handleClickEdit = (id: number, idx: number) => {
     store.openConfirmModal('promo', { id, idx })
 }
 </script>
@@ -82,11 +90,17 @@ const handleClickDelete = (id: number, idx: number) => {
             <div class="w-full mb-20">
                 <h3 class="font-semibold text-xl mb-3">All Promos</h3>
                 <div class="flex flex-wrap">
-                    <div class="relative pr-6 mr-4 mb-2" v-for="promo, i in store.promotions.data">
-                        <button v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
-                            <img class="scale-90" src="/icons/close.svg" />
-                        </button>
-                        <ChipPromo :text="promo.text" :color="promo.color" />
+                    <div class="mr-4 mb-2 border" v-for="promo, i in store.promotions.data">
+                        <div class="relative pr-12">
+                            <button v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
+                                <img class="scale-90" src="/icons/close.svg" />
+                            </button>
+                            <button v-if="!!promo.id" :class="editBtnClasses" @click="handleClickEdit(promo.id, i)">
+                                <img class="scale-90" src="/icons/edit.svg" />
+                            </button>
+
+                            <ChipPromo :text="promo.text" :color="promo.color" />
+                        </div>
                     </div>
                 </div>
             </div>
