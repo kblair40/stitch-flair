@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { reset, FormKitOptions } from '@formkit/core';
+import { reset } from '@formkit/core';
 import { FormKitMessages } from '@formkit/vue'
 
-import { toTitleCase } from '~~/utils/helpers';
 import type { Promotion, PromoColor } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
 
