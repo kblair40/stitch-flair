@@ -100,7 +100,7 @@ const iconBtnClasses = [
                     <div class="w-full">
                         <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
                     </div>
-                    <button :class="iconBtnClasses" class="rounded-full h-8 w-8 min-w-8 flex items-center justify-center"
+                    <button type="button" :class="iconBtnClasses" class="rounded-full h-8 w-8 min-w-8 flex items-center justify-center"
                         @click="$emit('cancel')">
                         <img src="/icons/close.svg" />
                     </button>

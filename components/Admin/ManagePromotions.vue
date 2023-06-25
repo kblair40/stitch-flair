@@ -30,7 +30,7 @@ const handleSubmit = async (formValues: any) => {
     const { text, color } = formValues;
     try {
         if (!text || !color) return;
-        
+
         loading.value = true;
         const res = await useCustomFetch('/promotion', {
             method: 'POST',
@@ -47,9 +47,7 @@ const handleSubmit = async (formValues: any) => {
         console.log('Failed to create product:', e)
     }
 
-    setTimeout(() => {
-        loading.value = false;
-    }, 2000)
+    loading.value = false;
 }
 
 const colors = ['Green', 'Red', 'Blue', 'Orange', 'Purple', 'Peach']
