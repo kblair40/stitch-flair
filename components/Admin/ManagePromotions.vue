@@ -138,8 +138,7 @@ const handleClickEdit = (idx: number) => {
             </div>
 
             <div class="w-full mt-4 pt-4 min-h-12 border-t rounded-md" v-if="typeof editing === 'number'">
-                <ChipPromoEditable :color="store.promotions.data[editing].color"
-                    :text="store.promotions.data[editing].text" />
+                <ChipPromoEditable :idx="editing" v-bind="store.promotions.data[editing]" />
             </div>
         </div>
 

@@ -1,16 +1,13 @@
 import { defineStore } from "pinia";
-// import { useRuntimeConfig } from "nuxt/app";
 import axios from "axios";
 
-import type { Category, Product, Promotion } from "~~/utils/types";
-
-// const config = useRuntimeConfig();
-// const BASE_URL = config.API_BASE_URL;
+import type { Category, Product, Promotion, PromoColor } from "~~/utils/types";
 
 export type ProductInfo = null | { id: number; idx: number };
 export type CategoryInfo = null | { id: number; idx: number };
 export type Info = null | { id: number; idx: number };
 type DeleteRes = { status?: number; affected?: number; message?: string };
+type PromoUpdate = { text?: string; color?: PromoColor };
 
 export const useAdminStore = defineStore("admin", {
   state: () => ({
@@ -91,6 +88,12 @@ export const useAdminStore = defineStore("admin", {
         this.promotions.loading = false;
         return;
       }
+    },
+    updatePromotions(idx: number, promo: PromoUpdate) {
+      const promoToEdit = { ...this.promotions.data[idx] };
+      if (promo.text) promoToEdit.text = promo.text;
+      if (promo.color) promoToEdit.color = promo.color;
+      this.promotions.data[idx] = promoToEdit;
     },
     addCategory(category: Category) {
       this.categories.data.push(category);

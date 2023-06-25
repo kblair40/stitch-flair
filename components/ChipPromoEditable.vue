@@ -2,7 +2,15 @@
 import type { PromoColor, Promotion } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
 
-type Props = { text: string; color: PromoColor };
+defineEmits(['cancel', 'error', 'success'])
+interface FormValues {
+    text: string;
+    color: PromoColor;
+}
+interface Props extends FormValues {
+    id?: number;
+    idx: number;
+}
 const props = defineProps<Props>()
 
 const store = useAdminStore();
@@ -20,7 +28,6 @@ const loading = ref(false);
 const formValues = ref<Props>({ ...props });
 const initialFormValues = ref<Props>({ ...props });
 
-// console.log('formValues:', formValues);
 const handleSubmit = async (formValues: Props) => {
     const { text, color } = formValues;
     if (!text || !color) return;
@@ -37,13 +44,19 @@ const handleSubmit = async (formValues: Props) => {
         return;
     }
 
+    if (!props.id) {
+        console.warn('No Promo ID - Returning early...');
+        return;
+    }
+
     loading.value = true;
     try {
-        const res = await useCustomFetch('/promotion', { method: 'PATCH', body })
+        const res = await useCustomFetch(`/promotion/${props.id}`, { method: 'PATCH', body })
         console.log('Patch Promo Res:', res, '\n');
 
         if (res.data.value) {
-            store.addPromotion(res.data.value as Promotion);
+            // store.addPromotion(res.data.value as Promotion);
+            store.updatePromotions(props.idx, body)
 
             showSuccessToast.value = true;
             setTimeout(() => showSuccessToast.value = false, 3000)
@@ -58,9 +71,8 @@ const handleSubmit = async (formValues: Props) => {
 const formClasses = [
     "w-full flex flex-col space-y-4 items-end",
     "md:flex-row md:space-x-4 md:space-y-0 md:items-end",
-    // 'border'
 ]
-const inputClasses = 'h-8 w-min'
+const inputClasses = 'h-8'
 const iconBtnClasses = [
     'relative bottom-1 border transition-colors',
     'bg-white hover:bg-gray-50 active:bg-gray-100'
