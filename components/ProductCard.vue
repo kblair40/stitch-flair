@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { NavigateToOptions } from 'nuxt/dist/app/composables/router';
 import { toTitleCase } from '~~/utils/helpers';
 import type { PromoColor } from '~~/utils/types';
 
@@ -40,6 +41,11 @@ const priceClasses = computed(() => ([
     props.on_sale ? 'line-through opacity-100 decoration-darkpeach/75 decoration-2 mr-3' : ''
 ]))
 
+const handleClick = () => {
+    if (props.preview) return;
+    window.open('https://www.etsy.com/shop/stitchflair', '_blank')
+}
+
 const formatPrice = (price: string | null) => {
     if (price === '' || price === '$0.00') return '';
     else if (!price) return '0';
@@ -63,9 +69,6 @@ const percentDiscount = computed(() => {
         preview: props.preview
     })
 
-    // {price: '$13.50', on_sale_price: '$2.00', on_sale: true}
-    // {price: '6.00', on_sale_price: '4.5', on_sale: true}
-
     // slice(1) removes '$' so value can be parsed by parseFloat
     // const price = props.preview ? parseFloat(props.price) : parseFloat(props.price.slice(1));
     // const salePrice = props.preview ? parseFloat(props.on_sale_price) : parseFloat(props.on_sale_price.slice(1));
@@ -85,37 +88,35 @@ const chipClasses = 'mb-1 mr-1'
 </script>
 
 <template>
-    <NuxtLink to="https://www.etsy.com/shop/stitchflair" target="_blank">
-        <div :class="cardClasses">
-            <div :class="imgWrapperClasses">
-                <img v-if="image_url" :src="image_url" :class="imgClasses" />
-                <div v-else-if="preview"
-                    class="bg-slate-50 flex items-center justify-center w-full h-full rounded-sm border border-slate-200">
-                    <p class="opacity-30">Image Here</p>
-                </div>
-
-                <div v-if="promos && promos.length" :class="chipWrapperClasses">
-                    <div v-for="promo in promos" :class="chipClasses">
-                        <ChipPromo v-bind="promo" />
-                    </div>
-                </div>
+    <div :class="cardClasses" @click="handleClick">
+        <div :class="imgWrapperClasses">
+            <img v-if="image_url" :src="image_url" :class="imgClasses" />
+            <div v-else-if="preview"
+                class="bg-slate-50 flex items-center justify-center w-full h-full rounded-sm border border-slate-200">
+                <p class="opacity-30">Image Here</p>
             </div>
 
-            <p :class="nameClasses">{{ toTitleCase(name) }}</p>
-
-            <div class="flex mt-1 font-semibold text-no-wrap h-6 overflow-hidden">
-                <p v-if="!preview" :class="priceClasses">{{ price }}</p>
-                <p v-else :class="priceClasses">${{ formatPrice(price) }}</p>
-
-                <p v-if="on_sale" :class="salePriceClasses">
-                    {{ preview && on_sale_price ? `$${formatPrice(on_sale_price)}` : on_sale_price ? on_sale_price : '' }}
-                    <span v-if="!preview" :class="onSaleClasses">{{ percentDiscount }} off!</span>
-                    <span v-else :class="onSaleClasses">{{ percentDiscount }} off!</span>
-                </p>
+            <div v-if="promos && promos.length" :class="chipWrapperClasses">
+                <div v-for="promo in promos" :class="chipClasses">
+                    <ChipPromo v-bind="promo" />
+                </div>
             </div>
-
-            <slot></slot>
-
         </div>
-    </NuxtLink>
+
+        <p :class="nameClasses">{{ toTitleCase(name) }}</p>
+
+        <div class="flex mt-1 font-semibold text-no-wrap h-6 overflow-hidden">
+            <p v-if="!preview" :class="priceClasses">{{ price }}</p>
+            <p v-else :class="priceClasses">${{ formatPrice(price) }}</p>
+
+            <p v-if="on_sale" :class="salePriceClasses">
+                {{ preview && on_sale_price ? `$${formatPrice(on_sale_price)}` : on_sale_price ? on_sale_price : '' }}
+                <span v-if="!preview" :class="onSaleClasses">{{ percentDiscount }} off!</span>
+                <span v-else :class="onSaleClasses">{{ percentDiscount }} off!</span>
+            </p>
+        </div>
+
+        <slot></slot>
+
+    </div>
 </template>
