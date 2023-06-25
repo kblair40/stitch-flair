@@ -19,12 +19,19 @@ const loading = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
 const formValues = ref<FormValues>({ text: '', color: 'green' });
 
+const openSuccessToast = (endEdit = false) => {
+    showSuccessToast.value = true;
+    setTimeout(() => showSuccessToast.value = false, 3000)
+
+    if (endEdit) editing.value = null;
+}
+
 const handleSubmit = async (formValues: any) => {
     const { text, color } = formValues;
     try {
         if (!text || !color) return;
+        
         loading.value = true;
-
         const res = await useCustomFetch('/promotion', {
             method: 'POST',
             body: { text: text.trim(), color },
@@ -33,12 +40,8 @@ const handleSubmit = async (formValues: any) => {
         console.log('Create Promotion Res:', res.data.value, '\n');
         if (res.data.value) {
             store.addPromotion(res.data.value as Promotion);
-            showSuccessToast.value = true;
+            openSuccessToast();
             reset('promo-form');
-
-            setTimeout(() => {
-                showSuccessToast.value = false;
-            }, 3000)
         }
     } catch (e) {
         console.log('Failed to create product:', e)
@@ -78,9 +81,8 @@ const handleClickDelete = (id: number, idx: number) => {
 }
 
 const editing = ref<number | null>(null);
-const handleClickEdit = (idx: number) => {
-    editing.value = idx;
-}
+const handleClickEdit = (idx: number) => editing.value = idx;
+const finishEdit = () => editing.value = null;
 </script>
 
 <template>
@@ -138,7 +140,8 @@ const handleClickEdit = (idx: number) => {
             </div>
 
             <div class="w-full mt-4 pt-4 min-h-12 border-t rounded-md" v-if="typeof editing === 'number'">
-                <ChipPromoEditable :idx="editing" v-bind="store.promotions.data[editing]" />
+                <ChipPromoEditable @success="openSuccessToast(true)" @cancel="finishEdit" :idx="editing"
+                    v-bind="store.promotions.data[editing]" />
             </div>
         </div>
 

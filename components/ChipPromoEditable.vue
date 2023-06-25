@@ -2,7 +2,7 @@
 import type { PromoColor, Promotion } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
 
-defineEmits(['cancel', 'error', 'success'])
+const emit = defineEmits(['cancel', 'error', 'success'])
 interface FormValues {
     text: string;
     color: PromoColor;
@@ -53,13 +53,9 @@ const handleSubmit = async (formValues: Props) => {
     try {
         const res = await useCustomFetch(`/promotion/${props.id}`, { method: 'PATCH', body })
         console.log('Patch Promo Res:', res, '\n');
-
         if (res.data.value) {
-            // store.addPromotion(res.data.value as Promotion);
             store.updatePromotions(props.idx, body)
-
-            showSuccessToast.value = true;
-            setTimeout(() => showSuccessToast.value = false, 3000)
+            emit('success')
         }
     } catch (e) {
         console.log('Failed to create product:', e)
