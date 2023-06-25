@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useAdminStore } from '~~/store/adminStore';
-import type { DeleteRes } from '~~/store/adminStore';
 import { toTitleCase } from '~~/utils/helpers'
 import type { Category } from '~~/utils/types';
 
@@ -25,12 +24,19 @@ const handleClickCancelEdit = () => {
     editing.title = null;
     initialEditVal.value = '';
 }
+const handleClickCancelDelete = () => {
+    showConfirmModal.value = false;
+    productToDelete.value = { id: -1, idx: -1 }
+}
 
 type EditInfo = { id: null | number, title: null | string }
 const editing: EditInfo = reactive({ id: null, title: null })
 const initialEditVal = ref(''); // holds original category title.  No update will happen if initialEditVal === 'new' saved value.
 const showErrorToast = ref(false);
 const errorMsg = ref('');
+const showSuccessToast = ref(false);
+const successMsg = ref('');
+const deleting = ref<number | null>(null);
 
 const handleClickEdit = (id: number, title: string) => {
     editing.id = id;
@@ -46,6 +52,14 @@ const showError = (msg = "Something went wrong", dur = 6000) => {
         errorMsg.value = '';
     }, dur)
 }
+const showSuccess = (msg = "Category updated", dur = 6000) => {
+    successMsg.value = msg;
+    showSuccessToast.value = true;
+    setTimeout(() => {
+        successMsg.value = '';
+        showSuccessToast.value = false;;
+    }, dur)
+}
 
 const saving = ref<number | null>(null);
 const handleClickSave = async () => {
@@ -58,8 +72,11 @@ const handleClickSave = async () => {
                 method: 'PATCH',
                 body: { title: editing.title },
             })
-            console.log('SAVE RES:', res);
-            store.updateCategory(editing.id, editing.title);
+            console.log('Save Res:', res);
+            if (res.data.value) {
+                store.updateCategory(editing.id, editing.title);
+                showSuccess()
+            }
         } catch (e) {
             console.log('Failed to save edited category')
             showError();
@@ -74,36 +91,34 @@ const handleClickSave = async () => {
 
 const showConfirmModal = ref(false);
 const deleteCategory = async () => {
-    const id = productToDelete.value.id;
-    const idx = productToDelete.value.idx;
+    const { id, idx } = productToDelete.value;
+
     if (!id || typeof idx !== "number") return;
 
     try {
         showConfirmModal.value = false;
-        store.deleting = store.categoryToDelete;
+        // store.deleting = store.categoryToDelete;
+        deleting.value = id;
         const res = await useCustomFetch(`/category/${id}`, {
             method: "DELETE",
         });
-        const deleteRes = res.data.value as DeleteRes;
-        console.log("deleteRes:", res);
-        if (!deleteRes || !deleteRes.affected) {
-            if (res.error.value?.data.detail.includes('referenced')) {
-                showError(
-                    'There are product(s) referencing this category that must be given a different category or deleted', 12000
-                )
-                return;
-            }
-            if (deleteRes?.message) throw deleteRes.message;
-            else throw "Failed";
+
+        console.log("Delete Res:", res);
+        if (res.error.value?.data.detail.includes('referenced')) {
+            showError(
+                'There are product(s) referencing this category that must be given a different category or deleted', 12000
+            )
+            return;
+        } else if (res.error.value) {
+            showError();
+            return;
         }
 
-        // copy categories, and delete from the copy
-        const curCategories = [...store.categories.data];
-        curCategories.splice(idx, 1);
-
-        store.categoryToDelete = null;
-        store.categories.data = curCategories;
-        store.deleting = null;
+        if (res.data.value) {
+            showSuccess('Category deleted');
+            // console.log('\nREMOVING', id)
+            store.removeCategory(id);
+        }
     } catch (e) {
         showError()
         console.error(e);
@@ -122,6 +137,7 @@ const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-1
 <template>
     <div class="w-full">
         <Toast :error="true" :visible="showErrorToast">{{ errorMsg }}</Toast>
+        <Toast :visible="showSuccessToast">{{ successMsg }}</Toast>
 
         <h3 class="font-semibold text-xl mb-3">All Categories</h3>
 
@@ -158,6 +174,6 @@ const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-1
             </div>
         </div>
 
-        <ModalConfirm :isOpen="true" v-if="showConfirmModal" @confirm="deleteCategory" @cancel="store.closeConfirmModal" />
+        <ModalConfirm :isOpen="true" v-if="showConfirmModal" @confirm="deleteCategory" @cancel="handleClickCancelDelete" />
     </div>
 </template>
