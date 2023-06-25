@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useAdminStore } from '~~/store/adminStore';
 import type { Product, Category } from '~/utils/types'
+import { toTitleCase } from '~~/utils/helpers';
 
 const store = useAdminStore();
 store.getProducts();
@@ -29,7 +30,7 @@ const categoryOptions = computed(() => {
     if (categories && Array.isArray(categories) && categories.length) {
         // console.log('Categories:', categories);
         return categories.map((category: Category) => ({
-            label: category.title,
+            label: toTitleCase(category.title),
             value: category.id,
         }))
     }
@@ -105,7 +106,6 @@ const gridClasses = computed(() => {
             </div>
         </div>
 
-        <!-- <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteProduct" @cancel="store.closeConfirmModal" /> -->
         <ModalConfirm v-if="store.showConfirmModal" @confirm="handleDeleteProduct" @cancel="store.closeConfirmModal" />
         <AdminEditProductModal @success="handleClose(true)" @error="handleShowError" @close="handleClose"
             v-if="store.showEditProductModal" />

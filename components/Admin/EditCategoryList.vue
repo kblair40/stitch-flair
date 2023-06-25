@@ -87,8 +87,6 @@ const deleteCategory = async () => {
         const deleteRes = res.data.value as DeleteRes;
         console.log("deleteRes:", res);
         if (!deleteRes || !deleteRes.affected) {
-            console.log('1:', res.error.value);
-            console.log('2:', res.error.value?.data);
             if (res.error.value?.data.detail.includes('referenced')) {
                 showError(
                     'There are product(s) referencing this category that must be given a different category or deleted', 12000
