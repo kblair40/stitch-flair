@@ -2,15 +2,9 @@
 import type { PromoColor, Promotion } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
 
-const props = withDefaults(defineProps<{ text: string; color?: PromoColor }>(), {
-    text: '',
-    color: 'green',
-})
+type Props = { text: string; color: PromoColor };
+const props = defineProps<Props>()
 
-interface FormValues {
-    text: string;
-    color: PromoColor
-}
 
 const store = useAdminStore();
 store.getPromotions();
@@ -18,14 +12,13 @@ store.getPromotions();
 const showSuccessToast = ref(false);
 const loading = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
-const formValues = ref<FormValues>({ text: '', color: 'green' });
+const formValues = ref<Props>({ ...props });
 
 const handleSubmit = async (formValues: any) => {
     // console.log('formValues:', formValues);
     const { text, color } = formValues;
     try {
         if (!text || !color) return;
-        // color = color.toLowerCase();
 
         loading.value = true;
 
@@ -69,8 +62,39 @@ const classes = computed(() => ([
 </script>
 
 <template>
-    <div class="flex">
+    <div class="w-full">
+        <FormKit :errors="[]" v-model="formValues" ref="formRef" @submit="handleSubmit" type="form" :actions="false">
+            <div :class="formClasses">
+                <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 w-full">
+                    <div class="w-full h-18 max-h-18">
+                        <FormKit name="text" label="Promo Text Label *" type="text"
+                            validation="required:trim|length:1,32" />
+                    </div>
 
-        <div :class="classes">{{ text }}</div>
+                    <div class="w-full h-18 max-h-18">
+                        <FormKit name="color" label="Color *" type="select" :options="colorOptions" />
+                    </div>
+                </div>
+
+                <div class="w-full sm:w-40">
+                    <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
+                </div>
+
+                <div v-show="false" class="text-center h-2 relative bottom-2">
+                    <FormKitMessages :node="formRef?.node" />
+                </div>
+            </div>
+        </FormKit>
+
+        <div class="mt-6 flex space-x-4">
+            <p class="font-medium text-lg">Preview</p>
+            <ChipPromo v-bind="formValues" />
+        </div>
     </div>
 </template>
+
+<!-- <template>
+    <div class="flex">
+        <div :class="classes">{{ text }}</div>
+    </div>
+</template> -->

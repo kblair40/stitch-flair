@@ -4,6 +4,7 @@ import { FormKitMessages } from '@formkit/vue'
 
 import type { Promotion, PromoColor } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
+import ChipPromoEditable from '../ChipPromoEditable.vue';
 
 interface FormValues {
     text: string;
@@ -77,8 +78,9 @@ const handleClickDelete = (id: number, idx: number) => {
     store.openConfirmModal('promo', { id, idx })
 }
 
-const handleClickEdit = (id: number, idx: number) => {
-    store.openConfirmModal('promo', { id, idx })
+const editing = ref<number | null>(null);
+const handleClickEdit = (id: number) => {
+    editing.value = id;
 }
 </script>
 
@@ -90,16 +92,19 @@ const handleClickEdit = (id: number, idx: number) => {
             <div class="w-full mb-20">
                 <h3 class="font-semibold text-xl mb-3">All Promos</h3>
                 <div class="flex flex-wrap">
-                    <div class="mr-4 mb-2 border" v-for="promo, i in store.promotions.data">
-                        <div class="relative pr-12">
+                    <div class="mr-4 mb-2" v-for="promo, i in store.promotions.data">
+                        <div class="relative pr-12" v-if="editing !== promo.id">
                             <button v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
                                 <img class="scale-90" src="/icons/close.svg" />
                             </button>
-                            <button v-if="!!promo.id" :class="editBtnClasses" @click="handleClickEdit(promo.id, i)">
+                            <button v-if="!!promo.id" :class="editBtnClasses" @click="handleClickEdit(promo.id)">
                                 <img class="scale-90" src="/icons/edit.svg" />
                             </button>
-
                             <ChipPromo :text="promo.text" :color="promo.color" />
+                        </div>
+
+                        <div v-else>
+                            <ChipPromoEditable :text="promo.text" :color="promo.color" />
                         </div>
                     </div>
                 </div>
