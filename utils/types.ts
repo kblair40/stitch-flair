@@ -1,13 +1,10 @@
 export interface Product {
-  // [key: string]: string | number | boolean | null | undefined;
   id: number;
   price: string;
   image_url: string;
   name: string;
-  category_id: number;
   promo_ids?: any[];
   promos?: Promotion[];
-  // promo_ids?: number[];
   description?: string;
   featured: boolean;
   on_sale: boolean;
