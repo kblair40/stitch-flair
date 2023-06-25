@@ -11,7 +11,11 @@ import type {
 export type ProductInfo = null | { id: number; idx: number };
 export type CategoryInfo = null | { id: number; idx: number };
 export type Info = null | { id: number; idx: number };
-type DeleteRes = { status?: number; affected?: number; message?: string };
+export type DeleteRes = {
+  status?: number;
+  affected?: number;
+  message?: string;
+};
 type PromoUpdate = { text?: string; color?: PromoColor };
 
 export const useAdminStore = defineStore("admin", {

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { useAdminStore } from '~~/store/adminStore';
 
+defineProps<{ isOpen?: boolean }>();
+
 const store = useAdminStore();
 
 const emit = defineEmits(['confirm', 'cancel'])
@@ -34,7 +36,7 @@ const overlayClasses = [
 </script>
 
 <template>
-    <div v-if="store.showConfirmModal" class="z-50">
+    <div v-if="isOpen || store.showConfirmModal" class="z-50">
         <div :class="overlayClasses" @click="handleCancel" />
         <div :class="wrapperClasses">
             <h3 class="text-lg font-medium mb-5 z-50">Please confirm you want to delete this product</h3>

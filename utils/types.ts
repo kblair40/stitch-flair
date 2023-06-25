@@ -5,11 +5,16 @@ export interface Product {
   name: string;
   promo_ids?: any[];
   promos?: Promotion[];
+  category_id: number;
   description?: string;
   featured: boolean;
   on_sale: boolean;
   on_sale_price?: null | string;
   etsy_url?: string;
+}
+
+export interface PopulatedProduct extends Product {
+  category: Category;
 }
 
 export interface Category {

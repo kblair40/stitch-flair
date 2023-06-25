@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useAdminStore } from '~~/store/adminStore';
+import type { DeleteRes } from '~~/store/adminStore';
 import { toTitleCase } from '~~/utils/helpers'
 import type { Category } from '~~/utils/types';
 
@@ -13,8 +14,10 @@ const categories = computed(() => store.categories.data.map((cat: Category) => {
     return { ...cat, title: toTitleCase(cat.title) };
 }));
 
+const productToDelete = ref({ id: -1, idx: -1 });
 const handleClickDelete = (id: number, idx: number) => {
-    store.openConfirmModal('category', { id, idx })
+    showConfirmModal.value = true;
+    productToDelete.value = { id, idx }
 }
 
 const handleClickCancelEdit = () => {
@@ -27,11 +30,21 @@ type EditInfo = { id: null | number, title: null | string }
 const editing: EditInfo = reactive({ id: null, title: null })
 const initialEditVal = ref(''); // holds original category title.  No update will happen if initialEditVal === 'new' saved value.
 const showErrorToast = ref(false);
+const errorMsg = ref('');
 
 const handleClickEdit = (id: number, title: string) => {
     editing.id = id;
     editing.title = title;
     initialEditVal.value = title;
+}
+
+const showError = (msg = "Something went wrong", dur = 6000) => {
+    errorMsg.value = msg;
+    showErrorToast.value = true;
+    setTimeout(() => {
+        showErrorToast.value = false;
+        errorMsg.value = '';
+    }, dur)
 }
 
 const saving = ref<number | null>(null);
@@ -49,8 +62,7 @@ const handleClickSave = async () => {
             store.updateCategory(editing.id, editing.title);
         } catch (e) {
             console.log('Failed to save edited category')
-            showErrorToast.value = true;
-            setTimeout(() => showErrorToast.value = false, 6000);
+            showError();
         }
     }
 
@@ -58,6 +70,48 @@ const handleClickSave = async () => {
     editing.id = null;
     editing.title = null;
     initialEditVal.value = '';
+}
+
+const showConfirmModal = ref(false);
+const deleteCategory = async () => {
+    const id = productToDelete.value.id;
+    const idx = productToDelete.value.idx;
+    if (!id || typeof idx !== "number") return;
+
+    try {
+        showConfirmModal.value = false;
+        store.deleting = store.categoryToDelete;
+        const res = await useCustomFetch(`/category/${id}`, {
+            method: "DELETE",
+        });
+        const deleteRes = res.data.value as DeleteRes;
+        console.log("deleteRes:", res);
+        if (!deleteRes || !deleteRes.affected) {
+            console.log('1:', res.error.value);
+            console.log('2:', res.error.value?.data);
+            if (res.error.value?.data.detail.includes('referenced')) {
+                showError(
+                    'There are product(s) referencing this category that must be given a different category or deleted', 12000
+                )
+                return;
+            }
+            if (deleteRes?.message) throw deleteRes.message;
+            else throw "Failed";
+        }
+
+        // copy categories, and delete from the copy
+        const curCategories = [...store.categories.data];
+        curCategories.splice(idx, 1);
+
+        store.categoryToDelete = null;
+        store.categories.data = curCategories;
+        store.deleting = null;
+    } catch (e) {
+        showError()
+        console.error(e);
+        store.deleting = null;
+        return false;
+    }
 }
 
 const flexCenter = " flex justify-center items-center"
@@ -69,7 +123,7 @@ const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-1
 
 <template>
     <div class="w-full">
-        <Toast :error="true" :visible="showErrorToast">Something went wrong</Toast>
+        <Toast :error="true" :visible="showErrorToast">{{ errorMsg }}</Toast>
 
         <h3 class="font-semibold text-xl mb-3">All Categories</h3>
 
@@ -106,6 +160,6 @@ const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-1
             </div>
         </div>
 
-        <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deleteCategory" @cancel="store.closeConfirmModal" />
+        <ModalConfirm :isOpen="true" v-if="showConfirmModal" @confirm="deleteCategory" @cancel="store.closeConfirmModal" />
     </div>
 </template>
