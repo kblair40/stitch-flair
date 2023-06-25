@@ -116,6 +116,14 @@ export const useAdminStore = defineStore("admin", {
       });
       if (foundCategory) foundCategory.title = title;
     },
+    removeCategory(id: number) {
+      const catCopy = [...this.categories.data];
+      const catIdx = catCopy.findIndex((cat) => cat.id === id);
+      if (catIdx !== -1) {
+        catCopy.splice(catIdx, 1);
+        this.categories.data = catCopy;
+      }
+    },
     openConfirmModal(entity: "product" | "category" | "promo", info: Info) {
       if (entity === "product") {
         this.productToDelete = info;
