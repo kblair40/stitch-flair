@@ -23,7 +23,6 @@ const colorOptions = computed(() => {
     })
 })
 
-const showSuccessToast = ref(false);
 const loading = ref(false);
 const formValues = ref<Props>({ ...props });
 const initialFormValues = ref<Props>({ ...props });
@@ -86,13 +85,12 @@ const iconBtnClasses = [
             <div :class="formClasses">
                 <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
                     <div class="h-16 max-h-18">
-                        <FormKit :input-class="inputClasses" name="text" label="Promo Text Label *" type="text"
+                        <FormKit input-class="h-8" name="text" label="Promo Text Label *" type="text"
                             validation="required:trim|length:1,32" />
                     </div>
 
                     <div class="h-16 max-h-18">
-                        <FormKit :input-class="inputClasses" name="color" label="Color *" type="select"
-                            :options="colorOptions" />
+                        <FormKit input-class="h-8" name="color" label="Color *" type="select" :options="colorOptions" />
                     </div>
                 </div>
 
@@ -100,8 +98,8 @@ const iconBtnClasses = [
                     <div class="w-full">
                         <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
                     </div>
-                    <button type="button" :class="iconBtnClasses" class="rounded-full h-8 w-8 min-w-8 flex items-center justify-center"
-                        @click="$emit('cancel')">
+                    <button type="button" :class="iconBtnClasses"
+                        class="rounded-full h-8 w-8 min-w-8 flex items-center justify-center" @click="$emit('cancel')">
                         <img src="/icons/close.svg" />
                     </button>
                 </div>
