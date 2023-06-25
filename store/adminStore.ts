@@ -11,11 +11,6 @@ import type {
 export type ProductInfo = null | { id: number; idx: number };
 export type CategoryInfo = null | { id: number; idx: number };
 export type Info = null | { id: number; idx: number };
-export type DeleteRes = {
-  status?: number;
-  affected?: number;
-  message?: string;
-};
 type PromoUpdate = { text?: string; color?: PromoColor };
 
 export const useAdminStore = defineStore("admin", {
@@ -205,39 +200,6 @@ export const useAdminStore = defineStore("admin", {
       console.log("closing...");
       this.productToEdit = null;
       this.showEditProductModal = false;
-    },
-    async deleteCategory() {
-      const id = this.categoryToDelete?.id;
-      const idx = this.categoryToDelete?.idx;
-      if (!id || typeof idx !== "number") return;
-
-      try {
-        this.showConfirmModal = false;
-        this.deleting = this.categoryToDelete;
-        const res = await useCustomFetch(`/category/${id}`, {
-          method: "DELETE",
-        });
-        const deleteRes = res.data.value as DeleteRes;
-        // console.log("deleteRes:", deleteRes);
-        if (!deleteRes || !deleteRes.affected) {
-          if (deleteRes?.message) throw deleteRes.message;
-          else throw "Failed";
-        }
-
-        // copy categories, and delete from the copy
-        const curCategories = [...this.categories.data];
-        curCategories.splice(idx, 1);
-
-        this.categoryToDelete = null;
-        this.categories.data = curCategories;
-        this.deleting = null;
-
-        return true;
-      } catch (e) {
-        console.error(e);
-        this.deleting = null;
-        return false;
-      }
     },
     async deletePromo() {
       if (!this.promoToDelete) return;
