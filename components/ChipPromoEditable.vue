@@ -5,96 +5,86 @@ import { useAdminStore } from '~~/store/adminStore';
 type Props = { text: string; color: PromoColor };
 const props = defineProps<Props>()
 
-
 const store = useAdminStore();
 store.getPromotions();
 
+const colors = ['Green', 'Red', 'Blue', 'Orange', 'Purple', 'Peach']
+const colorOptions = computed(() => {
+    return colors.map(color => {
+        return { value: color.toLowerCase(), label: color }
+    })
+})
+
 const showSuccessToast = ref(false);
 const loading = ref(false);
-const formRef = ref<HTMLFormElement | null>(null);
 const formValues = ref<Props>({ ...props });
+const initialFormValues = ref<Props>({ ...props });
 
-const handleSubmit = async (formValues: any) => {
-    // console.log('formValues:', formValues);
+// console.log('formValues:', formValues);
+const handleSubmit = async (formValues: Props) => {
     const { text, color } = formValues;
+    if (!text || !color) return;
+
+    const body: { [key: string]: string } = {};
+    if (text.trim() !== initialFormValues.value.text.trim()) {
+        body['text'] = text.trim();
+    }
+    if (color !== initialFormValues.value.color) {
+        body['color'] = color;
+    }
+    if (!Object.keys(body).length) {
+        console.log('\nNo changes');
+        return;
+    }
+
+    loading.value = true;
     try {
-        if (!text || !color) return;
+        const res = await useCustomFetch('/promotion', { method: 'PATCH', body })
+        console.log('Patch Promo Res:', res, '\n');
 
-        loading.value = true;
-
-        const res = await useCustomFetch('/promotion', {
-            method: 'POST',
-            body: { text: text.trim(), color },
-        })
-
-        console.log('Create Promotion Res:', res.data.value, '\n');
         if (res.data.value) {
             store.addPromotion(res.data.value as Promotion);
-            showSuccessToast.value = true;
 
-            setTimeout(() => {
-                showSuccessToast.value = false;
-            }, 3000)
+            showSuccessToast.value = true;
+            setTimeout(() => showSuccessToast.value = false, 3000)
         }
     } catch (e) {
         console.log('Failed to create product:', e)
     }
 
-    setTimeout(() => {
-        loading.value = false;
-    }, 2000)
+    loading.value = false;
 }
 
-const colorClasses: { [key: string]: string } = {
-    green: 'bg-green-300',
-    red: 'bg-red-300',
-    blue: 'bg-blue-300',
-    orange: 'bg-orange-300',
-    purple: 'bg-purple-300',
-    peach: 'bg-peach-300',
-}
-
-const classes = computed(() => ([
-    colorClasses[props.color],
-    'flex justify-center items-center rounded-full w-min px-3 py-1',
-    'leading-none whitespace-nowrap text-sm font-semibold'
-]))
+const formClasses = [
+    "w-full flex flex-col space-y-4 items-end",
+    "md:flex-row md:space-x-4 md:space-y-0 md:items-end",
+]
+const inputClasses = 'h-8 w-min'
 </script>
 
 <template>
-    <div class="w-full">
-        <FormKit :errors="[]" v-model="formValues" ref="formRef" @submit="handleSubmit" type="form" :actions="false">
+    <div class="flex w-full flex-col items-center">
+        <div class="mb-4 flex">
+            <p class="italic text-gray-500 mr-3">Editing</p>
+            <ChipPromo v-bind="formValues" />
+        </div>
+
+        <FormKit :errors="[]" v-model="formValues" @submit="handleSubmit" type="form" :actions="false">
             <div :class="formClasses">
-                <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 w-full">
-                    <div class="w-full h-18 max-h-18">
-                        <FormKit name="text" label="Promo Text Label *" type="text"
+                <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+                    <div class="h-16 max-h-18">
+                        <FormKit :input-class="inputClasses" name="text" label="Promo Text Label *" type="text"
                             validation="required:trim|length:1,32" />
                     </div>
 
-                    <div class="w-full h-18 max-h-18">
-                        <FormKit name="color" label="Color *" type="select" :options="colorOptions" />
+                    <div class="h-16 max-h-18">
+                        <FormKit :input-class="inputClasses" name="color" label="Color *" type="select"
+                            :options="colorOptions" />
                     </div>
                 </div>
 
-                <div class="w-full sm:w-40">
-                    <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
-                </div>
-
-                <div v-show="false" class="text-center h-2 relative bottom-2">
-                    <FormKitMessages :node="formRef?.node" />
-                </div>
+                <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
             </div>
         </FormKit>
-
-        <div class="mt-6 flex space-x-4">
-            <p class="font-medium text-lg">Preview</p>
-            <ChipPromo v-bind="formValues" />
-        </div>
     </div>
 </template>
-
-<!-- <template>
-    <div class="flex">
-        <div :class="classes">{{ text }}</div>
-    </div>
-</template> -->

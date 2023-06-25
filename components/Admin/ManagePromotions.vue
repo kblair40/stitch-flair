@@ -79,8 +79,8 @@ const handleClickDelete = (id: number, idx: number) => {
 }
 
 const editing = ref<number | null>(null);
-const handleClickEdit = (id: number) => {
-    editing.value = id;
+const handleClickEdit = (idx: number) => {
+    editing.value = idx;
 }
 </script>
 
@@ -89,28 +89,7 @@ const handleClickEdit = (id: number) => {
         <Toast :visible="showSuccessToast">Saved Promotion</Toast>
 
         <div class="w-full max-w-75 sm:max-w-120 md:max-w-150 mt-6">
-            <div class="w-full mb-20">
-                <h3 class="font-semibold text-xl mb-3">All Promos</h3>
-                <div class="flex flex-wrap">
-                    <div class="mr-4 mb-2" v-for="promo, i in store.promotions.data">
-                        <div class="relative pr-12" v-if="editing !== promo.id">
-                            <button v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
-                                <img class="scale-90" src="/icons/close.svg" />
-                            </button>
-                            <button v-if="!!promo.id" :class="editBtnClasses" @click="handleClickEdit(promo.id)">
-                                <img class="scale-90" src="/icons/edit.svg" />
-                            </button>
-                            <ChipPromo :text="promo.text" :color="promo.color" />
-                        </div>
-
-                        <div v-else>
-                            <ChipPromoEditable :text="promo.text" :color="promo.color" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full">
+            <div class="w-full mb-12">
                 <h3 class="font-semibold text-xl mb-3">Add Promo</h3>
                 <FormKit :errors="[]" v-model="formValues" ref="formRef" id="promo-form" @submit="handleSubmit" type="form"
                     :actions="false">
@@ -136,12 +115,33 @@ const handleClickEdit = (id: number) => {
                     </div>
                 </FormKit>
 
-                <div class="mt-6 flex space-x-4">
+                <div class="mt-5 flex space-x-4">
                     <p class="font-medium text-lg">Preview</p>
                     <ChipPromo v-bind="formValues" />
                 </div>
             </div>
 
+            <div class="w-full">
+                <h3 class="font-semibold text-xl mb-3">Edit Promos</h3>
+                <div class="flex flex-wrap">
+                    <div class="mr-4 mb-2" v-for="promo, i in store.promotions.data">
+                        <div class="relative pr-12" v-if="!editing || editing !== promo.id">
+                            <button v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
+                                <img class="scale-90" src="/icons/close.svg" />
+                            </button>
+                            <button v-if="!!promo.id" :class="editBtnClasses" @click="handleClickEdit(i)">
+                                <img class="scale-90" src="/icons/edit.svg" />
+                            </button>
+                            <ChipPromo :text="promo.text" :color="promo.color" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full mt-8 min-h-12 border rounded-md py-2" v-if="typeof editing === 'number'">
+                <ChipPromoEditable :color="store.promotions.data[editing].color"
+                    :text="store.promotions.data[editing].text" />
+            </div>
         </div>
 
         <ModalConfirm v-if="store.showConfirmModal" @confirm="store.deletePromo" @cancel="store.closeConfirmModal" />
