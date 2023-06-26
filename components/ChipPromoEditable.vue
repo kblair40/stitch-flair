@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { PromoColor, Promotion } from '~~/utils/types';
+import type { PromoColor } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
 
 const emit = defineEmits(['cancel', 'error', 'success'])
