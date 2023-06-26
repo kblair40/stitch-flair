@@ -23,11 +23,12 @@ const cardClasses = [
     'z-20 p-2 bg-white shadow-sm',
     "relative cursor-pointer group rounded-md",
 ]
-const imgWrapperClasses = "overflow-hidden w-full h-56 sm:h-56 lg:h-64 relative"
+
+const imgWrapperClasses = "flex justify-center items-center overflow-hidden w-full h-56 sm:h-56 lg:h-64 relative"
 const imgClasses = [
     // "border border-red-200",
     "object-cover h-full rounded-sm group-hover:scale-105",
-    "transition-transform duration-300"
+    "transition-transform duration-300",
 ]
 const nameClasses = [
     'mt-2 leading-none min-h-5',
