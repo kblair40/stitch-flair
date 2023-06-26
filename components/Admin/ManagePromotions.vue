@@ -69,7 +69,8 @@ const formClasses = [
 ]
 const iconBtnClasses = [
     'border border-slate-300 h-5 w-5 rounded-full absolute z-10',
-    'transition-colors bg-white'
+    'transition-colors bg-white',
+    'disabled:pointer-events-none disabled:opacity-50'
 ]
 const deleteBtnClasses = [
     ...iconBtnClasses,
@@ -143,10 +144,10 @@ const finishEdit = () => editing.value = null;
                 <div class="flex flex-wrap">
                     <div class="mr-4 mb-2" v-for="promo, i in store.promotions.data">
                         <div class="relative pr-12" v-if="!editing || editing !== promo.id">
-                            <button v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
+                            <button :disabled="editing === i" v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
                                 <img class="scale-90" src="/icons/close.svg" />
                             </button>
-                            <button v-if="!!promo.id" :class="editBtnClasses" @click="handleClickEdit(i)">
+                            <button :disabled="editing === i" v-if="!!promo.id" :class="editBtnClasses" @click="handleClickEdit(i)">
                                 <img class="scale-90" src="/icons/edit.svg" />
                             </button>
                             <ChipPromo :text="promo.text" :color="promo.color" />
