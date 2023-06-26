@@ -64,13 +64,17 @@ const handleSubmit = async (formValues: Props) => {
 }
 
 const formClasses = [
-    "w-full flex flex-col space-y-4 items-end",
-    "md:flex-row md:space-x-4 md:space-y-0 md:items-end",
+    "w-full flex flex-col space-y-4 items-center",
+    "lg:flex-row lg:space-x-4 lg:space-y-0 lg:items-end",
 ]
-const inputClasses = 'h-8'
 const iconBtnClasses = [
-    'relative bottom-1 border transition-colors',
+    "border transition-colors",
     'bg-white hover:bg-gray-50 active:bg-gray-100'
+]
+const inputWrapperClasses = [
+    "flex flex-col space-y-4",
+    "md:flex-row md:justify-center md:space-y-0 md:space-x-4",
+    "lg:w-full"
 ]
 </script>
 
@@ -81,21 +85,21 @@ const iconBtnClasses = [
             <ChipPromo v-bind="formValues" />
         </div>
 
-        <FormKit :errors="[]" v-model="formValues" @submit="handleSubmit" type="form" :actions="false">
+        <FormKit form-class="w-full" :errors="[]" v-model="formValues" @submit="handleSubmit" type="form" :actions="false">
             <div :class="formClasses">
-                <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
-                    <div class="h-16 max-h-18">
-                        <FormKit input-class="h-8" name="text" label="Promo Text Label *" type="text"
+                <div :class="inputWrapperClasses">
+                    <div class="h-16 max-h-18 lg:w-52">
+                        <FormKit label-class="whitespace-nowrap" input-class="h-8" name="text" label="Promo Text Label *" type="text"
                             validation="required:trim|length:1,32" />
                     </div>
 
                     <div class="h-16 max-h-18">
-                        <FormKit input-class="h-8" name="color" label="Color *" type="select" :options="colorOptions" />
+                        <FormKit label-class="whitespace-nowrap" input-class="h-8" name="color" label="Color *" type="select" :options="colorOptions" />
                     </div>
                 </div>
 
-                <div class="flex space-x-2 w-full items-center">
-                    <div class="w-full">
+                <div class="flex items-center space-x-2 w-full justify-center">
+                    <div class="w-40">
                         <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
                     </div>
                     <button type="button" :class="iconBtnClasses"
