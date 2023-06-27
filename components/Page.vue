@@ -49,11 +49,12 @@ const observerClasses = computed(() => ([
 <template>
     <div class="min-h-screen flex flex-column">
 
-        <!-- <div :class="rootClasses" id="observerRoot" class="main-content min-h-screen flex flex-col justify-between"> -->
         <div :class="rootClasses" id="observerRoot" class="main-content min-h-screen flex flex-col">
             <div :class="observerClasses" id="intersectionObserver" />
 
-            <slot></slot>
+            <div class="grow">
+                <slot></slot>
+            </div>
 
             <p class="pt-10 mb-1.5 text-center text-sm">
                 &#169; Stitch Flair {{ new Date().getFullYear() }}
@@ -74,6 +75,7 @@ const observerClasses = computed(() => ([
     right: 0;
     width: 100%;
     min-height: calc(100vh - 160px);
+    border: 1px solid black;
 }
 
 @media screen and (min-width: 480px) {
