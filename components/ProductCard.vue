@@ -19,7 +19,12 @@ const props = defineProps<Props>();
 const cardClasses = [
     // "border border-blue-200",
     // xs = 320px
-    'w-full max-w-xs md:max-w-75',
+    'w-full border',
+    'sm:w-68',
+    // 'md:w-'
+    // 'md:w-68',
+    // 'max-w-xs md:max-w-75',
+    'md:max-w-75',
     'z-20 p-2 bg-white shadow-sm',
     "relative cursor-pointer group rounded-md",
 ]
@@ -29,10 +34,12 @@ const imgClasses = [
     // "border border-red-200",
     "object-cover h-full rounded-sm group-hover:scale-105",
     "transition-transform duration-300",
+    'w-full'
 ]
 const nameClasses = [
-    'mt-2 leading-none min-h-5',
-    'font-medium line-clamp-2 max-w-fit'
+    'leading-tight',
+    'mt-2 min-h-5',
+    'font-medium line-clamp-1 max-w-fit'
 ]
 const onSaleClasses = 'italic text-sm ml-1 opacity-100 text-darkpeach'
 const salePriceClasses = '';
@@ -43,7 +50,8 @@ const priceClasses = computed(() => ([
 
 const handleClick = () => {
     if (props.preview) return;
-    window.open('https://www.etsy.com/shop/stitchflair', '_blank')
+    // window.open('https://www.etsy.com/shop/stitchflair', '_blank');
+    window.open(props.etsy_url, '_blank');
 }
 
 const formatPrice = (price: string | null) => {
@@ -100,7 +108,7 @@ const chipWrapperClasses = 'flex flex-wrap mt-1 overflow-x-hidden absolute botto
 
         <p :class="nameClasses">{{ toTitleCase(name) }}</p>
 
-        <div class="flex mt-1 font-semibold text-no-wrap h-6 overflow-hidden">
+        <div class="flex mt-0.5 font-semibold text-no-wrap h-6 overflow-hidden">
             <p v-if="!preview" :class="priceClasses">{{ price }}</p>
             <p v-else :class="priceClasses">${{ formatPrice(price) }}</p>
 
