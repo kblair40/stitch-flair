@@ -124,7 +124,7 @@ const finishEdit = () => editing.value = null;
                         </div>
 
                         <div class="w-full sm:w-40">
-                            <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
+                            <FormButtonSubmit label="Save" :loading="loading" />
                         </div>
 
                         <div v-show="false" class="text-center h-2 relative bottom-2">
@@ -144,10 +144,12 @@ const finishEdit = () => editing.value = null;
                 <div class="flex flex-wrap">
                     <div class="mr-4 mb-2" v-for="promo, i in store.promotions.data">
                         <div class="relative pr-12" v-if="!editing || editing !== promo.id">
-                            <button :disabled="editing === i" v-if="!!promo.id" :class="deleteBtnClasses" @click="handleClickDelete(promo.id, i)">
+                            <button :disabled="editing === i" v-if="!!promo.id" :class="deleteBtnClasses"
+                                @click="handleClickDelete(promo.id, i)">
                                 <img class="scale-90" src="/icons/close.svg" />
                             </button>
-                            <button :disabled="editing === i" v-if="!!promo.id" :class="editBtnClasses" @click="handleClickEdit(i)">
+                            <button :disabled="editing === i" v-if="!!promo.id" :class="editBtnClasses"
+                                @click="handleClickEdit(i)">
                                 <img class="scale-90" src="/icons/edit.svg" />
                             </button>
                             <ChipPromo :text="promo.text" :color="promo.color" />
