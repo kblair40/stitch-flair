@@ -29,14 +29,14 @@ const handleClickDelete = () => {
 }
 const handleClickEdit = () => {
     const info = { id: props.id as number, idx: props.idx as number }
-    console.log('\nEdit clicked - props:', info);
+    // console.log('\nEdit clicked - props:', info);
     store.openEditProductModal(info)
 }
 </script>
 
 <template>
     <ProductCard v-bind="props">
-        <div class="flex space-x-2 absolute top-1 right-1 p-1">
+        <div class="flex space-x-2 absolute top-2 right-2 p-1">
             <button :class="editBtnClasses" @click="handleClickEdit">
                 <img class="scale-75" src="/icons/edit.svg" />
             </button>
@@ -45,6 +45,10 @@ const handleClickEdit = () => {
                 <img v-if="store.deleting && store.deleting.id === id" class="animate-spin" src="/icons/loading.svg" />
                 <img v-else class="w-4 h-4" src="/icons/trash.svg" />
             </button>
+        </div>
+
+        <div v-if="props.featured" class="absolute top-2 left-3">
+            &#9733;
         </div>
     </ProductCard>
 </template>
