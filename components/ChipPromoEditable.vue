@@ -89,18 +89,19 @@ const inputWrapperClasses = [
             <div :class="formClasses">
                 <div :class="inputWrapperClasses">
                     <div class="h-16 max-h-18 lg:w-52">
-                        <FormKit label-class="whitespace-nowrap" input-class="h-8" name="text" label="Promo Text Label *" type="text"
-                            validation="required:trim|length:1,32" />
+                        <FormKit label-class="whitespace-nowrap" input-class="h-8" name="text" label="Promo Text Label *"
+                            type="text" validation="required:trim|length:1,32" />
                     </div>
 
                     <div class="h-16 max-h-18">
-                        <FormKit label-class="whitespace-nowrap" input-class="h-8" name="color" label="Color *" type="select" :options="colorOptions" />
+                        <FormKit label-class="whitespace-nowrap" input-class="h-8" name="color" label="Color *"
+                            type="select" :options="colorOptions" />
                     </div>
                 </div>
 
                 <div class="flex items-center space-x-2 w-full justify-center">
                     <div class="w-40">
-                        <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
+                        <FormButtonSubmit :loading="loading" label="Save" />
                     </div>
                     <button type="button" :class="iconBtnClasses"
                         class="rounded-full h-8 w-8 min-w-8 flex items-center justify-center" @click="$emit('cancel')">
