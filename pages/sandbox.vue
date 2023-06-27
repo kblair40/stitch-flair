@@ -5,34 +5,53 @@ const formValues = ref({ title: '' })
 
 const handleSubmit = () => {
     loading.value = true;
-    setTimeout(() => loading.value = false, 2000);
+    console.log('Loading', loading.value)
+    setTimeout(() => {
+        loading.value = false
+        console.warn('Loading', loading.value)
+    }, 2000);
 }
 
-const bgClasses = 'bg-lightpeach-50 hover:bg-lightpeach-100 active:bg-lightpeach-200';
+const bgClasses = 'bg-lightpeach-300 hover:bg-lightpeach-400 active:bg-lightpeach-500';
 const colorClasses = [bgClasses, 'border border-whitepeach-300 transition-colors duration-300'].join(' ')
 
-const inputClasses = [
-    // 'py-2 px-6',
-    '$reset rounded-md',
-    colorClasses, 
-].join(' ');
 const outerClasses = [
     '$reset',
+    'border border-white'
 ].join(' ')
+const wrapperClasses = [
+    '$reset border border-slate-300'
+].join(' ')
+const inputClasses = [
+    '$reset rounded-md font-semibold',
+    'py-2 px-6',
+    colorClasses,
+].join(' ');
 const labelClasses = [
-    '$reset font-medium',
+    '$reset',
+    'border border-red-500'
 ].join(' ')
-const prefixClasses = [
-    'border border-slate-100'
+
+// prefixIcon: "$reset block w-4 -ml-2 mr-2 stretch",
+// suffixIcon: "$reset block w-4 ml-2 stretch",
+const prefixIconClasses = [
+    '$reset',
+    "border border-slate-200",
+    // 'w-4 h-4'
+    "block w-4 -ml-2 mr-2 stretch"
 ].join('')
+const suffixIconClasses = [
+    "$reset block w-4 -ml-2 mr-2 stretch",
+].join(' ')
 
 const buttonClasses = {
     outer: outerClasses,
-    wrapper: '$reset',
+    wrapper: wrapperClasses,
     input: inputClasses,
     // prefixIcon > prefix > label > suffix > suffixIcon
     label: labelClasses,
-    prefix: prefixClasses
+    prefixIcon: prefixIconClasses,
+    suffixIcon: suffixIconClasses
 }
 </script>
 
