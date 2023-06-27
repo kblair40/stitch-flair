@@ -19,11 +19,13 @@ const props = defineProps<Props>();
 const cardClasses = [
     // "border border-blue-200",
     // xs = 320px
-    'w-full border',
+    'border',
     'sm:w-68',
     // 'md:w-'
     // 'md:w-68',
     // 'max-w-xs md:max-w-75',
+    'min-w-75',
+    "max-w-75",
     'md:max-w-75',
     'z-20 p-2 bg-white shadow-sm',
     "relative cursor-pointer group rounded-md",

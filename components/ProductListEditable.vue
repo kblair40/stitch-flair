@@ -73,8 +73,9 @@ const handleClose = (success?: boolean) => {
 
 const gridClasses = computed(() => {
     return [
+        // 'border',
         'flex flex-col items-center space-y-4 md:space-y-0',
-        'md:grid md:grid-cols-2 md:gap-3 md:justify-center md:grid-flow-row',
+        'md:grid md:grid-cols-2 md:gap-3 md:grid-flow-row',
         'lg:grid-cols-3 lg:gap-5',
     ]
 })
@@ -88,7 +89,7 @@ const gridClasses = computed(() => {
         <div class="flex justify-center h-18 mb-4">
             <div class="w-52 min-w-min">
                 <FormKit :disabled="store.products.loading" type="select" label="Category"
-                    :options="[{ label: 'Any Category', value: null }, ...categoryOptions]" v-model="store.category" />
+                    :options="[{ label: 'Any', value: null }, ...categoryOptions]" v-model="store.category" />
             </div>
         </div>
 
