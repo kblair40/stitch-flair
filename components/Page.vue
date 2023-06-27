@@ -75,7 +75,6 @@ const observerClasses = computed(() => ([
     right: 0;
     width: 100%;
     min-height: calc(100vh - 160px);
-    border: 1px solid black;
 }
 
 @media screen and (min-width: 480px) {
