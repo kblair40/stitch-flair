@@ -3,7 +3,7 @@ import { FormKitMessages } from '@formkit/vue'
 
 import { useCustomFetch } from '~~/composables/useCustomFetch';
 import { useAdminStore } from '~~/store/adminStore';
-import type { Product } from '~~/utils/types';
+import type { Product, PopulatedProduct } from '~~/utils/types';
 
 type FormValue = string | number | boolean | null | undefined | any[];
 
@@ -99,7 +99,7 @@ const handleSubmit = async (values: Product) => {
         })
         if (!res.error.value) {
             // Replaces now outdated product in adminStore with new values
-            store.updateProducts(values);
+            store.updateProducts(values as PopulatedProduct);
             emit('success')
         } else {
             let msg = res.error.value.response?._data.message
@@ -192,12 +192,7 @@ const formSectionClasses = [
                 <FormKit validation="required" name="etsy_url" label="Etsy URL *" type="text" />
             </div>
 
-            <FormKit type="submit" :data-loading="loading">
-                <div v-if="loading" class="flex justify-center">
-                    <img class="animate-spin" src="/icons/loading.svg" />
-                </div>
-                <p v-else>Save</p>
-            </FormKit>
+            <FormButtonSubmit :loading="loading" label="Save" />
 
             <div class="text-center h-2 relative bottom-2">
                 <FormKitMessages :node="formRef?.node" />
