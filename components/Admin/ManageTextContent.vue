@@ -100,7 +100,7 @@ const formClasses = [
                         </div>
 
                         <div class="w-full pt-6 xl:w-40 xl:pt-0">
-                            <FormKit :disabled="loading" :loading="loading" type="submit">Save</FormKit>
+                            <FormButtonSubmit :loading="loading" label="Save" />
                         </div>
 
                         <div v-show="false" class="text-center h-2 relative bottom-2">

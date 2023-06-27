@@ -14,12 +14,14 @@ const showErrorToast = ref(false);
 const showSuccessToast = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
 const title = ref({ title: '' });
+const loading = ref(false);
 
 const handleSubmit = async (formValues: any) => {
     // console.log('formValues:', formValues);
     const { title } = formValues;
     try {
         if (!title) return;
+        loading.value = true;
         const res = await useCustomFetch('/category', {
             method: 'POST',
             body: { title: title.toLowerCase().trim() },
@@ -40,7 +42,7 @@ const handleSubmit = async (formValues: any) => {
             if (res.error.value && res.error.value.response) {
                 msg = res.error.value.response._data.message
             }
-            
+
             errorMsg.value = msg;
             showErrorToast.value = true;
             setTimeout(() => {
@@ -48,10 +50,11 @@ const handleSubmit = async (formValues: any) => {
                 errorMsg.value = '';
             }, 6000)
         }
-
     } catch (e) {
         console.log('Failed to create product:', e)
     }
+
+    loading.value = false;
 }
 
 const formClasses = [
@@ -73,7 +76,7 @@ const formClasses = [
                 </div>
 
                 <div class="w-full sm:w-40">
-                    <FormKit type="submit" validation-visibility="">Save</FormKit>
+                    <FormButtonSubmit :loading="loading" label="Save" />
                 </div>
 
                 <div v-show="false" class="text-center h-2 relative bottom-2">

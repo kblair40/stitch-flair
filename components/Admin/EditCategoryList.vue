@@ -131,7 +131,7 @@ const flexCenter = " flex justify-center items-center"
 const iconBtnClasses = "transition-colors duration-300 z-10 rounded-full border p-1"
 const trashBtnClasses = "bg-red-100 hover:bg-red-200 active:bg-red-300 h-7 w-7 " + iconBtnClasses
 const editBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-7 w-7 " + iconBtnClasses;
-const saveBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-11 " + iconBtnClasses + flexCenter;
+const saveBtnClasses = "disabled:pointer-events-none bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-11 " + iconBtnClasses + flexCenter;
 </script>
 
 <template>
