@@ -9,6 +9,7 @@ store.getCategories();
 store.getPromotions();
 
 const deletedProductIds = ref<number[]>([])
+const featuredOnly = ref(false);
 
 const productList = computed(() => {
     const products = store.categoryProducts.filter(prod => {
@@ -16,10 +17,14 @@ const productList = computed(() => {
     })
     if (products && Array.isArray(products) && products.length) {
         // console.log('Products:', products);
-        return products.map((product: Product, i: number) => ({
+        const prodList = products.map((product: Product, i: number) => ({
             ...product,
             idx: i
         }))
+
+        return featuredOnly.value
+            ? prodList.filter(p => p.featured)
+            : prodList
     }
 
     return [];
@@ -87,6 +92,20 @@ const gridClasses = computed(() => {
         <Toast :visible="showSuccessToast">Updated</Toast>
 
         <div class="flex justify-center h-18 mb-4">
+            <div class="mr-4">
+                <FormKit 
+                    type="checkbox" 
+                    v-model="featuredOnly"
+                    label="Featured Only"
+                    outer-class="flex border border-blue-500"
+                    wrapper-class="flex !flex-col-reverse border"
+
+                    inner-class="border border-red-300"
+                    input-class="border border-emerald-500"
+
+                    label-class="border border-green-300"
+                />
+            </div>
             <div class="w-52 min-w-min">
                 <FormKit :disabled="store.products.loading" type="select" label="Category"
                     :options="[{ label: 'Any', value: null }, ...categoryOptions]" v-model="store.category" />
