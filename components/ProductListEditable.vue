@@ -92,18 +92,13 @@ const gridClasses = computed(() => {
         <Toast :visible="showSuccessToast">Updated</Toast>
 
         <div class="flex justify-center h-18 mb-4">
-            <div class="mr-4">
+            <div class="mr-8">
+                <!-- wrapper-class="$reset flex flex-row-reverse border border-red-300" -->
+                <!-- input-class="ml-2 flex" -->
                 <FormKit 
                     type="checkbox" 
                     v-model="featuredOnly"
                     label="Featured Only"
-                    outer-class="flex border border-blue-500"
-                    wrapper-class="flex !flex-col-reverse border"
-
-                    inner-class="border border-red-300"
-                    input-class="border border-emerald-500"
-
-                    label-class="border border-green-300"
                 />
             </div>
             <div class="w-52 min-w-min">
