@@ -80,21 +80,14 @@ console.log('BUTTON CLASSES:', buttonClasses.value)
 
 <template>
     <Page>
-        <!-- <PageTitle>Admin</PageTitle> -->
-
-        <button class="absolute bottom-1 left-1" @click="handleSubmit">dummy submit</button>
-        <FormButtonSubmit label="Submit" :loading="loading" />
-
-        <!-- <div class="flex justify-center px-3 sm:px-5 md:px-6 h-full"> -->
-        <!-- @submit="handleSubmit" -->
-        <!-- <FormKit :data-loading="loading" type="form" v-model="formValues" :actions="false" @submit="handleSubmit">
-            <div class="flex justify-center">
-                <div class="flex flex-col items-center space-y-6">
-                    <FormKit name="title" type="text" />
-                    <FormKit type="submit" :classes="buttonClasses" />
-                </div>
+        <button @click="handleSubmit"
+            class="absolute bottom-80 left-1/2 -translate-x-1/2 border px-4 py-2 rounded-sm bg-white">
+            dummy submit
+        </button>
+        <div class="flex justify-center">
+            <div class="max-w-75">
+                <FormButtonSubmit label="Submit" :loading="loading" />
             </div>
-        </FormKit> -->
-        <!-- </div> -->
+        </div>
     </Page>
 </template>

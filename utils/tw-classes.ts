@@ -11,13 +11,21 @@ const buttonLoadingClasses = [
   // "formkit-loading:before:rounded-3xl formkit-loading:before:border-white formkit-loading:before:animate-spin",
 ];
 
+const buttonColorClasses = [
+  "border border-whitepeach-300 transition-colors duration-300",
+  //
+  // "bg-lightpeach-50 hover:bg-lightpeach-100 active:bg-lightpeach-200",
+  // "bg-lightpeach-100 hover:bg-lightpeach-200 active:bg-lightpeach-300",
+  "bg-lightpeach-200 hover:bg-lightpeach-300 active:bg-lightpeach-400",
+  // "bg-lightpeach-300 hover:bg-lightpeach-400 active:bg-lightpeach-500",
+  // "bg-lightpeach-400 hover:bg-lightpeach-500 active:bg-lightpeach-600",
+].join(" ");
+
 const classes = {
   global: {
     outer: "formkit-disabled:opacity-60 w-full",
     label: "block mb-1 font-semibold text-sm formkit-invalid:text-red-500",
     inner: `w-full bg-white ${borderClasses} rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500`,
-    // inner: //  <-- PREV
-    //   "w-full border border-gray-200 rounded-lg mb-1 overflow-hidden formkit-invalid:border-red-500",
     input:
       "w-full px-3 border-none text-base text-gray-800 placeholder-gray-400 focus-visible:outline-none",
     // "w-full h-10 px-3 border-none text-base text-gray-800 placeholder-gray-400 focus-visible:outline-none",
@@ -60,8 +68,7 @@ const classes = {
     input: "h-auto pt-1",
   },
   submit: {
-    input:
-      "border border-whitepeach-300 transition-colors duration-300 mx-auto py-2 px-6 rounded-md bg-lightpeach-50 hover:bg-lightpeach-100 active:bg-lightpeach-200",
+    input: `mx-auto py-2 px-6 rounded-md ${buttonColorClasses}`,
     label: "text-lg font-medium text-slate-100",
   },
 };
