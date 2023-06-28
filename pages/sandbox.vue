@@ -82,7 +82,7 @@ console.log('BUTTON CLASSES:', buttonClasses.value)
     <Page>
         <button @click="handleSubmit"
             class="absolute bottom-80 left-1/2 -translate-x-1/2 border px-4 py-2 rounded-sm bg-white">
-            dummy submit
+            submit
         </button>
         <div class="flex justify-center">
             <div class="max-w-75">

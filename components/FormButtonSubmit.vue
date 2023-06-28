@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+// import loadingIcon from '/icons/loading.svg'
+// import { loadingIcon } from '~/assets/icons/loading.svg'
+
 interface Props {
     loading: boolean;
     label: string;
