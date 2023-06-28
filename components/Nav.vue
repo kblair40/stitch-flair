@@ -1,12 +1,10 @@
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia';
 import { useIntersectionStore } from '../store/intersectionStore';
 
 const store = useIntersectionStore();
 
-interface Props {
-    isIntersecting?: boolean;
-}
-const props = defineProps<Props>();
+const { isIntersecting } = storeToRefs(store);
 
 const logoClasses = [
     "w-36 h-36",
@@ -37,16 +35,12 @@ const handleToggleNav = () => {
 
 const wrapperClasses = computed(() => ([
     // "border border-blue-500",
-    "overflow-hidden z-10",
-    "fixed top-0 left-0",
+    "overflow-hidden z-10 fixed top-0 left-0",
     "pl-8 pr-16 pt-4 md:pl-16 md:pr-24 lg:pl-24 lg:pr-32",
-    "w-screen",
-    "flex justify-between items-start",
+    "w-screen flex justify-between items-start",
     "transition-shadow duration-300",
-    !store.isIntersecting ? 'shadow-md' : '',
     'h-40 sm:h-52 md:h-64',
-    // 'border-b',
-    // 'border-slate-100'
+    !isIntersecting.value ? 'shadow-md' : '',
 ]))
 </script>
 
@@ -54,7 +48,6 @@ const wrapperClasses = computed(() => ([
     <div :class="wrapperClasses">
         <img :class="logoClasses" src="/logo2.svg" />
 
-        <!-- <img src="/rose_pink_bg.svg" class="z-10 absolute top-0 right-0 bottom-0 left-0" /> -->
         <div class="z-10 absolute top-0 right-0 bottom-0 left-0 -z-10" />
 
         <div :class="allLinksWrapperClasses">

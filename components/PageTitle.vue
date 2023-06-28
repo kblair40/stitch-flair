@@ -12,7 +12,9 @@ const titleClasses = [
 </script>
 
 <template>
-    <div class="page-title h-min flex items-end mb-5">
+    <!-- <div class="page-title h-min flex items-end mb-5"> -->
+        <!-- border border-red-500 -->
+    <div class="page-title flex items-end mb-5 h-10">
         <h1 :class="titleClasses">
             <slot></slot>
         </h1>
