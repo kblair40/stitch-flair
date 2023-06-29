@@ -64,10 +64,6 @@ const observerClasses = computed(() => ([
 <template>
     <div class="min-h-screen flex flex-column">
 
-        <div class="h-4 w-4 absolute left-4 top-4">
-            <div :class="store.isIntersecting ? 'bg-green-500' : 'bg-red-500'" class="w-full h-full" />
-        </div>
-
         <div id="observerRoot" class="main-content min-h-screen flex flex-col">
             <div :class="observerClasses" id="intersectionObserver" class="observer" />
 
