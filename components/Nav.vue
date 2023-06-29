@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia';
 import { useIntersectionStore } from '../store/intersectionStore';
 
 const store = useIntersectionStore();
-
-const { isIntersecting } = storeToRefs(store);
 
 const logoClasses = [
     "w-36 h-36",
@@ -40,7 +37,8 @@ const wrapperClasses = computed(() => ([
     "w-screen flex justify-between items-start",
     "transition-shadow duration-300",
     'h-40 sm:h-52 md:h-64',
-    !isIntersecting.value ? 'shadow-md' : '',
+    // isIntersecting === true IF entire (transparent) box above PageTitle is visible
+    store.isIntersecting ? '' : 'shadow-md',
 ]))
 </script>
 
