@@ -2,12 +2,22 @@ import { defineStore } from "pinia";
 
 export const useIntersectionStore = defineStore("intersection", {
   state: () => ({
-    isIntersecting: false as boolean,
+    isIntersecting: true,
+    allowChange: false,
   }),
-  //   getters: {},
   actions: {
     setIsIntersecting(isIntersecting: boolean) {
+      if (!this.allowChange) {
+        console.log("\nPREVENTING CHANGE:", isIntersecting, "\n");
+        return;
+      }
       this.isIntersecting = isIntersecting;
+    },
+    disableChange() {
+      this.allowChange = false;
+    },
+    enableChange() {
+      this.allowChange = true;
     },
   },
 });

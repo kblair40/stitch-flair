@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import axios from 'axios';
-
 import { useShopStore } from '~~/store/shopStore';
 import { useCustomFetch } from '~~/composables/useCustomFetch';
 
@@ -32,9 +30,10 @@ const featuredProductClasses = [
 
 <template>
     <Page>
-        <div class="h-10 mb-5">
-            <PageTitle v-show="content && !!content.text">{{ content.text.homeTitle }}</PageTitle>
-        </div>
+        <!-- <div class="h-10 mb-5"> -->
+        <!-- <PageTitle v-show="content && !!content.text">{{ content.text.homeTitle }}</PageTitle> -->
+        <PageTitle>{{ content?.text.homeTitle || '' }}</PageTitle>
+        <!-- </div> -->
 
         <div class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm md:text-mdsm"
             :class="content && !!content.text ? '' : 'min-h-14'">
@@ -43,7 +42,8 @@ const featuredProductClasses = [
             </p>
         </div>
 
-        <div class="flex flex-col items-center">
+        <!-- TODO: remove pb-20 below -->
+        <div class="pb-20 flex flex-col items-center">
             <h2 class="text-center font-serif mt-12 font-medium text-xl md:text-2xl tracking-wider">
                 FEATURED PRODUCTS
             </h2>
