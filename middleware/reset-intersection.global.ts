@@ -1,8 +1,10 @@
-import { useIntersectionStore } from "~~/store/intersectionStore";
+// import { useIntersectionStore } from "~~/store/intersectionStore";
 
-const store = useIntersectionStore();
+// https://nuxt.com/docs/getting-started/routing#route-middleware
+// https://nuxt.com/docs/guide/directory-structure/middleware
+// const store = useIntersectionStore();
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  console.log("\n\nSETTING INTERSECTING TO FALSE:", { to, from });
-  store.isIntersecting = false;
+  console.log("\n\nMIDDLEWARE:", { to, from });
+  // store.isIntersecting = false;
 });
