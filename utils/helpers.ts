@@ -8,10 +8,10 @@ export const toTitleCase = (str: string) => {
     .join(" ");
 };
 
-export const debounce = (func: () => void, delay = 200) => {
+export const debounce = (func: (e: any) => void, delay = 200) => {
   let timer: NodeJS.Timeout;
 
-  return () => {
+  return (e: any) => {
     // clear any pre-existing timer
     if (timer) {
       clearTimeout(timer);
@@ -19,7 +19,7 @@ export const debounce = (func: () => void, delay = 200) => {
 
     timer = setTimeout(() => {
       console.warn("CALLING DEBOUNCED FUNC");
-      func();
+      func(e);
     }, delay);
   };
 };
