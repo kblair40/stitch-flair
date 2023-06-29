@@ -1,32 +1,45 @@
 <script lang="ts" setup>
 import { useIntersectionStore } from '../store/intersectionStore';
 
-type Props = {
-    label?: string;
-}
-defineProps<Props>();
+defineProps<{ label?: string; }>();
 
 const store = useIntersectionStore();
 
-// const isIntersecting = store.isIntersecting;
+const rootEl = ref<HTMLElement | null>(null);
+
 const handleObserve = (entries: any[]) => {
     entries.forEach(entry => {
-        console.log('\nOBSERVE ENTRY:', entry);
         console.log('SETTING INTERSECTING TO', entry.isIntersecting);
         store.setIsIntersecting(entry.isIntersecting);
-        // if (!entry.isIntersecting) store.setIsIntersecting(true);
-        // else store.setIsIntersecting(false)
     })
 }
 
+onBeforeMount(() => {
+    store.isIntersecting = true;
+    store.disableChange();
+})
+
+const handleScroll = (e: any) => {
+    console.log('Scroll Event:', e);
+    store.enableChange();
+    removeListener()
+}
+
+const removeListener = () => {
+    if (rootEl.value) {
+        rootEl.value.removeEventListener('scroll', handleScroll)
+        console.warn('LISTENER REMOVED')
+    }
+}
+
 onMounted(() => {
-    const rootEl = document.getElementById('observerRoot')
+    rootEl.value = document.getElementById('observerRoot')
     const el = document.getElementById('intersectionObserver')
 
+    // isIntersection will be false if ANY part of el is hidden under navbar
     const opts = {
-        root: rootEl,
-        // false if 20% or more of el is hidden under navbar
-        threshold: 0.20,
+        root: rootEl.value,
+        threshold: 1
     }
     const observer = new IntersectionObserver(handleObserve, opts);
 
@@ -34,23 +47,29 @@ onMounted(() => {
         console.log('observing')
         observer.observe(el)
     }
+
+    if (rootEl.value) {
+        console.log('Adding event listener')
+        rootEl.value.addEventListener('scroll', handleScroll);
+    }
 })
 
 // h-40 sm:h-52 md:h-64
 const observerClasses = computed(() => ([
-    "pt-8 -z-10",
-    "relative top-px",
-    "border",
-    "border-transparent",
-    // store.isIntersecting ? "border-blue-500" : "border-red-500"
+    "-z-10 h-4 relative top-2",
+    "border border-transparent",
 ]))
 </script>
 
 <template>
     <div class="min-h-screen flex flex-column">
 
-        <div :class="rootClasses" id="observerRoot" class="main-content min-h-screen flex flex-col">
-            <div :class="observerClasses" id="intersectionObserver" />
+        <div class="h-4 w-4 absolute left-4 top-4">
+            <div :class="store.isIntersecting ? 'bg-green-500' : 'bg-red-500'" class="w-full h-full" />
+        </div>
+
+        <div id="observerRoot" class="main-content min-h-screen flex flex-col">
+            <div :class="observerClasses" id="intersectionObserver" class="observer" />
 
             <div class="grow">
                 <slot></slot>
@@ -66,6 +85,10 @@ const observerClasses = computed(() => ([
 </template>
 
 <style lang="css" scoped>
+.observer {
+    min-height: 32px;
+}
+
 .main-content {
     overflow-y: auto;
     position: absolute;
