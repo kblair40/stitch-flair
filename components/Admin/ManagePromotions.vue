@@ -5,6 +5,7 @@ import { FormKitMessages } from '@formkit/vue'
 import type { Promotion, PromoColor } from '~~/utils/types';
 import { useAdminStore } from '~~/store/adminStore';
 import ChipPromoEditable from '../ChipPromoEditable.vue';
+import IconButton from '../IconButton.vue';
 
 interface FormValues {
     text: string;
@@ -74,11 +75,11 @@ const iconBtnClasses = [
 ]
 const deleteBtnClasses = [
     ...iconBtnClasses,
-    'top-0.5 right-0.5 hover:bg-red-50 active:bg-red-100'
+    'absolute top-0.5 right-0.5 hover:bg-red-50 active:bg-red-100'
 ]
 const editBtnClasses = [
     ...iconBtnClasses,
-    'top-0.5 right-6 hover:bg-slate-50 active:bg-slate-100'
+    'absolute top-0.5 right-6 hover:bg-slate-50 active:bg-slate-100'
 ]
 
 const handleClickDelete = (id: number, idx: number) => {
@@ -144,14 +145,31 @@ const finishEdit = () => editing.value = null;
                 <div class="flex flex-wrap">
                     <div class="mr-4 mb-2" v-for="promo, i in store.promotions.data">
                         <div class="relative pr-12" v-if="!editing || editing !== promo.id">
-                            <button :disabled="editing === i" v-if="!!promo.id" :class="deleteBtnClasses"
+                            <IconButton 
+                                v-if="!!promo.id"
+                                :disabled="editing === i"
+                                icon="trash"
+                                @click="handleClickDelete(promo.id, i)"
+                                size="xs"
+                                extra-classes="absolute top-0.5 right-0.5"
+                            />
+
+                            <IconButton 
+                                v-if="!!promo.id"
+                                :disabled="editing === i"
+                                icon="edit"
+                                @click="handleClickEdit(i)"
+                                size="xs"
+                                extra-classes="absolute top-0.5 right-6"
+                            />
+                            <!-- <button :disabled="editing === i" v-if="!!promo.id" :class="deleteBtnClasses"
                                 @click="handleClickDelete(promo.id, i)">
                                 <img class="scale-90" src="/icons/close.svg" />
                             </button>
                             <button :disabled="editing === i" v-if="!!promo.id" :class="editBtnClasses"
                                 @click="handleClickEdit(i)">
                                 <img class="scale-90" src="/icons/edit.svg" />
-                            </button>
+                            </button> -->
                             <ChipPromo :text="promo.text" :color="promo.color" />
                         </div>
                     </div>
