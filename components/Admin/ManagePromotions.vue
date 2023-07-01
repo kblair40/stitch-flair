@@ -162,14 +162,6 @@ const finishEdit = () => editing.value = null;
                                 size="xs"
                                 extra-classes="absolute top-0.5 right-6"
                             />
-                            <!-- <button :disabled="editing === i" v-if="!!promo.id" :class="deleteBtnClasses"
-                                @click="handleClickDelete(promo.id, i)">
-                                <img class="scale-90" src="/icons/close.svg" />
-                            </button>
-                            <button :disabled="editing === i" v-if="!!promo.id" :class="editBtnClasses"
-                                @click="handleClickEdit(i)">
-                                <img class="scale-90" src="/icons/edit.svg" />
-                            </button> -->
                             <ChipPromo :text="promo.text" :color="promo.color" />
                         </div>
                     </div>
