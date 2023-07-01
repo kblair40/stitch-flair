@@ -153,18 +153,10 @@ const deleteCategory = async () => {
                         <FormKit type="text" v-model="editing.title" />
                     </div>
 
-                    <IconButton 
-                        icon="save" 
-                        :disabled="initialEditVal === editing.title" 
-                        size="lg"
-                        @click="handleClickSave" 
-                    />
+                    <IconButton icon="save" :disabled="initialEditVal === editing.title"
+                        :loading="!!saving && saving === editing.id" size="lg" @click="handleClickSave" />
 
-                    <IconButton 
-                        icon="close" 
-                        size="lg"
-                        @click="handleClickCancelEdit" 
-                    />
+                    <IconButton icon="close" size="lg" @click="handleClickCancelEdit" />
                 </div>
             </div>
         </div>

@@ -35,7 +35,8 @@ const classes = computed(() => {
         "disabled:pointer-events-none disabled:opacity-50",
         sizeClasses[props.size],
         colors,
-        props.extraClasses ? props.extraClasses : ''
+        props.extraClasses ? props.extraClasses : '',
+        props.loading ? '-z-10' : '',
     ].join(' ')
 })
 
@@ -52,6 +53,7 @@ const iconClasses = computed(() => {
 
 <template>
     <button :disabled="disabled" type="button" :class="classes" @click="$emit('click')">
-        <img :class="iconClasses" :src="`/icons/${icon}.svg`" />
+        <img v-if="!loading" :class="iconClasses" :src="`/icons/${icon}.svg`" />
+        <img v-else class="animate-spin h-5 w-5 z-40 fill-red-400" src="/icons/loading.svg" />
     </button>
 </template>
