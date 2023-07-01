@@ -38,10 +38,16 @@ const classes = computed(() => {
         props.extraClasses ? props.extraClasses : ''
     ].join(' ')
 })
+
+const iconClasses = computed(() => {
+    if (['xs', 'sm'].includes(props.size)) return 'scale-75'
+    if (['md', 'lg'].includes(props.size)) return 'scale-90'
+    return  '';
+})
 </script>
 
 <template>
-    <button type="button" :class="classes" @click="$emit('click')">
-        <img :class="props.size === 'xs' ? 'scale-90' : ''" :src="`/icons/${icon}.svg`" />
+    <button :disabled="disabled" type="button" :class="classes" @click="$emit('click')">
+        <img :class="iconClasses" :src="`/icons/${icon}.svg`" />
     </button>
 </template>
