@@ -67,10 +67,6 @@ const formClasses = [
     "w-full flex flex-col space-y-4 items-center",
     "lg:flex-row lg:space-x-4 lg:space-y-0 lg:items-end",
 ]
-const iconBtnClasses = [
-    "border transition-colors",
-    'bg-white hover:bg-gray-50 active:bg-gray-100'
-]
 const inputWrapperClasses = [
     "flex flex-col space-y-4",
     "md:flex-row md:justify-center md:space-y-0 md:space-x-4",
