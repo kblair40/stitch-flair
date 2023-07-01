@@ -129,8 +129,6 @@ const deleteCategory = async () => {
 
 const flexCenter = " flex justify-center items-center"
 const iconBtnClasses = "transition-colors duration-300 z-10 rounded-full border p-1"
-const trashBtnClasses = "bg-red-100 hover:bg-red-200 active:bg-red-300 h-7 w-7 " + iconBtnClasses
-const editBtnClasses = "bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-7 w-7 " + iconBtnClasses;
 const saveBtnClasses = "disabled:pointer-events-none bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-11 " + iconBtnClasses + flexCenter;
 </script>
 
@@ -143,17 +141,13 @@ const saveBtnClasses = "disabled:pointer-events-none bg-gray-50 hover:bg-gray-10
 
         <div v-if="categories.length" v-for="category, i in categories" class="mb-1">
             <div class="flex space-x-2 items-center h-12">
-                <div class="pr-4 space-x-2 min-w-max">
-                    <button :disabled="!!editing.id" :class="trashBtnClasses" @click="handleClickDelete(category.id, i)">
-                        <img v-if="store.deleting && store.deleting.id === category.id" class="animate-spin"
-                            src="/icons/loading.svg" />
-                        <img v-else class="scale-90" src="/icons/trash.svg" />
-                    </button>
+                <div class="pr-4 space-x-2 min-w-max flex">
+                    <IconButton :disabled="!!editing.id" icon="trash" size="sm"
+                        :loading="!!store.deleting && store.deleting.id === category.id"
+                        @click="handleClickDelete(category.id, i)" />
 
-                    <button :disabled="!!editing.id" :class="editBtnClasses"
-                        @click="handleClickEdit(category.id, category.title)">
-                        <img class="scale-90" src="/icons/edit.svg" />
-                    </button>
+                    <IconButton :disabled="!!editing.id" icon="edit" size="sm"
+                        @click="handleClickEdit(category.id, category.title)" />
                 </div>
 
                 <p v-if="!editing.id || editing.id !== category.id" class="font-medium">{{ category.title }}</p>
@@ -162,14 +156,18 @@ const saveBtnClasses = "disabled:pointer-events-none bg-gray-50 hover:bg-gray-10
                         <FormKit type="text" v-model="editing.title" />
                     </div>
 
-                    <button :disabled="initialEditVal === editing.title" :class="saveBtnClasses" @click="handleClickSave">
-                        <img v-if="!saving || saving !== category.id" class="scale-90" src="/icons/save.svg" />
-                        <img v-else class="animate-spin" src="/icons/loading.svg" />
-                    </button>
+                    <IconButton 
+                        icon="save" 
+                        :disabled="initialEditVal === editing.title" 
+                        size="lg"
+                        @click="handleClickSave" 
+                    />
 
-                    <button :class="saveBtnClasses" @click="handleClickCancelEdit">
-                        <img class="scale-90" src="/icons/close.svg" />
-                    </button>
+                    <IconButton 
+                        icon="close" 
+                        size="lg"
+                        @click="handleClickCancelEdit" 
+                    />
                 </div>
             </div>
         </div>
