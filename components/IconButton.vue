@@ -40,8 +40,12 @@ const classes = computed(() => {
 })
 
 const iconClasses = computed(() => {
-    if (['xs', 'sm'].includes(props.size)) return 'scale-75'
-    if (['md', 'lg'].includes(props.size)) return 'scale-90'
+    if (['xs', 'sm'].includes(props.size)) {
+        return props.icon !== 'trash' ? 'scale-75' : 'scale-65'
+    }
+    if (['md', 'lg'].includes(props.size)) {
+        return props.icon !== 'trash' ? 'scale-90' : 'scale-75'
+    }
     return  '';
 })
 </script>

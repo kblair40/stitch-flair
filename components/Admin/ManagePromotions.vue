@@ -68,19 +68,6 @@ const formClasses = [
     "w-full flex flex-col space-y-4 items-end",
     "sm:flex-row sm:space-x-4 sm:space-y-0 sm:items-end",
 ]
-const iconBtnClasses = [
-    'border border-slate-300 h-5 w-5 rounded-full absolute z-10',
-    'transition-colors bg-white',
-    'disabled:pointer-events-none disabled:opacity-50'
-]
-const deleteBtnClasses = [
-    ...iconBtnClasses,
-    'absolute top-0.5 right-0.5 hover:bg-red-50 active:bg-red-100'
-]
-const editBtnClasses = [
-    ...iconBtnClasses,
-    'absolute top-0.5 right-6 hover:bg-slate-50 active:bg-slate-100'
-]
 
 const handleClickDelete = (id: number, idx: number) => {
     store.openConfirmModal('promo', { id, idx })
@@ -143,15 +130,15 @@ const finishEdit = () => editing.value = null;
             <div class="w-full">
                 <h3 class="font-semibold text-xl mb-3">Edit Promos</h3>
                 <div class="flex flex-wrap">
-                    <div class="mr-4 mb-2" v-for="promo, i in store.promotions.data">
-                        <div class="relative pr-12" v-if="!editing || editing !== promo.id">
+                    <div class="mr-6 mb-2" v-for="promo, i in store.promotions.data">
+                        <div class="relative pr-16" v-if="!editing || editing !== promo.id">
                             <IconButton 
                                 v-if="!!promo.id"
                                 :disabled="editing === i"
                                 icon="trash"
                                 @click="handleClickDelete(promo.id, i)"
-                                size="xs"
-                                extra-classes="absolute top-0.5 right-0.5"
+                                size="sm"
+                                extra-classes="absolute -top-0.5 right-0"
                             />
 
                             <IconButton 
@@ -159,8 +146,8 @@ const finishEdit = () => editing.value = null;
                                 :disabled="editing === i"
                                 icon="edit"
                                 @click="handleClickEdit(i)"
-                                size="xs"
-                                extra-classes="absolute top-0.5 right-6"
+                                size="sm"
+                                extra-classes="absolute -top-0.5 right-8"
                             />
                             <ChipPromo :text="promo.text" :color="promo.color" />
                         </div>
