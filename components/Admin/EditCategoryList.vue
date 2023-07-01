@@ -127,9 +127,6 @@ const deleteCategory = async () => {
     }
 }
 
-const flexCenter = " flex justify-center items-center"
-const iconBtnClasses = "transition-colors duration-300 z-10 rounded-full border p-1"
-const saveBtnClasses = "disabled:pointer-events-none bg-gray-50 hover:bg-gray-100 active:bg-gray-200 h-11 w-11 " + iconBtnClasses + flexCenter;
 </script>
 
 <template>
