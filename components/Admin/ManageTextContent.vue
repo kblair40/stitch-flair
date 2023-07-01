@@ -90,11 +90,11 @@ const formClasses = [
                     :actions="false">
                     <div :class="formClasses">
                         <div class="flex flex-col space-y-4 xl:flex-row xl:space-y-0 xl:space-x-4 w-full">
-                            <div class="w-full h-18 max-h-18">
+                            <div class="w-full">
                                 <FormKit name="header" label="Header" type="text" validation="length:1,120" />
                             </div>
 
-                            <div class="w-full xl:h-18 xl:max-h-18">
+                            <div class="w-full">
                                 <FormKit name="body" label="Intro Paragraph" type="textarea" :rows="8" />
                             </div>
                         </div>
