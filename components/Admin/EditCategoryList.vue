@@ -133,11 +133,11 @@ const deleteCategory = async () => {
 </script>
 
 <template>
-    <div class="w-full">
+    <div class="w-max">
         <Toast :error="true" :visible="showErrorToast">{{ errorMsg }}</Toast>
         <Toast :visible="showSuccessToast">{{ successMsg }}</Toast>
 
-        <h3 class="font-semibold text-xl mb-3">All Categories</h3>
+        <h3 class="font-semibold text-xl mb-3 whitespace-nowrap">All Categories</h3>
 
         <div v-if="categories.length" v-for="category, i in categories" class="mb-1">
             <div class="flex space-x-2 items-center h-12">

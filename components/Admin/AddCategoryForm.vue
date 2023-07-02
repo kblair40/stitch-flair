@@ -59,7 +59,7 @@ const handleSubmit = async (formValues: any) => {
 
 const formClasses = [
     "w-full flex flex-col space-y-4 items-end",
-    "sm:flex-row sm:space-x-4 sm:space-y-0 sm:items-end",
+    // "lg:flex-row lg:space-x-4 lg:space-y-0 lg:items-end",
 ]
 </script>
 
@@ -71,11 +71,12 @@ const formClasses = [
         <FormKit :errors="[]" v-model="title" ref="formRef" id="category-form" @submit="handleSubmit" type="form"
             :actions="false">
             <div :class="formClasses">
-                <div class="w-full h-18 max-h-18">
+                <div class="w-full">
                     <FormKit name="title" label="Category Title *" type="text" validation="required:trim|length:1,32" />
                 </div>
 
-                <div class="w-full sm:w-40">
+                <!-- <div class="w-full sm:w-40"> -->
+                <div class="w-full">
                     <FormButtonSubmit :loading="loading" label="Save" />
                 </div>
 

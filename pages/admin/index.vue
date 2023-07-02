@@ -1,4 +1,6 @@
 <script lang='ts' setup>
+import ManageCategories from '~~/components/Admin/ManageCategories.vue';
+
 definePageMeta({ layout: 'admin' });
 
 const tabLabels = ['Add Product', 'Manage Products', 'Manage Categories', 'Manage Promos', 'Manage Text Content'];
@@ -17,15 +19,17 @@ const activeTab = ref(tabLabels[3])
             <div class="px-3 sm:px-5 md:px-6 w-full h-full max-h-full overflow-y-auto">
                 <AdminAddProductForm v-if="activeTab === 'Add Product'" />
                 <ProductListEditable v-else-if="activeTab === 'Manage Products'" />
-                <div class="flex flex-col items-center" v-else-if="activeTab === 'Manage Categories'">
-                    <div class="w-full max-w-75 sm:max-w-120 md:max-w-150 mt-6">
+                <ManageCategories v-else-if="activeTab === 'Manage Categories'" />
+                <!-- <div class="flex justify-center" v-else-if="activeTab === 'Manage Categories'"> -->
+                <!-- <div class="w-full max-w-75 sm:max-w-120 md:max-w-150 mt-6"> -->
+                <!-- <div class="flex flex-col md:flex-row lg:px-6 border w-full mt-6">
                         <AdminEditCategoryList />
                         <div class="mt-10 w-full">
                             <p class="text-lg font-semibold mb-2">Add Category</p>
                             <AdminAddCategoryForm />
                         </div>
-                    </div>
-                </div>
+                    </div> -->
+                <!-- </div> -->
                 <AdminManagePromotions v-else-if="activeTab === 'Manage Promos'" />
                 <AdminManageTextContent v-else-if="activeTab === 'Manage Text Content'" />
             </div>
