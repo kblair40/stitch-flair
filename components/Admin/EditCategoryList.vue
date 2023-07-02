@@ -149,7 +149,7 @@ const deleteCategory = async () => {
                         @click="handleClickEdit(category.id, category.title)" />
                 </div>
 
-                <p v-if="!editing.id || editing.id !== category.id" class="font-medium">{{ category.title }}</p>
+                <p v-if="!editing.id || editing.id !== category.id" class="font-medium line-clamp-2">{{ category.title }}</p>
                 <div v-else class="flex space-x-2 items-center pt-1">
                     <div class="w-max">
                         <FormKit type="text" v-model="editing.title" />

@@ -6,7 +6,7 @@ const wrapperClasses = [
 ]
 
 const formWrapperClasses = [
-    "mt-10 w-full max-w-90",
+    "mt-10 min-w-70 max-w-90 lg:w-full",
     "md:mt-0"
 ]
 </script>

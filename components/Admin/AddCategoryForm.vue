@@ -57,10 +57,8 @@ const handleSubmit = async (formValues: any) => {
     loading.value = false;
 }
 
-const formClasses = [
-    "w-full flex flex-col space-y-4 items-end",
-    // "lg:flex-row lg:space-x-4 lg:space-y-0 lg:items-end",
-]
+const formClasses = "w-full flex flex-col space-y-4 items-end"
+
 </script>
 
 <template>
@@ -75,7 +73,6 @@ const formClasses = [
                     <FormKit name="title" label="Category Title *" type="text" validation="required:trim|length:1,32" />
                 </div>
 
-                <!-- <div class="w-full sm:w-40"> -->
                 <div class="w-full">
                     <FormButtonSubmit :loading="loading" label="Save" />
                 </div>
