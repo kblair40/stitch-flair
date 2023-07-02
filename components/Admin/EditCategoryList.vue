@@ -124,7 +124,6 @@ const deleteCategory = async () => {
         store.deleting = null;
         return false;
     }
-    console.log('\n\n\n\n\n\n')
 }
 
 </script>
