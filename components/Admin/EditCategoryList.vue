@@ -98,6 +98,7 @@ const deleteCategory = async () => {
     try {
         showConfirmModal.value = false;
         deleting.value = id;
+        console.log('DELETING VALUE SET TO:', deleting.value);
         const res = await useCustomFetch(`/category/${id}`, {
             method: "DELETE",
         });
@@ -110,20 +111,26 @@ const deleteCategory = async () => {
             return;
         } else if (res.error.value) {
             showError();
+            deleting.value = null
             return;
         }
 
         if (res.data.value) {
-            showSuccess('Category deleted');
             console.log('\nRemoving', id)
-            store.removeCategory(id);
+            // store.removeCategory(id);
+            setTimeout(() => {
+                showSuccess('Category deleted');
+                categoryToDelete.value = { id: -1, idx: -1 };
+                deleting.value = null
+                store.removeCategory(id);
+            }, 1500)
         }
     } catch (e) {
         showError()
         console.error(e);
-        store.deleting = null;
         return false;
     }
+    deleting.value = null
 }
 
 </script>
@@ -139,8 +146,7 @@ const deleteCategory = async () => {
             <div class="flex space-x-2 items-center h-12">
                 <div class="pr-4 space-x-2 min-w-max flex">
                     <IconButton :disabled="!!editing.id" icon="trash" size="sm"
-                        :loading="!!store.deleting && store.deleting.id === category.id"
-                        @click="handleClickDelete(category.id, i)" />
+                        :loading="!!deleting && deleting === category.id" @click="handleClickDelete(category.id, i)" />
 
                     <IconButton :disabled="!!editing.id" icon="edit" size="sm"
                         @click="handleClickEdit(category.id, category.title)" />

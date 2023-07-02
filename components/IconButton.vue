@@ -9,6 +9,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
     icon: 'close',
     size: 'md',
+    disabled: false,
+    loading: false,
 })
 defineEmits(['click'])
 
@@ -36,7 +38,6 @@ const classes = computed(() => {
         sizeClasses[props.size],
         colors,
         props.extraClasses ? props.extraClasses : '',
-        props.loading ? '-z-10' : '',
     ].join(' ')
 })
 
