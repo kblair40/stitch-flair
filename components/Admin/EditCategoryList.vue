@@ -13,10 +13,10 @@ const categories = computed(() => store.categories.data.map((cat: Category) => {
     return { ...cat, title: toTitleCase(cat.title) };
 }));
 
-const productToDelete = ref({ id: -1, idx: -1 });
+const categoryToDelete = ref({ id: -1, idx: -1 });
 const handleClickDelete = (id: number, idx: number) => {
     showConfirmModal.value = true;
-    productToDelete.value = { id, idx }
+    categoryToDelete.value = { id, idx }
 }
 
 const handleClickCancelEdit = () => {
@@ -26,7 +26,7 @@ const handleClickCancelEdit = () => {
 }
 const handleClickCancelDelete = () => {
     showConfirmModal.value = false;
-    productToDelete.value = { id: -1, idx: -1 }
+    categoryToDelete.value = { id: -1, idx: -1 }
 }
 
 type EditInfo = { id: null | number, title: null | string }
@@ -91,19 +91,18 @@ const handleClickSave = async () => {
 
 const showConfirmModal = ref(false);
 const deleteCategory = async () => {
-    const { id, idx } = productToDelete.value;
+    const { id, idx } = categoryToDelete.value;
 
     if (!id || typeof idx !== "number") return;
 
     try {
         showConfirmModal.value = false;
-        // store.deleting = store.categoryToDelete;
         deleting.value = id;
         const res = await useCustomFetch(`/category/${id}`, {
             method: "DELETE",
         });
+        console.log("\nDelete Res:", res);
 
-        console.log("Delete Res:", res);
         if (res.error.value?.data.detail.includes('referenced')) {
             showError(
                 'There are product(s) referencing this category that must be given a different category or deleted', 12000
@@ -116,7 +115,7 @@ const deleteCategory = async () => {
 
         if (res.data.value) {
             showSuccess('Category deleted');
-            // console.log('\nREMOVING', id)
+            console.log('\nRemoving', id)
             store.removeCategory(id);
         }
     } catch (e) {
@@ -125,6 +124,7 @@ const deleteCategory = async () => {
         store.deleting = null;
         return false;
     }
+    console.log('\n\n\n\n\n\n')
 }
 
 </script>
