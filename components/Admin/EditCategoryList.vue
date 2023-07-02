@@ -98,7 +98,6 @@ const deleteCategory = async () => {
     try {
         showConfirmModal.value = false;
         deleting.value = id;
-        console.log('DELETING VALUE SET TO:', deleting.value);
         const res = await useCustomFetch(`/category/${id}`, {
             method: "DELETE",
         });
@@ -118,12 +117,10 @@ const deleteCategory = async () => {
         if (res.data.value) {
             console.log('\nRemoving', id)
             // store.removeCategory(id);
-            setTimeout(() => {
-                showSuccess('Category deleted');
-                categoryToDelete.value = { id: -1, idx: -1 };
-                deleting.value = null
-                store.removeCategory(id);
-            }, 1500)
+            showSuccess('Category deleted');
+            categoryToDelete.value = { id: -1, idx: -1 };
+            deleting.value = null
+            store.removeCategory(id);
         }
     } catch (e) {
         showError()
