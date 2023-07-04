@@ -7,8 +7,12 @@ export function useCustomFetch<T>(
 ) {
   const config = useRuntimeConfig();
 
+  const baseURL =
+    config.NODE_ENV === "dev" ? "http://localhost:3001/" : config.API_BASE_URL;
+
   const defaults: UseFetchOptions<T> = {
-    baseURL: config.API_BASE_URL ?? "https:localhost:3001",
+    // baseURL: config.API_BASE_URL,
+    baseURL,
     // cache request
     key: url,
   };

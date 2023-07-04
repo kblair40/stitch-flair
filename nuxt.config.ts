@@ -40,6 +40,7 @@ export default defineNuxtConfig({
       ETSY_SHOP_ID: process.env.ETSY_SHOP_ID,
       ETSY_REDIRECT_URL: process.env.ETSY_REDIRECT_URL,
       API_BASE_URL: process.env.API_BASE_URL,
+      NODE_ENV: process.env.NODE_ENV,
     },
   },
   routeRules: {
