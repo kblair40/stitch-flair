@@ -66,7 +66,8 @@ else {
         homeContent.value = { header: content.homeTitle, body: content.homeText }
         initialContent.value = { header: content.homeTitle, body: content.homeText }
     } else {
-        handleError('Header or Body text is missing');
+        homeContent.value = { header: '', body: '' };
+        initialContent.value = { header: '', body: '' };
     }
 }
 
