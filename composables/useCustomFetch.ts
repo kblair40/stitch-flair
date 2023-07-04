@@ -1,5 +1,6 @@
 import type { UseFetchOptions } from "nuxt/app";
 import { defu } from "defu";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 export function useCustomFetch<T>(
   url: string,
@@ -16,6 +17,12 @@ export function useCustomFetch<T>(
     // cache request
     key: url,
   };
+
+  if (process.env.NODE_ENV === "prod") {
+    // new HttpsProxyAgent(config.API_BASE_URL)
+    // @ts-ignore
+    defaults["agent"] = new HttpsProxyAgent(config.API_BASE_URL);
+  }
 
   // for deep default
   const params = defu(options, defaults);
