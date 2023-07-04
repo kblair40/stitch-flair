@@ -41,6 +41,7 @@ export default defineNuxtConfig({
       ETSY_REDIRECT_URL: process.env.EQTSY_REDIRECT_URL,
       API_BASE_URL: process.env.API_BASE_URL,
       NODE_ENV: process.env.NODE_ENV,
+      SUPABASE_PASSWORD: process.env.SUPABASE_PASSWORD,
     },
   },
   routeRules: {
