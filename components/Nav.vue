@@ -44,7 +44,7 @@ const wrapperClasses = computed(() => ([
 
 <template>
     <div :class="wrapperClasses">
-        <img :class="logoClasses" src="/logo2.svg" />
+        <img :class="logoClasses" src="/logo.svg" />
 
         <div class="z-10 absolute top-0 right-0 bottom-0 left-0 -z-10" />
 
