@@ -50,15 +50,15 @@ const wrapperClasses = computed(() => ([
 
         <div :class="allLinksWrapperClasses">
             <div :class="socialClasses">
-                <NuxtLink to="https://www.etsy.com" target="_blank">
+                <NuxtLink to="https://www.etsy.com/shop/stitchflair" target="_blank">
                     <img :class="iconClasses" src="/icons/etsy.svg" />
                 </NuxtLink>
 
-                <NuxtLink to="https://www.facebook.com" target="_blank">
+                <NuxtLink to="https://www.facebook.com/stitchflairfb" target="_blank">
                     <img :class="iconClasses" src="/icons/fb.svg" />
                 </NuxtLink>
 
-                <NuxtLink to="https://www.instagram.com" target="_blank">
+                <NuxtLink to="https://www.instagram.com/stitchflair" target="_blank">
                     <img :class="iconClasses" src="/icons/ig.svg" />
                 </NuxtLink>
             </div>
