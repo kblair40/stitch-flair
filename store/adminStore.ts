@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
+import { useCustomFetch } from "~~/composables/useCustomFetch";
 import type {
   Category,
   Promotion,
@@ -58,9 +59,7 @@ export const useAdminStore = defineStore("admin", {
     async getProducts() {
       try {
         this.products.loading = true;
-        // const res = await axios.get("http://localhost:3001/product");
-        const url = `${baseURL}/product`;
-        const res = await axios.get(url);
+        const res = await axios.get(`${baseURL}/product`);
         console.log("\n\nProducts res:", res.data, "\n\n");
         if (res.data) this.products.data = res.data;
         this.products.loading = false;
@@ -74,9 +73,7 @@ export const useAdminStore = defineStore("admin", {
     async getCategories() {
       try {
         this.categories.loading = true;
-        // const res = await axios.get("http://localhost:3001/category");
-        const url = `${baseURL}/category`;
-        const res = await axios.get(url);
+        const res = await axios.get(`${baseURL}/category`);
         console.log("\n\nCategories res:", res.data, "\n\n");
         if (res.data) this.categories.data = res.data;
         this.categories.loading = false;
@@ -90,9 +87,7 @@ export const useAdminStore = defineStore("admin", {
     async getPromotions() {
       try {
         this.promotions.loading = true;
-        // const res = await axios.get("http://localhost:3001/promotion");
-        const url = `${baseURL}/promotion`;
-        const res = await axios.get(url);
+        const res = await axios.get(`${baseURL}/promotion`);
         console.log("\n\nPromotions res:", res.data, "\n\n");
         if (res.data) this.promotions.data = res.data;
         this.promotions.loading = false;
@@ -172,7 +167,7 @@ export const useAdminStore = defineStore("admin", {
       this.showEditProductModal = true;
     },
     updateProducts(productVals: PopulatedProduct) {
-      console.log("\n\nUpdate prods rcvd:", productVals);
+      // console.log("\n\nUpdate prods rcvd:", productVals);
       if (!productVals || typeof this.productToEditIdx !== "number") return;
       let products = [...this.products.data];
       let product = { ...this.productToEdit };
