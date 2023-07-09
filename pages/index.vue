@@ -30,10 +30,7 @@ const featuredProductClasses = [
 
 <template>
     <Page>
-        <!-- <div class="h-10 mb-5"> -->
-        <!-- <PageTitle v-show="content && !!content.text">{{ content.text.homeTitle }}</PageTitle> -->
         <PageTitle>{{ content?.text.homeTitle || '' }}</PageTitle>
-        <!-- </div> -->
 
         <div class="px-4 md:px-6 lg:px-8 mt-5 leading-relaxed text-sm md:text-mdsm"
             :class="content && !!content.text ? '' : 'min-h-14'">
