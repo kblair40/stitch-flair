@@ -32,6 +32,7 @@ export default defineNuxtConfig({
       API_BASE_URL: process.env.API_BASE_URL,
       NODE_ENV: process.env.NODE_ENV,
       SUPABASE_PASSWORD: process.env.SUPABASE_PASSWORD,
+      EMAIL_API_KEY: process.env.EMAIL_API_KEY,
     },
   },
   routeRules: {
