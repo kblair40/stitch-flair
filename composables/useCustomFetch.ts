@@ -12,14 +12,11 @@ export function useCustomFetch<T>(
     config.NODE_ENV === "dev" ? "http://localhost:3001/" : config.API_BASE_URL;
 
   const defaults: UseFetchOptions<T> = {
-    // baseURL: config.API_BASE_URL,
     baseURL,
-    // cache request
-    key: url,
+    key: url, // cache request
   };
 
   if (process.env.NODE_ENV === "prod") {
-    // new HttpsProxyAgent(config.API_BASE_URL)
     // @ts-ignore
     defaults["agent"] = new HttpsProxyAgent(config.API_BASE_URL);
   }

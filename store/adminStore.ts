@@ -14,10 +14,6 @@ export type CategoryInfo = null | { id: number; idx: number };
 export type Info = null | { id: number; idx: number };
 type PromoUpdate = { text?: string; color?: PromoColor };
 
-const config = useRuntimeConfig();
-
-const baseURL = config.API_BASE_URL;
-
 export const useAdminStore = defineStore("admin", {
   state: () => ({
     showConfirmModal: false,
@@ -57,6 +53,9 @@ export const useAdminStore = defineStore("admin", {
   },
   actions: {
     async getProducts() {
+      const config = useRuntimeConfig();
+      const baseURL = config.API_BASE_URL;
+
       try {
         this.products.loading = true;
         const res = await axios.get(`${baseURL}/product`);
@@ -71,6 +70,9 @@ export const useAdminStore = defineStore("admin", {
       }
     },
     async getCategories() {
+      const config = useRuntimeConfig();
+      const baseURL = config.API_BASE_URL;
+
       try {
         this.categories.loading = true;
         const res = await axios.get(`${baseURL}/category`);
@@ -86,6 +88,9 @@ export const useAdminStore = defineStore("admin", {
     },
     async getPromotions() {
       try {
+        const config = useRuntimeConfig();
+        const baseURL = config.API_BASE_URL;
+
         this.promotions.loading = true;
         const res = await axios.get(`${baseURL}/promotion`);
         console.log("\n\nPromotions res:", res.data, "\n\n");
