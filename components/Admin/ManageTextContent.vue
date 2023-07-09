@@ -11,6 +11,7 @@ const formRef = ref<HTMLFormElement | null>(null);
 const initialContent = ref({ header: '', body: '' });
 const homeContent = ref({ header: '', body: '' });
 
+
 const handleError = (msg?: string, duration = 8000) => {
     if (msg) errorMsg.value = msg;
     showErrorToast.value = true;
@@ -34,7 +35,7 @@ const handleSubmit = async () => {
     }
 
     if (!Object.keys(body).length) {
-        console.log('No changes made')
+        console.log('No changes made');
         handleError("No changes were made", 3000);
         return;
     }
@@ -65,6 +66,8 @@ else {
     if (content && content.homeTitle && content.homeText) {
         homeContent.value = { header: content.homeTitle, body: content.homeText }
         initialContent.value = { header: content.homeTitle, body: content.homeText }
+    } else if (!content || (!content.homeTitle && !content.homeText)) {
+
     } else {
         homeContent.value = { header: '', body: '' };
         initialContent.value = { header: '', body: '' };
