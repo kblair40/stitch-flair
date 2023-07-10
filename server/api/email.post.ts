@@ -1,7 +1,24 @@
-const SIB = require("sib-api-v3-sdk");
-SIB.ApiClient.instance.authentications["api-key"].apiKey = "YOUR_API_KEY";
+// const SIB = require("sib-api-v3-sdk");
+import * as SIB from "@sendinblue/client";
+
+// let defaultClient = SIB.ApiClient.instance;
+
+// SIB.ApiClient.instance.authentications["api-key"].apiKey = "YOUR_API_KEY";
 
 export default defineEventHandler(async (event) => {
+  const apiInstance = new SIB.AccountApi();
+  console.log("\nINSTANCE:", apiInstance, "\n");
+  const config = useRuntimeConfig();
+  // let defaultClient = SIB.ApiClient.instance;
+  // apiInstance.setApiKey(SIB.AccountApiApiKeys, config.EMAIL_API_KEY);
+  const sender = new SIB.SendSmtpEmail();
+  const api = new SIB.TransactionalEmailsApi();
+  const key = config.EMAIL_API_KEY;
+
+  // let apiKey = defaultClient.authentications["api-key"];
+  // apiKey.apiKey = "YOUR API KEY";
+
+  SIB.CreateSmtpEmail;
   try {
     const emailRes = await new SIB.TransactionalEmailsApi().sendTransacEmail({
       subject: "Hello from the Node SDK!",

@@ -19,8 +19,8 @@
   "dependencies": {
     "@formkit/nuxt": "^0.17.2",
     "@pinia/nuxt": "^0.4.9",
+    "@sendinblue/client": "^3.3.1",
     "axios": "^1.4.0",
-    "pinia": "^2.0.35",
-    "sib-api-v3-sdk": "^8.5.0"
+    "pinia": "^2.0.35"
   }
 }
