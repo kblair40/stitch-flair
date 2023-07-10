@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-// 
+import emailjs from '@emailjs/browser';
+
+const SERVICE_ID = "service_ujghu3o"
+const TEMPLATE_ID = "template_26u3nzi"
+
+// emailjs.send(SERVICE_ID, TEMPLATE_ID);
+
+
 const inputClasses = [
     'rounded-md focus-visible:outline-none px-3',
     'h-10 w-full transition-colors',
@@ -20,16 +27,27 @@ const buttonClasses = [
 ]
 
 const values = reactive({
-    name: '',
-    email: '',
+    from_name: '',
+    from_email: '',
     subject: '',
     message: ''
 })
 
-const handleSubmit = () => {
-    const vals = values;
-    console.log('\nVALS:', vals.name);
+const sending = ref(false);
+const handleSubmit = async () => {
+    const config = useRuntimeConfig();
+    const publicKey = config.EMAIL_PUBLIC_KEY;
+    console.log('PUBLIC KEY:', publicKey)
 
+    console.log('\nVALS:', values);
+    try {
+        sending.value = true;
+        const sendRes = await emailjs.send(SERVICE_ID, TEMPLATE_ID, values, publicKey);
+        console.log('\nSEND RES:', sendRes, '\n')
+    } catch (e) {
+        console.warn('Error sending email:', e);
+    }
+    sending.value = false;
 }
 </script>
 
@@ -38,11 +56,11 @@ const handleSubmit = () => {
         <div class="flex flex-col space-y-6 items-center">
             <div class="flex space-y-6 md:space-x-6 md:space-y-0 w-full flex-col md:flex-row">
                 <FormControl label="Name">
-                    <input v-model="values.name" :class="inputClasses" />
+                    <input v-model="values.from_name" :class="inputClasses" />
                 </FormControl>
 
                 <FormControl label="Email">
-                    <input v-model="values.email" :class="inputClasses" />
+                    <input v-model="values.from_email" :class="inputClasses" />
                 </FormControl>
             </div>
 

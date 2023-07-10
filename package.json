@@ -17,6 +17,7 @@
     "vue": "latest"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@formkit/nuxt": "^0.17.2",
     "@pinia/nuxt": "^0.4.9",
     "@sendinblue/client": "^3.3.1",
